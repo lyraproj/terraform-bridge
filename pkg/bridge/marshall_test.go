@@ -1,11 +1,16 @@
 package bridge
 
 import (
-	"fmt"
+	"bytes"
 	"reflect"
+	"regexp"
 	"testing"
+	"time"
 
 	"github.com/davecgh/go-spew/spew"
+	"github.com/lyraproj/pcore/pcore"
+	"github.com/lyraproj/pcore/px"
+	"github.com/stretchr/testify/require"
 )
 
 var original interface{}
@@ -42,6 +47,8 @@ type Person struct {
 	Uncool     *bool
 	Up         float64
 	Down       *float64
+	When       time.Time
+	Match      *regexp.Regexp
 	Age        int
 	PetDog     Dog
 	PetDoggy   *Dog
@@ -82,6 +89,8 @@ func init() {
 		Uncool:    &tru,
 		Up:        1.234,
 		Down:      &fl,
+		When:      time.Date(2019, 3, 22, 10, 53, 20, 0, time.UTC),
+		Match:     regexp.MustCompile(`.*blue.*`),
 		PetDog: Dog{
 			12,
 			"red",
@@ -149,65 +158,67 @@ func init() {
 	expected = map[string]interface{}{
 		"firstname": "John",
 		"lastname":  "Smith",
-		"age":       "23",
-		"cool":      "false",
-		"cooler":    "true",
-		"uncool":    "true",
-		"up":        "1.234",
-		"down":      "5.678",
+		"age":       23,
+		"cool":      false,
+		"cooler":    true,
+		"uncool":    true,
+		"up":        1.234,
+		"down":      5.678,
+		"when":      "2019-03-22T10:53:20Z",
+		"match":     ".*blue.*",
 		"petdog": map[string]interface{}{
 			"colour": "red",
-			"size":   "12",
+			"size":   12,
 			"home": map[string]interface{}{
-				"height": "3",
-				"width":  "4",
+				"height": 3,
+				"width":  4,
 			},
 		},
 		"petdoggy": map[string]interface{}{
 			"colour": "yellow",
-			"size":   "23",
+			"size":   23,
 			"home": map[string]interface{}{
-				"height": "4",
-				"width":  "3",
+				"height": 4,
+				"width":  3,
 			},
 		},
 		"petcats": []interface{}{
 			map[string]interface{}{
-				"tail":   "15",
+				"tail":   15,
 				"colour": "brownish",
 			},
 			map[string]interface{}{
-				"tail":   "16",
+				"tail":   16,
 				"colour": "brown",
 			},
 		},
 		"petmoggies": []interface{}{
 			map[string]interface{}{
-				"tail":   "17",
+				"tail":   17,
 				"colour": "browny",
 			},
 			map[string]interface{}{
-				"tail":   "18",
+				"tail":   18,
 				"colour": "brownish",
 			},
 		},
 		"petfelines": []interface{}{
 			map[string]interface{}{
-				"tail":   "27",
+				"tail":   27,
 				"colour": "browny",
 			},
 			map[string]interface{}{
-				"tail":   "28",
+				"tail":   28,
 				"colour": "brownish",
 			},
 		},
 		"petkitties": []interface{}{
 			map[string]interface{}{
-				"tail":   "19",
+				"tail":   19,
 				"colour": "brown",
 			},
 			map[string]interface{}{
-				"tail":   "20",
+				"tail":   20,
 				"colour": "browny",
 			},
 		},
@@ -219,33 +230,40 @@ func init() {
 	}
 }
 
+func registerTypes(c px.Context) px.ObjectType {
+	kt := c.Reflector().TypeFromReflect(`Kennel`, nil, reflect.TypeOf(&Kennel{}))
+	dt := c.Reflector().TypeFromReflect(`Dog`, nil, reflect.TypeOf(&Dog{}))
+	ct := c.Reflector().TypeFromReflect(`Cat`, nil, reflect.TypeOf(&Cat{}))
+	lt := c.Reflector().TypeFromReflect(`Llama`, nil, reflect.TypeOf(&Llama{}))
+	pt := c.Reflector().TypeFromReflect(`Person`, nil, reflect.TypeOf(&Person{}))
+	px.AddTypes(c, kt, dt, ct, lt, pt)
+	return pt
+}
+
 func TestTerraformMarshal(t *testing.T) {
-	actual := TerraformMarshal(original)
-	if !reflect.DeepEqual(expected, actual) {
-		t.Error("Unxpected marshaling")
-		fmt.Println("--------------------------------")
-		fmt.Println("Expected")
-		fmt.Println("--------------------------------")
-		spew.Dump(expected)
-		fmt.Println("--------------------------------")
-		fmt.Println("Actual")
-		fmt.Println("--------------------------------")
-		spew.Dump(actual)
-	}
+	pcore.Do(func(c px.Context) {
+		registerTypes(c)
+		actual := TerraformMarshal(c, px.Wrap(c, original).(px.PuppetObject))
+
+		s1 := bytes.NewBufferString(``)
+		px.Wrap(c, expected).ToString(s1, px.Pretty, nil)
+		s2 := bytes.NewBufferString(``)
+		px.Wrap(c, actual).ToString(s2, px.Pretty, nil)
+
+		require.Equal(t, s1.String(), s2.String())
+	})
 }
 
 func TestTerraformUnmarshal(t *testing.T) {
-	actual := &Person{}
-	TerraformUnmarshal(expected, actual)
-	if !reflect.DeepEqual(original, actual) {
-		t.Error("Unxpected unmarshaling")
-		fmt.Println("--------------------------------")
-		fmt.Println("Expected")
-		fmt.Println("--------------------------------")
-		spew.Dump(original)
-		fmt.Println("--------------------------------")
-		fmt.Println("Actual")
-		fmt.Println("--------------------------------")
-		spew.Dump(actual)
-	}
+	pcore.Do(func(c px.Context) {
+		pt := registerTypes(c)
+		org := px.Wrap(c, original)
+		actual := TerraformUnMarshal(c, `personID`, ``, expected, pt)
+		s1 := bytes.NewBufferString(``)
+		org.ToString(s1, px.Pretty, nil)
+		s2 := bytes.NewBufferString(``)
+		actual.ToString(s2, px.Pretty, nil)
+		require.Equal(t, s1.String(), s2.String())
+		require.True(t, org.Equals(actual, nil))
+	})
 }

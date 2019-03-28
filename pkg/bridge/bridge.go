@@ -20,13 +20,22 @@
 package bridge
 
 import (
+	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/terraform/flatmap"
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/hashicorp/terraform/terraform"
+	"github.com/lyraproj/issue/issue"
+	"github.com/lyraproj/pcore/px"
 )
 
 // Create a resource using the Terrform provider
-func Create(p *schema.Provider, resourceType string, resourceConfig *terraform.ResourceConfig) (string, error) {
+func Create(p *schema.Provider, resourceType string, resourceConfig *terraform.ResourceConfig) (id string, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = px.Error(px.Failure, issue.H{`message`: r})
+		}
+	}()
+
 	// To get Terraform to create a new resource, the ID must be blank and existing state must be empty (since the
 	// resource does not exist yet), and the diff object should have no old state and all of the new state.
 	info := &terraform.InstanceInfo{Type: resourceType}
@@ -36,26 +45,32 @@ func Create(p *schema.Provider, resourceType string, resourceConfig *terraform.R
 	}
 	diff, err := p.Diff(info, state, resourceConfig)
 	if err != nil {
-		return "", err
+		return "", px.Error(px.Failure, issue.H{`message`: err.Error() + resourceType})
 	}
 	state, err = p.Apply(info, state, diff)
 	if state == nil {
-		return "", err
+		return "", px.Error(px.Failure, issue.H{`message`: err.Error()})
 	}
 	return state.ID, nil
 }
 
 // Read a resource using the Terrform provider
-func Read(p *schema.Provider, resourceType string, id string) (string, map[string]interface{}, error) {
+func Read(p *schema.Provider, resourceType string, id string) (extId string, sm map[string]interface{}, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = px.Error(px.Failure, issue.H{`message`: r})
+		}
+	}()
+
 	info := &terraform.InstanceInfo{Type: resourceType}
 	state := &terraform.InstanceState{
 		ID:         id,
 		Attributes: map[string]string{},
 		Meta:       map[string]interface{}{},
 	}
-	state, err := p.Refresh(info, state)
+	state, err = p.Refresh(info, state)
 	if err != nil {
-		return "", nil, err
+		return "", nil, px.Error(px.Failure, issue.H{`message`: err.Error()})
 	}
 	return id, expand(state), nil
 }
@@ -70,15 +85,19 @@ func Update(p *schema.Provider, resourceType string, id string, resourceConfig *
 	}
 	state, err := p.Refresh(info, state)
 	if err != nil {
-		return nil, err
+		return nil, px.Error(px.Failure, issue.H{`message`: err.Error()})
 	}
 	diff, err := p.Diff(info, state, resourceConfig)
 	if err != nil {
-		return nil, err
+		return nil, px.Error(px.Failure, issue.H{`message`: err.Error()})
 	}
-	state, err = p.Apply(info, state, diff)
-	if err != nil {
-		return nil, err
+	if diff == nil {
+		hclog.Default().Debug("Update", "type", resourceType, "msg", "diff is zero")
+	} else {
+		state, err = p.Apply(info, state, diff)
+		if err != nil {
+			return nil, px.Error(px.Failure, issue.H{`message`: err.Error()})
+		}
 	}
 	return expand(state), nil
 }

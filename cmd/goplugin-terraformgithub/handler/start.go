@@ -2,18 +2,18 @@ package handler
 
 import (
 	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/lyraproj/terraform-bridge/cmd/goplugin-terraformgithub/generated"
 	"github.com/lyraproj/pcore/pcore"
 	"github.com/lyraproj/pcore/px"
 	"github.com/lyraproj/servicesdk/grpc"
 	"github.com/lyraproj/servicesdk/service"
+	gp "github.com/lyraproj/terraform-bridge/cmd/goplugin-terraformgithub/generated"
 	"github.com/terraform-providers/terraform-provider-github/github"
 )
 
 // Server configures the Terraform provider and creates an instance of the server
 func Server(c px.Context) *service.Server {
 	sb := service.NewServiceBuilder(c, "TerraformGitHub")
-	generated.Initialize(sb, github.Provider().(*schema.Provider))
+	gp.Initialize(sb, github.Provider().(*schema.Provider))
 	return sb.Server()
 }
 

@@ -14,7 +14,7 @@ require (
 	github.com/hashicorp/go-hclog v0.8.0
 	github.com/hashicorp/terraform v0.11.11
 	github.com/hashicorp/yamux v0.0.0-20181012175058-2f1d1f20f75d // indirect
-	github.com/lyraproj/issue v0.0.0-20190321123504-45f186b58f0e // indirect
+	github.com/lyraproj/issue v0.0.0-20190321123504-45f186b58f0e
 	github.com/lyraproj/pcore v0.0.0-20190320221415-6e1d1bd9c47d
 	github.com/lyraproj/servicesdk v0.0.0-20190320113120-6be298b18bf0
 	github.com/marstr/guid v1.1.0 // indirect
@@ -31,3 +31,7 @@ require (
 )
 
 replace github.com/google/go-github => github.com/google/go-github v16.0.0+incompatible // Terraform GitHub provider requires this version
+
+replace github.com/lyraproj/servicesdk => ../servicesdk
+
+replace github.com/lyraproj/pcore => ../pcore

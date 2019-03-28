@@ -57,11 +57,7 @@ generate:
 	@go run cmd/tf-gen/main.go
 	@echo "✅ Generation complete (`date '+%H:%M:%S'`)"
 	@echo "🔘 Rebuilding ... (`date '+%H:%M:%S'`)"
-	@$(MAKE) lyra plugins
-	@echo "🔘 Generating Puppet types ... (`date '+%H:%M:%S'`)"
-	@go run cmd/lyra/main.go generate puppet
-	@echo "🔘 Smoke test ... (`date '+%H:%M:%S'`)"
-	@build/lyra apply sample || (echo "Failed $$?"; exit 1)
+	@$(MAKE) plugins
 
 PHONY+= check-mods
 check-mods:
