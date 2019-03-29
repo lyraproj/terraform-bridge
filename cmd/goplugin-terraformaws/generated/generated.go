@@ -38,13 +38,13 @@ type (
 		Acmpca_certificate_authority_id     *string `lyra:"tf-gen.ignore"`
 		Arn                                 *string
 		Certificate                         *string
-		Certificate_authority_configuration []map[string]interface{} `puppet:"type => Array[Struct[key_algorithm=>String,signing_algorithm=>String,subject=>Array[Struct[Optional[common_name]=>String,Optional[country]=>String,Optional[distinguished_name_qualifier]=>String,Optional[generation_qualifier]=>String,Optional[given_name]=>String,Optional[initials]=>String,Optional[locality]=>String,Optional[organization]=>String,Optional[organizational_unit]=>String,Optional[pseudonym]=>String,Optional[state]=>String,Optional[surname]=>String,Optional[title]=>String]]]]"`
+		Certificate_authority_configuration *map[string]interface{} `puppet:"type => Optional[Struct[key_algorithm=>String,signing_algorithm=>String,subject=>Struct[Optional[common_name]=>String,Optional[country]=>String,Optional[distinguished_name_qualifier]=>String,Optional[generation_qualifier]=>String,Optional[given_name]=>String,Optional[initials]=>String,Optional[locality]=>String,Optional[organization]=>String,Optional[organizational_unit]=>String,Optional[pseudonym]=>String,Optional[state]=>String,Optional[surname]=>String,Optional[title]=>String]]]"`
 		Certificate_chain                   *string
 		Certificate_signing_request         *string
 		Enabled                             bool `puppet:"value=>true"`
 		Not_after                           *string
 		Not_before                          *string
-		Revocation_configuration            *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[Optional[crl_configuration]=>Array[Struct[Optional[custom_cname]=>String,Optional[enabled]=>Boolean,expiration_in_days=>Integer,Optional[s3_bucket_name]=>String]]]]]"`
+		Revocation_configuration            *map[string][]interface{} `puppet:"type => Optional[Struct[Optional[crl_configuration]=>Struct[Optional[custom_cname]=>String,Optional[enabled]=>Boolean,expiration_in_days=>Integer,Optional[s3_bucket_name]=>String]]]"`
 		Serial                              *string
 		Status                              *string
 		Tags                                *map[string]string
@@ -52,8 +52,8 @@ type (
 	}
 
 	Alb struct {
-		Alb_id                           *string                   `lyra:"tf-gen.ignore"`
-		Access_logs                      *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[bucket=>String,Optional[enabled]=>Boolean,Optional[prefix]=>String]]]"`
+		Alb_id                           *string                 `lyra:"tf-gen.ignore"`
+		Access_logs                      *map[string]interface{} `puppet:"type => Optional[Struct[bucket=>String,Optional[enabled]=>Boolean,Optional[prefix]=>String]]"`
 		Arn                              *string
 		Arn_suffix                       *string
 		Dns_name                         *string
@@ -78,7 +78,7 @@ type (
 		Alb_listener_id   *string `lyra:"tf-gen.ignore"`
 		Arn               *string
 		Certificate_arn   *string
-		Default_action    []map[string]interface{} `puppet:"type => Array[Struct[Optional[authenticate_cognito]=>Array[Struct[Optional[authentication_request_extra_params]=>Hash[String,String],Optional[on_unauthenticated_request]=>String,Optional[scope]=>String,Optional[session_cookie_name]=>String,Optional[session_timeout]=>Integer,user_pool_arn=>String,user_pool_client_id=>String,user_pool_domain=>String]],Optional[authenticate_oidc]=>Array[Struct[Optional[authentication_request_extra_params]=>Hash[String,String],authorization_endpoint=>String,client_id=>String,client_secret=>String,issuer=>String,Optional[on_unauthenticated_request]=>String,Optional[scope]=>String,Optional[session_cookie_name]=>String,Optional[session_timeout]=>Integer,token_endpoint=>String,user_info_endpoint=>String]],Optional[fixed_response]=>Array[Struct[content_type=>String,Optional[message_body]=>String,Optional[status_code]=>String]],Optional[order]=>Integer,Optional[redirect]=>Array[Struct[Optional[host]=>String,Optional[path]=>String,Optional[port]=>String,Optional[protocol]=>String,Optional[query]=>String,status_code=>String]],Optional[target_group_arn]=>String,type=>String]]"`
+		Default_action    []map[string]interface{} `puppet:"type => Array[Struct[Optional[authenticate_cognito]=>Struct[Optional[authentication_request_extra_params]=>Hash[String,String],Optional[on_unauthenticated_request]=>String,Optional[scope]=>String,Optional[session_cookie_name]=>String,Optional[session_timeout]=>Integer,user_pool_arn=>String,user_pool_client_id=>String,user_pool_domain=>String],Optional[authenticate_oidc]=>Struct[Optional[authentication_request_extra_params]=>Hash[String,String],authorization_endpoint=>String,client_id=>String,client_secret=>String,issuer=>String,Optional[on_unauthenticated_request]=>String,Optional[scope]=>String,Optional[session_cookie_name]=>String,Optional[session_timeout]=>Integer,token_endpoint=>String,user_info_endpoint=>String],Optional[fixed_response]=>Struct[content_type=>String,Optional[message_body]=>String,Optional[status_code]=>String],Optional[order]=>Integer,Optional[redirect]=>Struct[Optional[host]=>String,Optional[path]=>String,Optional[port]=>String,Optional[protocol]=>String,Optional[query]=>String,status_code=>String],Optional[target_group_arn]=>String,type=>String]]"`
 		Load_balancer_arn string
 		Port              int64
 		Protocol          string `puppet:"value=>'HTTP'"`
@@ -93,9 +93,9 @@ type (
 
 	Alb_listener_rule struct {
 		Alb_listener_rule_id *string                  `lyra:"tf-gen.ignore"`
-		Action               []map[string]interface{} `puppet:"type => Array[Struct[Optional[authenticate_cognito]=>Array[Struct[Optional[authentication_request_extra_params]=>Hash[String,String],Optional[on_unauthenticated_request]=>String,Optional[scope]=>String,Optional[session_cookie_name]=>String,Optional[session_timeout]=>Integer,user_pool_arn=>String,user_pool_client_id=>String,user_pool_domain=>String]],Optional[authenticate_oidc]=>Array[Struct[Optional[authentication_request_extra_params]=>Hash[String,String],authorization_endpoint=>String,client_id=>String,client_secret=>String,issuer=>String,Optional[on_unauthenticated_request]=>String,Optional[scope]=>String,Optional[session_cookie_name]=>String,Optional[session_timeout]=>Integer,token_endpoint=>String,user_info_endpoint=>String]],Optional[fixed_response]=>Array[Struct[content_type=>String,Optional[message_body]=>String,Optional[status_code]=>String]],Optional[order]=>Integer,Optional[redirect]=>Array[Struct[Optional[host]=>String,Optional[path]=>String,Optional[port]=>String,Optional[protocol]=>String,Optional[query]=>String,status_code=>String]],Optional[target_group_arn]=>String,type=>String]]"`
+		Action               []map[string]interface{} `puppet:"type => Array[Struct[Optional[authenticate_cognito]=>Struct[Optional[authentication_request_extra_params]=>Hash[String,String],Optional[on_unauthenticated_request]=>String,Optional[scope]=>String,Optional[session_cookie_name]=>String,Optional[session_timeout]=>Integer,user_pool_arn=>String,user_pool_client_id=>String,user_pool_domain=>String],Optional[authenticate_oidc]=>Struct[Optional[authentication_request_extra_params]=>Hash[String,String],authorization_endpoint=>String,client_id=>String,client_secret=>String,issuer=>String,Optional[on_unauthenticated_request]=>String,Optional[scope]=>String,Optional[session_cookie_name]=>String,Optional[session_timeout]=>Integer,token_endpoint=>String,user_info_endpoint=>String],Optional[fixed_response]=>Struct[content_type=>String,Optional[message_body]=>String,Optional[status_code]=>String],Optional[order]=>Integer,Optional[redirect]=>Struct[Optional[host]=>String,Optional[path]=>String,Optional[port]=>String,Optional[protocol]=>String,Optional[query]=>String,status_code=>String],Optional[target_group_arn]=>String,type=>String]]"`
 		Arn                  *string
-		Condition            []map[string]interface{} `puppet:"type => Array[Struct[Optional[field]=>String,Optional[values]=>Array[String]]]"`
+		Condition            []map[string]interface{} `puppet:"type => Array[Struct[Optional[field]=>String,Optional[values]=>Array[String,0,1]]]"`
 		Listener_arn         string
 		Priority             *int64
 	}
@@ -104,15 +104,15 @@ type (
 		Alb_target_group_id  *string `lyra:"tf-gen.ignore"`
 		Arn                  *string
 		Arn_suffix           *string
-		Deregistration_delay int64                     `puppet:"value=>300"`
-		Health_check         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[healthy_threshold]=>Integer,Optional[interval]=>Integer,Optional[matcher]=>String,Optional[path]=>String,Optional[port]=>String,Optional[protocol]=>String,Optional[timeout]=>Integer,Optional[unhealthy_threshold]=>Integer]]]"`
+		Deregistration_delay int64                   `puppet:"value=>300"`
+		Health_check         *map[string]interface{} `puppet:"type => Optional[Struct[Optional[healthy_threshold]=>Integer,Optional[interval]=>Integer,Optional[matcher]=>String,Optional[path]=>String,Optional[port]=>String,Optional[protocol]=>String,Optional[timeout]=>Integer,Optional[unhealthy_threshold]=>Integer]]"`
 		Name                 *string
 		Name_prefix          *string
 		Port                 *int64
 		Protocol             *string
-		Proxy_protocol_v2    bool                      `puppet:"value=>false"`
-		Slow_start           int64                     `puppet:"value=>0"`
-		Stickiness           *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[cookie_duration]=>Integer,Optional[enabled]=>Boolean,type=>String]]]"`
+		Proxy_protocol_v2    bool                    `puppet:"value=>false"`
+		Slow_start           int64                   `puppet:"value=>0"`
+		Stickiness           *map[string]interface{} `puppet:"type => Optional[Struct[Optional[cookie_duration]=>Integer,Optional[enabled]=>Boolean,type=>String]]"`
 		Tags                 *map[string]string
 		Target_type          string `puppet:"value=>'instance'"`
 		Vpc_id               *string
@@ -198,7 +198,7 @@ type (
 	Api_gateway_account struct {
 		Api_gateway_account_id *string `lyra:"tf-gen.ignore"`
 		Cloudwatch_role_arn    *string
-		Throttle_settings      *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[burst_limit]=>Integer,Optional[rate_limit]=>Float]]]"`
+		Throttle_settings      *map[string]interface{} `puppet:"type => Optional[Struct[Optional[burst_limit]=>Integer,Optional[rate_limit]=>Float]]"`
 	}
 
 	Api_gateway_api_key struct {
@@ -254,8 +254,8 @@ type (
 	}
 
 	Api_gateway_documentation_part struct {
-		Api_gateway_documentation_part_id *string             `lyra:"tf-gen.ignore"`
-		Location                          []map[string]string `puppet:"type => Array[Struct[Optional[method]=>String,Optional[name]=>String,Optional[path]=>String,Optional[status_code]=>String,type=>String]]"`
+		Api_gateway_documentation_part_id *string            `lyra:"tf-gen.ignore"`
+		Location                          *map[string]string `puppet:"type => Optional[Struct[Optional[method]=>String,Optional[name]=>String,Optional[path]=>String,Optional[status_code]=>String,type=>String]]"`
 		Properties                        string
 		Rest_api_id                       string
 	}
@@ -278,7 +278,7 @@ type (
 		Cloudfront_domain_name     *string
 		Cloudfront_zone_id         *string
 		Domain_name                string
-		Endpoint_configuration     *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[types=>Array[String]]]]"`
+		Endpoint_configuration     *map[string][]interface{} `puppet:"type => Optional[Struct[types=>Array[String,1,1]]]"`
 		Regional_certificate_arn   *string
 		Regional_certificate_name  *string
 		Regional_domain_name       *string
@@ -358,7 +358,7 @@ type (
 		Api_gateway_method_settings_id *string `lyra:"tf-gen.ignore"`
 		Method_path                    string
 		Rest_api_id                    string
-		Settings                       []map[string]interface{} `puppet:"type => Array[Struct[Optional[cache_data_encrypted]=>Boolean,Optional[cache_ttl_in_seconds]=>Integer,Optional[caching_enabled]=>Boolean,Optional[data_trace_enabled]=>Boolean,Optional[logging_level]=>String,Optional[metrics_enabled]=>Boolean,Optional[require_authorization_for_cache_control]=>Boolean,Optional[throttling_burst_limit]=>Integer,Optional[throttling_rate_limit]=>Float,Optional[unauthorized_cache_control_header_strategy]=>String]]"`
+		Settings                       *map[string]interface{} `puppet:"type => Optional[Struct[Optional[cache_data_encrypted]=>Boolean,Optional[cache_ttl_in_seconds]=>Integer,Optional[caching_enabled]=>Boolean,Optional[data_trace_enabled]=>Boolean,Optional[logging_level]=>String,Optional[metrics_enabled]=>Boolean,Optional[require_authorization_for_cache_control]=>Boolean,Optional[throttling_burst_limit]=>Integer,Optional[throttling_rate_limit]=>Float,Optional[unauthorized_cache_control_header_strategy]=>String]]"`
 		Stage_name                     string
 	}
 
@@ -394,7 +394,7 @@ type (
 		Body                     *string
 		Created_date             *string
 		Description              *string
-		Endpoint_configuration   *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[types=>Array[String]]]]"`
+		Endpoint_configuration   *map[string][]interface{} `puppet:"type => Optional[Struct[types=>Array[String,1,1]]]"`
 		Execution_arn            *string
 		Minimum_compression_size int64 `puppet:"value=>-1"`
 		Name                     string
@@ -403,8 +403,8 @@ type (
 	}
 
 	Api_gateway_stage struct {
-		Api_gateway_stage_id  *string              `lyra:"tf-gen.ignore"`
-		Access_log_settings   *[]map[string]string `puppet:"type => Optional[Array[Struct[destination_arn=>String,format=>String]]]"`
+		Api_gateway_stage_id  *string            `lyra:"tf-gen.ignore"`
+		Access_log_settings   *map[string]string `puppet:"type => Optional[Struct[destination_arn=>String,format=>String]]"`
 		Cache_cluster_enabled *bool
 		Cache_cluster_size    *string
 		Client_certificate_id *string
@@ -426,8 +426,8 @@ type (
 		Description               *string
 		Name                      string
 		Product_code              *string
-		Quota_settings            *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[limit=>Integer,Optional[offset]=>Integer,period=>String]]]"`
-		Throttle_settings         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[burst_limit]=>Integer,Optional[rate_limit]=>Float]]]"`
+		Quota_settings            *map[string]interface{} `puppet:"type => Optional[Struct[limit=>Integer,Optional[offset]=>Integer,period=>String]]"`
+		Throttle_settings         *map[string]interface{} `puppet:"type => Optional[Struct[Optional[burst_limit]=>Integer,Optional[rate_limit]=>Float]]"`
 	}
 
 	Api_gateway_usage_plan_key struct {
@@ -469,7 +469,7 @@ type (
 		Service_namespace                            string
 		Step_adjustment                              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[metric_interval_lower_bound]=>String,Optional[metric_interval_upper_bound]=>String,scaling_adjustment=>Integer]]]"`
 		Step_scaling_policy_configuration            *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[adjustment_type]=>String,Optional[cooldown]=>Integer,Optional[metric_aggregation_type]=>String,Optional[min_adjustment_magnitude]=>Integer,Optional[step_adjustment]=>Array[Struct[Optional[metric_interval_lower_bound]=>String,Optional[metric_interval_upper_bound]=>String,scaling_adjustment=>Integer]]]]]"`
-		Target_tracking_scaling_policy_configuration *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[customized_metric_specification]=>Array[Struct[Optional[dimensions]=>Array[Struct[name=>String,value=>String]],metric_name=>String,namespace=>String,statistic=>String,Optional[unit]=>String]],Optional[disable_scale_in]=>Boolean,Optional[predefined_metric_specification]=>Array[Struct[predefined_metric_type=>String,Optional[resource_label]=>String]],Optional[scale_in_cooldown]=>Integer,Optional[scale_out_cooldown]=>Integer,target_value=>Float]]]"`
+		Target_tracking_scaling_policy_configuration *map[string]interface{}   `puppet:"type => Optional[Struct[Optional[customized_metric_specification]=>Struct[Optional[dimensions]=>Array[Struct[name=>String,value=>String]],metric_name=>String,namespace=>String,statistic=>String,Optional[unit]=>String],Optional[disable_scale_in]=>Boolean,Optional[predefined_metric_specification]=>Struct[predefined_metric_type=>String,Optional[resource_label]=>String],Optional[scale_in_cooldown]=>Integer,Optional[scale_out_cooldown]=>Integer,target_value=>Float]]"`
 	}
 
 	Appautoscaling_scheduled_action struct {
@@ -479,7 +479,7 @@ type (
 		Name                               string
 		Resource_id                        string
 		Scalable_dimension                 *string
-		Scalable_target_action             *[]map[string]int64 `puppet:"type => Optional[Array[Struct[Optional[max_capacity]=>Integer,Optional[min_capacity]=>Integer]]]"`
+		Scalable_target_action             *map[string]int64 `puppet:"type => Optional[Struct[Optional[max_capacity]=>Integer,Optional[min_capacity]=>Integer]]"`
 		Schedule                           *string
 		Service_namespace                  string
 		Start_time                         *string
@@ -510,7 +510,7 @@ type (
 		Last_updated_date   *string
 		Mesh_name           string
 		Name                string
-		Spec                []map[string][]interface{} `puppet:"type => Array[Struct[Optional[http_route]=>Array[Struct[action=>Array[Struct[weighted_target=>Array[Struct[virtual_node=>String,weight=>Integer]]]],match=>Array[Struct[prefix=>String]]]]]]"`
+		Spec                map[string][]interface{} `puppet:"type => Struct[Optional[http_route]=>Struct[action=>Struct[weighted_target=>Array[Struct[virtual_node=>String,weight=>Integer],1]],match=>Struct[prefix=>String]]]"`
 		Virtual_router_name string
 	}
 
@@ -521,7 +521,7 @@ type (
 		Last_updated_date       *string
 		Mesh_name               string
 		Name                    string
-		Spec                    []map[string]interface{} `puppet:"type => Array[Struct[Optional[backends]=>Array[String],Optional[listener]=>Array[Struct[port_mapping=>Array[Struct[port=>Integer,protocol=>String]]]],Optional[service_discovery]=>Array[Struct[dns=>Array[Struct[service_name=>String]]]]]]"`
+		Spec                    map[string]interface{} `puppet:"type => Struct[Optional[backends]=>Array[String],Optional[listener]=>Struct[port_mapping=>Struct[port=>Integer,protocol=>String]],Optional[service_discovery]=>Struct[dns=>Struct[service_name=>String]]]"`
 	}
 
 	Appmesh_virtual_router struct {
@@ -531,7 +531,7 @@ type (
 		Last_updated_date         *string
 		Mesh_name                 string
 		Name                      string
-		Spec                      []map[string][]interface{} `puppet:"type => Array[Struct[service_names=>Array[String]]]"`
+		Spec                      map[string][]interface{} `puppet:"type => Struct[service_names=>Array[String,1,10]]"`
 	}
 
 	Appsync_api_key struct {
@@ -547,10 +547,10 @@ type (
 		Api_id                string
 		Arn                   *string
 		Description           *string
-		Dynamodb_config       *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[region]=>String,table_name=>String,Optional[use_caller_credentials]=>Boolean]]]"`
-		Elasticsearch_config  *[]map[string]string      `puppet:"type => Optional[Array[Struct[endpoint=>String,Optional[region]=>String]]]"`
-		Http_config           *[]map[string]string      `puppet:"type => Optional[Array[Struct[endpoint=>String]]]"`
-		Lambda_config         *[]map[string]string      `puppet:"type => Optional[Array[Struct[function_arn=>String]]]"`
+		Dynamodb_config       *map[string]interface{} `puppet:"type => Optional[Struct[Optional[region]=>String,table_name=>String,Optional[use_caller_credentials]=>Boolean]]"`
+		Elasticsearch_config  *map[string]string      `puppet:"type => Optional[Struct[endpoint=>String,Optional[region]=>String]]"`
+		Http_config           *map[string]string      `puppet:"type => Optional[Struct[endpoint=>String]]"`
+		Lambda_config         *map[string]string      `puppet:"type => Optional[Struct[function_arn=>String]]"`
 		Name                  string
 		Service_role_arn      *string
 		Type                  string
@@ -560,18 +560,18 @@ type (
 		Appsync_graphql_api_id *string `lyra:"tf-gen.ignore"`
 		Arn                    *string
 		Authentication_type    string
-		Log_config             *[]map[string]string `puppet:"type => Optional[Array[Struct[cloudwatch_logs_role_arn=>String,field_log_level=>String]]]"`
+		Log_config             *map[string]string `puppet:"type => Optional[Struct[cloudwatch_logs_role_arn=>String,field_log_level=>String]]"`
 		Name                   string
-		Openid_connect_config  *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[auth_ttl]=>Integer,Optional[client_id]=>String,Optional[iat_ttl]=>Integer,issuer=>String]]]"`
+		Openid_connect_config  *map[string]interface{} `puppet:"type => Optional[Struct[Optional[auth_ttl]=>Integer,Optional[client_id]=>String,Optional[iat_ttl]=>Integer,issuer=>String]]"`
 		Uris                   *map[string]string
-		User_pool_config       *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[app_id_client_regex]=>String,Optional[aws_region]=>String,default_action=>String,user_pool_id=>String]]]"`
+		User_pool_config       *map[string]string `puppet:"type => Optional[Struct[Optional[app_id_client_regex]=>String,Optional[aws_region]=>String,default_action=>String,user_pool_id=>String]]"`
 	}
 
 	Athena_database struct {
 		Athena_database_id       *string `lyra:"tf-gen.ignore"`
 		Bucket                   string
-		Encryption_configuration *[]map[string]string `puppet:"type => Optional[Array[Struct[encryption_option=>String,Optional[kms_key]=>String]]]"`
-		Force_destroy            bool                 `puppet:"value=>false"`
+		Encryption_configuration *map[string]string `puppet:"type => Optional[Struct[encryption_option=>String,Optional[kms_key]=>String]]"`
+		Force_destroy            bool               `puppet:"value=>false"`
 		Name                     string
 	}
 
@@ -602,13 +602,13 @@ type (
 		Health_check_type         *string
 		Initial_lifecycle_hook    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[default_result]=>String,Optional[heartbeat_timeout]=>Integer,lifecycle_transition=>String,name=>String,Optional[notification_metadata]=>String,Optional[notification_target_arn]=>String,Optional[role_arn]=>String]]]"`
 		Launch_configuration      *string
-		Launch_template           *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[id]=>String,Optional[name]=>String,Optional[version]=>String]]]"`
+		Launch_template           *map[string]string `puppet:"type => Optional[Struct[Optional[id]=>String,Optional[name]=>String,Optional[version]=>String]]"`
 		Load_balancers            *[]string
 		Max_size                  int64
 		Metrics_granularity       string `puppet:"value=>'1Minute'"`
 		Min_elb_capacity          *int64
 		Min_size                  int64
-		Mixed_instances_policy    *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[Optional[instances_distribution]=>Array[Struct[Optional[on_demand_allocation_strategy]=>String,Optional[on_demand_base_capacity]=>Integer,Optional[on_demand_percentage_above_base_capacity]=>Integer,Optional[spot_allocation_strategy]=>String,Optional[spot_instance_pools]=>Integer,Optional[spot_max_price]=>String]],launch_template=>Array[Struct[launch_template_specification=>Array[Struct[Optional[launch_template_id]=>String,Optional[launch_template_name]=>String,Optional[version]=>String]],Optional[override]=>Array[Struct[Optional[instance_type]=>String]]]]]]]"`
+		Mixed_instances_policy    *map[string][]interface{} `puppet:"type => Optional[Struct[Optional[instances_distribution]=>Struct[Optional[on_demand_allocation_strategy]=>String,Optional[on_demand_base_capacity]=>Integer,Optional[on_demand_percentage_above_base_capacity]=>Integer,Optional[spot_allocation_strategy]=>String,Optional[spot_instance_pools]=>Integer,Optional[spot_max_price]=>String],launch_template=>Struct[launch_template_specification=>Struct[Optional[launch_template_id]=>String,Optional[launch_template_name]=>String,Optional[version]=>String],Optional[override]=>Array[Struct[Optional[instance_type]=>String]]]]]"`
 		Name                      *string
 		Name_prefix               *string
 		Placement_group           *string
@@ -657,7 +657,7 @@ type (
 		Policy_type                   string `puppet:"value=>'SimpleScaling'"`
 		Scaling_adjustment            *int64
 		Step_adjustment               *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[metric_interval_lower_bound]=>String,Optional[metric_interval_upper_bound]=>String,scaling_adjustment=>Integer]]]"`
-		Target_tracking_configuration *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[customized_metric_specification]=>Array[Struct[Optional[metric_dimension]=>Array[Struct[name=>String,value=>String]],metric_name=>String,namespace=>String,statistic=>String,Optional[unit]=>String]],Optional[disable_scale_in]=>Boolean,Optional[predefined_metric_specification]=>Array[Struct[predefined_metric_type=>String,Optional[resource_label]=>String]],target_value=>Float]]]"`
+		Target_tracking_configuration *map[string]interface{}   `puppet:"type => Optional[Struct[Optional[customized_metric_specification]=>Struct[Optional[metric_dimension]=>Array[Struct[name=>String,value=>String]],metric_name=>String,namespace=>String,statistic=>String,Optional[unit]=>String],Optional[disable_scale_in]=>Boolean,Optional[predefined_metric_specification]=>Struct[predefined_metric_type=>String,Optional[resource_label]=>String],target_value=>Float]]"`
 	}
 
 	Autoscaling_schedule struct {
@@ -677,7 +677,7 @@ type (
 		Batch_compute_environment_id *string `lyra:"tf-gen.ignore"`
 		Arn                          *string
 		Compute_environment_name     string
-		Compute_resources            *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[bid_percentage]=>Integer,Optional[desired_vcpus]=>Integer,Optional[ec2_key_pair]=>String,Optional[image_id]=>String,instance_role=>String,instance_type=>Array[String],max_vcpus=>Integer,min_vcpus=>Integer,security_group_ids=>Array[String],Optional[spot_iam_fleet_role]=>String,subnets=>Array[String],Optional[tags]=>Hash[String,String],type=>String]]]"`
+		Compute_resources            *map[string]interface{} `puppet:"type => Optional[Struct[Optional[bid_percentage]=>Integer,Optional[desired_vcpus]=>Integer,Optional[ec2_key_pair]=>String,Optional[image_id]=>String,instance_role=>String,instance_type=>Array[String],max_vcpus=>Integer,min_vcpus=>Integer,security_group_ids=>Array[String],Optional[spot_iam_fleet_role]=>String,subnets=>Array[String],Optional[tags]=>Hash[String,String],type=>String]]"`
 		Ecc_cluster_arn              *string
 		Ecs_cluster_arn              *string
 		Service_role                 string
@@ -693,9 +693,9 @@ type (
 		Container_properties    *string
 		Name                    string
 		Parameters              *map[string]string
-		Retry_strategy          *[]map[string]int64 `puppet:"type => Optional[Array[Struct[Optional[attempts]=>Integer]]]"`
+		Retry_strategy          *map[string]int64 `puppet:"type => Optional[Struct[Optional[attempts]=>Integer]]"`
 		Revision                *int64
-		Timeout                 *[]map[string]int64 `puppet:"type => Optional[Array[Struct[Optional[attempt_duration_seconds]=>Integer]]]"`
+		Timeout                 *map[string]int64 `puppet:"type => Optional[Struct[Optional[attempt_duration_seconds]=>Integer]]"`
 		Type                    string
 	}
 
@@ -713,7 +713,7 @@ type (
 		Account_id        *string
 		Budget_type       string
 		Cost_filters      *map[string]string
-		Cost_types        *[]map[string]bool `puppet:"type => Optional[Array[Struct[Optional[include_credit]=>Boolean,Optional[include_discount]=>Boolean,Optional[include_other_subscription]=>Boolean,Optional[include_recurring]=>Boolean,Optional[include_refund]=>Boolean,Optional[include_subscription]=>Boolean,Optional[include_support]=>Boolean,Optional[include_tax]=>Boolean,Optional[include_upfront]=>Boolean,Optional[use_amortized]=>Boolean,Optional[use_blended]=>Boolean]]]"`
+		Cost_types        *map[string]bool `puppet:"type => Optional[Struct[Optional[include_credit]=>Boolean,Optional[include_discount]=>Boolean,Optional[include_other_subscription]=>Boolean,Optional[include_recurring]=>Boolean,Optional[include_refund]=>Boolean,Optional[include_subscription]=>Boolean,Optional[include_support]=>Boolean,Optional[include_tax]=>Boolean,Optional[include_upfront]=>Boolean,Optional[use_amortized]=>Boolean,Optional[use_blended]=>Boolean]]"`
 		Limit_amount      string
 		Limit_unit        string
 		Name              *string
@@ -758,11 +758,11 @@ type (
 		Active_trusted_signers         *map[string]string
 		Aliases                        *[]string
 		Arn                            *string
-		Cache_behavior                 *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[allowed_methods=>Array[String],cached_methods=>Array[String],Optional[compress]=>Boolean,Optional[default_ttl]=>Integer,Optional[field_level_encryption_id]=>String,forwarded_values=>Array[Struct[cookies=>Array[Struct[forward=>String,Optional[whitelisted_names]=>Array[String]]],Optional[headers]=>Array[String],query_string=>Boolean,Optional[query_string_cache_keys]=>Array[String]]],Optional[lambda_function_association]=>Array[Struct[event_type=>String,Optional[include_body]=>Boolean,lambda_arn=>String]],Optional[max_ttl]=>Integer,Optional[min_ttl]=>Integer,path_pattern=>String,Optional[smooth_streaming]=>Boolean,target_origin_id=>String,Optional[trusted_signers]=>Array[String],viewer_protocol_policy=>String]]]"`
+		Cache_behavior                 *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[allowed_methods=>Array[String],cached_methods=>Array[String],Optional[compress]=>Boolean,Optional[default_ttl]=>Integer,Optional[field_level_encryption_id]=>String,forwarded_values=>Struct[cookies=>Struct[forward=>String,Optional[whitelisted_names]=>Array[String]],Optional[headers]=>Array[String],query_string=>Boolean,Optional[query_string_cache_keys]=>Array[String]],Optional[lambda_function_association]=>Array[Struct[event_type=>String,Optional[include_body]=>Boolean,lambda_arn=>String],0,4],Optional[max_ttl]=>Integer,Optional[min_ttl]=>Integer,path_pattern=>String,Optional[smooth_streaming]=>Boolean,target_origin_id=>String,Optional[trusted_signers]=>Array[String],viewer_protocol_policy=>String]]]"`
 		Caller_reference               *string
 		Comment                        *string
 		Custom_error_response          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[error_caching_min_ttl]=>Integer,error_code=>Integer,Optional[response_code]=>Integer,Optional[response_page_path]=>String]]]"`
-		Default_cache_behavior         []map[string]interface{}  `puppet:"type => Array[Struct[allowed_methods=>Array[String],cached_methods=>Array[String],Optional[compress]=>Boolean,Optional[default_ttl]=>Integer,Optional[field_level_encryption_id]=>String,forwarded_values=>Array[Struct[cookies=>Array[Struct[forward=>String,Optional[whitelisted_names]=>Array[String]]],Optional[headers]=>Array[String],query_string=>Boolean,Optional[query_string_cache_keys]=>Array[String]]],Optional[lambda_function_association]=>Array[Struct[event_type=>String,Optional[include_body]=>Boolean,lambda_arn=>String]],Optional[max_ttl]=>Integer,Optional[min_ttl]=>Integer,Optional[smooth_streaming]=>Boolean,target_origin_id=>String,Optional[trusted_signers]=>Array[String],viewer_protocol_policy=>String]]"`
+		Default_cache_behavior         *map[string]interface{}   `puppet:"type => Optional[Struct[allowed_methods=>Array[String],cached_methods=>Array[String],Optional[compress]=>Boolean,Optional[default_ttl]=>Integer,Optional[field_level_encryption_id]=>String,forwarded_values=>Struct[cookies=>Struct[forward=>String,Optional[whitelisted_names]=>Array[String]],Optional[headers]=>Array[String],query_string=>Boolean,Optional[query_string_cache_keys]=>Array[String]],Optional[lambda_function_association]=>Array[Struct[event_type=>String,Optional[include_body]=>Boolean,lambda_arn=>String],0,4],Optional[max_ttl]=>Integer,Optional[min_ttl]=>Integer,Optional[smooth_streaming]=>Boolean,target_origin_id=>String,Optional[trusted_signers]=>Array[String],viewer_protocol_policy=>String]]"`
 		Default_root_object            *string
 		Domain_name                    *string
 		Enabled                        bool
@@ -772,15 +772,15 @@ type (
 		In_progress_validation_batches *int64
 		Is_ipv6_enabled                bool `puppet:"value=>false"`
 		Last_modified_time             *string
-		Logging_config                 *[]map[string]interface{}  `puppet:"type => Optional[Array[Struct[bucket=>String,Optional[include_cookies]=>Boolean,Optional[prefix]=>String]]]"`
-		Ordered_cache_behavior         *[]map[string]interface{}  `puppet:"type => Optional[Array[Struct[allowed_methods=>Array[String],cached_methods=>Array[String],Optional[compress]=>Boolean,Optional[default_ttl]=>Integer,Optional[field_level_encryption_id]=>String,forwarded_values=>Array[Struct[cookies=>Array[Struct[forward=>String,Optional[whitelisted_names]=>Array[String]]],Optional[headers]=>Array[String],query_string=>Boolean,Optional[query_string_cache_keys]=>Array[String]]],Optional[lambda_function_association]=>Array[Struct[event_type=>String,Optional[include_body]=>Boolean,lambda_arn=>String]],Optional[max_ttl]=>Integer,Optional[min_ttl]=>Integer,path_pattern=>String,Optional[smooth_streaming]=>Boolean,target_origin_id=>String,Optional[trusted_signers]=>Array[String],viewer_protocol_policy=>String]]]"`
-		Origin                         []map[string]interface{}   `puppet:"type => Array[Struct[Optional[custom_header]=>Array[Struct[name=>String,value=>String]],Optional[custom_origin_config]=>Array[Struct[http_port=>Integer,https_port=>Integer,Optional[origin_keepalive_timeout]=>Integer,origin_protocol_policy=>String,Optional[origin_read_timeout]=>Integer,origin_ssl_protocols=>Array[String]]],domain_name=>String,origin_id=>String,Optional[origin_path]=>String,Optional[s3_origin_config]=>Array[Struct[origin_access_identity=>String]]]]"`
-		Price_class                    string                     `puppet:"value=>'PriceClass_All'"`
-		Restrictions                   []map[string][]interface{} `puppet:"type => Array[Struct[geo_restriction=>Array[Struct[Optional[locations]=>Array[String],restriction_type=>String]]]]"`
-		Retain_on_delete               bool                       `puppet:"value=>false"`
+		Logging_config                 *map[string]interface{}   `puppet:"type => Optional[Struct[bucket=>String,Optional[include_cookies]=>Boolean,Optional[prefix]=>String]]"`
+		Ordered_cache_behavior         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[allowed_methods=>Array[String],cached_methods=>Array[String],Optional[compress]=>Boolean,Optional[default_ttl]=>Integer,Optional[field_level_encryption_id]=>String,forwarded_values=>Struct[cookies=>Struct[forward=>String,Optional[whitelisted_names]=>Array[String]],Optional[headers]=>Array[String],query_string=>Boolean,Optional[query_string_cache_keys]=>Array[String]],Optional[lambda_function_association]=>Array[Struct[event_type=>String,Optional[include_body]=>Boolean,lambda_arn=>String],0,4],Optional[max_ttl]=>Integer,Optional[min_ttl]=>Integer,path_pattern=>String,Optional[smooth_streaming]=>Boolean,target_origin_id=>String,Optional[trusted_signers]=>Array[String],viewer_protocol_policy=>String]]]"`
+		Origin                         []map[string]interface{}  `puppet:"type => Array[Struct[Optional[custom_header]=>Array[Struct[name=>String,value=>String]],Optional[custom_origin_config]=>Struct[http_port=>Integer,https_port=>Integer,Optional[origin_keepalive_timeout]=>Integer,origin_protocol_policy=>String,Optional[origin_read_timeout]=>Integer,origin_ssl_protocols=>Array[String]],domain_name=>String,origin_id=>String,Optional[origin_path]=>String,Optional[s3_origin_config]=>Struct[origin_access_identity=>String]]]"`
+		Price_class                    string                    `puppet:"value=>'PriceClass_All'"`
+		Restrictions                   *map[string][]interface{} `puppet:"type => Optional[Struct[geo_restriction=>Struct[Optional[locations]=>Array[String],restriction_type=>String]]]"`
+		Retain_on_delete               bool                      `puppet:"value=>false"`
 		Status                         *string
 		Tags                           *map[string]string
-		Viewer_certificate             []map[string]interface{} `puppet:"type => Array[Struct[Optional[acm_certificate_arn]=>String,Optional[cloudfront_default_certificate]=>Boolean,Optional[iam_certificate_id]=>String,Optional[minimum_protocol_version]=>String,Optional[ssl_support_method]=>String]]"`
+		Viewer_certificate             *map[string]interface{} `puppet:"type => Optional[Struct[Optional[acm_certificate_arn]=>String,Optional[cloudfront_default_certificate]=>Boolean,Optional[iam_certificate_id]=>String,Optional[minimum_protocol_version]=>String,Optional[ssl_support_method]=>String]]"`
 		Web_acl_id                     *string
 	}
 
@@ -805,8 +805,8 @@ type (
 	}
 
 	Cloudhsm_v2_cluster struct {
-		Cloudhsm_v2_cluster_id   *string              `lyra:"tf-gen.ignore"`
-		Cluster_certificates     *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[aws_hardware_certificate]=>String,Optional[cluster_certificate]=>String,Optional[cluster_csr]=>String,Optional[hsm_certificate]=>String,Optional[manufacturer_hardware_certificate]=>String]]]"`
+		Cloudhsm_v2_cluster_id   *string            `lyra:"tf-gen.ignore"`
+		Cluster_certificates     *map[string]string `puppet:"type => Optional[Struct[Optional[aws_hardware_certificate]=>String,Optional[cluster_certificate]=>String,Optional[cluster_csr]=>String,Optional[hsm_certificate]=>String,Optional[manufacturer_hardware_certificate]=>String]]"`
 		Cluster_id               *string
 		Cluster_state            *string
 		Hsm_type                 string
@@ -835,7 +835,7 @@ type (
 		Cloud_watch_logs_role_arn     *string
 		Enable_log_file_validation    bool                      `puppet:"value=>false"`
 		Enable_logging                bool                      `puppet:"value=>true"`
-		Event_selector                *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[data_resource]=>Array[Struct[type=>String,values=>Array[String]]],Optional[include_management_events]=>Boolean,Optional[read_write_type]=>String]]]"`
+		Event_selector                *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[data_resource]=>Array[Struct[type=>String,values=>Array[String,0,250]]],Optional[include_management_events]=>Boolean,Optional[read_write_type]=>String],0,5]]"`
 		Home_region                   *string
 		Include_global_service_events bool `puppet:"value=>true"`
 		Is_multi_region_trail         bool `puppet:"value=>false"`
@@ -856,9 +856,9 @@ type (
 	}
 
 	Cloudwatch_event_permission struct {
-		Cloudwatch_event_permission_id *string              `lyra:"tf-gen.ignore"`
-		Action                         string               `puppet:"value=>'events:PutEvents'"`
-		Condition                      *[]map[string]string `puppet:"type => Optional[Array[Struct[key=>String,type=>String,value=>String]]]"`
+		Cloudwatch_event_permission_id *string            `lyra:"tf-gen.ignore"`
+		Action                         string             `puppet:"value=>'events:PutEvents'"`
+		Condition                      *map[string]string `puppet:"type => Optional[Struct[key=>String,type=>String,value=>String]]"`
 		Principal                      string
 		Statement_id                   string
 	}
@@ -878,16 +878,16 @@ type (
 	Cloudwatch_event_target struct {
 		Cloudwatch_event_target_id *string `lyra:"tf-gen.ignore"`
 		Arn                        string
-		Batch_target               *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[array_size]=>Integer,Optional[job_attempts]=>Integer,job_definition=>String,job_name=>String]]]"`
-		Ecs_target                 *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[group]=>String,Optional[launch_type]=>String,Optional[network_configuration]=>Array[Struct[Optional[assign_public_ip]=>Boolean,Optional[security_groups]=>Array[String],subnets=>Array[String]]],Optional[platform_version]=>String,Optional[task_count]=>Integer,task_definition_arn=>String]]]"`
+		Batch_target               *map[string]interface{} `puppet:"type => Optional[Struct[Optional[array_size]=>Integer,Optional[job_attempts]=>Integer,job_definition=>String,job_name=>String]]"`
+		Ecs_target                 *map[string]interface{} `puppet:"type => Optional[Struct[Optional[group]=>String,Optional[launch_type]=>String,Optional[network_configuration]=>Struct[Optional[assign_public_ip]=>Boolean,Optional[security_groups]=>Array[String],subnets=>Array[String]],Optional[platform_version]=>String,Optional[task_count]=>Integer,task_definition_arn=>String]]"`
 		Input                      *string
 		Input_path                 *string
-		Input_transformer          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[input_paths]=>Hash[String,String],input_template=>String]]]"`
-		Kinesis_target             *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[partition_key_path]=>String]]]"`
+		Input_transformer          *map[string]interface{} `puppet:"type => Optional[Struct[Optional[input_paths]=>Hash[String,String],input_template=>String]]"`
+		Kinesis_target             *map[string]string      `puppet:"type => Optional[Struct[Optional[partition_key_path]=>String]]"`
 		Role_arn                   *string
 		Rule                       string
-		Run_command_targets        *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[key=>String,values=>Array[String]]]]"`
-		Sqs_target                 *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[message_group_id]=>String]]]"`
+		Run_command_targets        *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[key=>String,values=>Array[String]],0,5]]"`
+		Sqs_target                 *map[string]string        `puppet:"type => Optional[Struct[Optional[message_group_id]=>String]]"`
 		Target_id                  *string
 	}
 
@@ -918,7 +918,7 @@ type (
 	Cloudwatch_log_metric_filter struct {
 		Cloudwatch_log_metric_filter_id *string `lyra:"tf-gen.ignore"`
 		Log_group_name                  string
-		Metric_transformation           []map[string]string `puppet:"type => Array[Struct[Optional[default_value]=>String,name=>String,namespace=>String,value=>String]]"`
+		Metric_transformation           *map[string]string `puppet:"type => Optional[Struct[Optional[default_value]=>String,name=>String,namespace=>String,value=>String]]"`
 		Name                            string
 		Pattern                         string
 	}
@@ -973,22 +973,22 @@ type (
 	Codebuild_project struct {
 		Codebuild_project_id *string `lyra:"tf-gen.ignore"`
 		Arn                  *string
-		Artifacts            []map[string]interface{} `puppet:"type => Array[Struct[Optional[encryption_disabled]=>Boolean,Optional[location]=>String,Optional[name]=>String,Optional[namespace_type]=>String,Optional[packaging]=>String,Optional[path]=>String,type=>String]]"`
-		Badge_enabled        bool                     `puppet:"value=>false"`
+		Artifacts            *map[string]interface{} `puppet:"type => Optional[Struct[Optional[encryption_disabled]=>Boolean,Optional[location]=>String,Optional[name]=>String,Optional[namespace_type]=>String,Optional[packaging]=>String,Optional[path]=>String,type=>String]]"`
+		Badge_enabled        bool                    `puppet:"value=>false"`
 		Badge_url            *string
-		Build_timeout        int64                `puppet:"value=>60"`
-		Cache                *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[location]=>String,Optional[type]=>String]]]"`
+		Build_timeout        int64              `puppet:"value=>60"`
+		Cache                *map[string]string `puppet:"type => Optional[Struct[Optional[location]=>String,Optional[type]=>String]]"`
 		Description          *string
 		Encryption_key       *string
-		Environment          []map[string]interface{} `puppet:"type => Array[Struct[Optional[certificate]=>String,compute_type=>String,Optional[environment_variable]=>Array[Struct[name=>String,Optional[type]=>String,value=>String]],image=>String,Optional[privileged_mode]=>Boolean,type=>String]]"`
+		Environment          *map[string]interface{} `puppet:"type => Optional[Struct[Optional[certificate]=>String,compute_type=>String,Optional[environment_variable]=>Array[Struct[name=>String,Optional[type]=>String,value=>String]],image=>String,Optional[privileged_mode]=>Boolean,type=>String]]"`
 		Name                 string
 		Secondary_artifacts  *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[artifact_identifier=>String,Optional[encryption_disabled]=>Boolean,Optional[location]=>String,Optional[name]=>String,Optional[namespace_type]=>String,Optional[packaging]=>String,Optional[path]=>String,type=>String]]]"`
 		Secondary_sources    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[auth]=>Array[Struct[Optional[resource]=>String,type=>String]],Optional[buildspec]=>String,Optional[git_clone_depth]=>Integer,Optional[insecure_ssl]=>Boolean,Optional[location]=>String,Optional[report_build_status]=>Boolean,source_identifier=>String,type=>String]]]"`
 		Service_role         string
-		Source               []map[string]interface{} `puppet:"type => Array[Struct[Optional[auth]=>Array[Struct[Optional[resource]=>String,type=>String]],Optional[buildspec]=>String,Optional[git_clone_depth]=>Integer,Optional[insecure_ssl]=>Boolean,Optional[location]=>String,Optional[report_build_status]=>Boolean,type=>String]]"`
+		Source               *map[string]interface{} `puppet:"type => Optional[Struct[Optional[auth]=>Array[Struct[Optional[resource]=>String,type=>String]],Optional[buildspec]=>String,Optional[git_clone_depth]=>Integer,Optional[insecure_ssl]=>Boolean,Optional[location]=>String,Optional[report_build_status]=>Boolean,type=>String]]"`
 		Tags                 *map[string]string
 		Timeout              *int64
-		Vpc_config           *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[security_group_ids=>Array[String],subnets=>Array[String],vpc_id=>String]]]"`
+		Vpc_config           *map[string]interface{} `puppet:"type => Optional[Struct[security_group_ids=>Array[String,0,5],subnets=>Array[String,0,16],vpc_id=>String]]"`
 	}
 
 	Codebuild_webhook struct {
@@ -1015,7 +1015,7 @@ type (
 		Codecommit_trigger_id *string `lyra:"tf-gen.ignore"`
 		Configuration_id      *string
 		Repository_name       string
-		Trigger               []map[string]interface{} `puppet:"type => Array[Struct[Optional[branches]=>Array[String],Optional[custom_data]=>String,destination_arn=>String,events=>Array[String],name=>String]]"`
+		Trigger               []map[string]interface{} `puppet:"type => Array[Struct[Optional[branches]=>Array[String],Optional[custom_data]=>String,destination_arn=>String,events=>Array[String],name=>String],0,10]"`
 	}
 
 	Codedeploy_app struct {
@@ -1030,24 +1030,24 @@ type (
 		Compute_platform                string  `puppet:"value=>'Server'"`
 		Deployment_config_id            *string
 		Deployment_config_name          string
-		Minimum_healthy_hosts           *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[type]=>String,Optional[value]=>Integer]]]"`
-		Traffic_routing_config          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[time_based_canary]=>Array[Struct[Optional[interval]=>Integer,Optional[percentage]=>Integer]],Optional[time_based_linear]=>Array[Struct[Optional[interval]=>Integer,Optional[percentage]=>Integer]],Optional[type]=>String]]]"`
+		Minimum_healthy_hosts           *map[string]interface{} `puppet:"type => Optional[Struct[Optional[type]=>String,Optional[value]=>Integer]]"`
+		Traffic_routing_config          *map[string]interface{} `puppet:"type => Optional[Struct[Optional[time_based_canary]=>Struct[Optional[interval]=>Integer,Optional[percentage]=>Integer],Optional[time_based_linear]=>Struct[Optional[interval]=>Integer,Optional[percentage]=>Integer],Optional[type]=>String]]"`
 	}
 
 	Codedeploy_deployment_group struct {
-		Codedeploy_deployment_group_id  *string                   `lyra:"tf-gen.ignore"`
-		Alarm_configuration             *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[alarms]=>Array[String],Optional[enabled]=>Boolean,Optional[ignore_poll_alarm_failure]=>Boolean]]]"`
+		Codedeploy_deployment_group_id  *string                 `lyra:"tf-gen.ignore"`
+		Alarm_configuration             *map[string]interface{} `puppet:"type => Optional[Struct[Optional[alarms]=>Array[String,0,10],Optional[enabled]=>Boolean,Optional[ignore_poll_alarm_failure]=>Boolean]]"`
 		App_name                        string
-		Auto_rollback_configuration     *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[enabled]=>Boolean,Optional[events]=>Array[String]]]]"`
+		Auto_rollback_configuration     *map[string]interface{} `puppet:"type => Optional[Struct[Optional[enabled]=>Boolean,Optional[events]=>Array[String]]]"`
 		Autoscaling_groups              *[]string
-		Blue_green_deployment_config    *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[Optional[deployment_ready_option]=>Array[Struct[Optional[action_on_timeout]=>String,Optional[wait_time_in_minutes]=>Integer]],Optional[green_fleet_provisioning_option]=>Array[Struct[Optional[action]=>String]],Optional[terminate_blue_instances_on_deployment_success]=>Array[Struct[Optional[action]=>String,Optional[termination_wait_time_in_minutes]=>Integer]]]]]"`
-		Deployment_config_name          string                      `puppet:"value=>'CodeDeployDefault.OneAtATime'"`
+		Blue_green_deployment_config    *map[string][]interface{} `puppet:"type => Optional[Struct[Optional[deployment_ready_option]=>Struct[Optional[action_on_timeout]=>String,Optional[wait_time_in_minutes]=>Integer],Optional[green_fleet_provisioning_option]=>Struct[Optional[action]=>String],Optional[terminate_blue_instances_on_deployment_success]=>Struct[Optional[action]=>String,Optional[termination_wait_time_in_minutes]=>Integer]]]"`
+		Deployment_config_name          string                    `puppet:"value=>'CodeDeployDefault.OneAtATime'"`
 		Deployment_group_name           string
-		Deployment_style                *[]map[string]string        `puppet:"type => Optional[Array[Struct[Optional[deployment_option]=>String,Optional[deployment_type]=>String]]]"`
+		Deployment_style                *map[string]string          `puppet:"type => Optional[Struct[Optional[deployment_option]=>String,Optional[deployment_type]=>String]]"`
 		Ec2_tag_filter                  *[]map[string]string        `puppet:"type => Optional[Array[Struct[Optional[key]=>String,Optional[type]=>String,Optional[value]=>String]]]"`
 		Ec2_tag_set                     *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[Optional[ec2_tag_filter]=>Array[Struct[Optional[key]=>String,Optional[type]=>String,Optional[value]=>String]]]]]"`
-		Ecs_service                     *[]map[string]string        `puppet:"type => Optional[Array[Struct[cluster_name=>String,service_name=>String]]]"`
-		Load_balancer_info              *[]map[string]interface{}   `puppet:"type => Optional[Array[Struct[Optional[elb_info]=>Array[Struct[Optional[name]=>String]],Optional[target_group_info]=>Array[Struct[Optional[name]=>String]],Optional[target_group_pair_info]=>Array[Struct[prod_traffic_route=>Array[Struct[listener_arns=>Array[String]]],target_group=>Array[Struct[name=>String]],Optional[test_traffic_route]=>Array[Struct[listener_arns=>Array[String]]]]]]]]"`
+		Ecs_service                     *map[string]string          `puppet:"type => Optional[Struct[cluster_name=>String,service_name=>String]]"`
+		Load_balancer_info              *map[string]interface{}     `puppet:"type => Optional[Struct[Optional[elb_info]=>Array[Struct[Optional[name]=>String]],Optional[target_group_info]=>Array[Struct[Optional[name]=>String]],Optional[target_group_pair_info]=>Struct[prod_traffic_route=>Struct[listener_arns=>Array[String]],target_group=>Array[Struct[name=>String],1,2],Optional[test_traffic_route]=>Struct[listener_arns=>Array[String]]]]]"`
 		On_premises_instance_tag_filter *[]map[string]string        `puppet:"type => Optional[Array[Struct[Optional[key]=>String,Optional[type]=>String,Optional[value]=>String]]]"`
 		Service_role_arn                string
 		Trigger_configuration           *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[trigger_events=>Array[String],trigger_name=>String,trigger_target_arn=>String]]]"`
@@ -1056,17 +1056,17 @@ type (
 	Codepipeline struct {
 		Codepipeline_id *string `lyra:"tf-gen.ignore"`
 		Arn             *string
-		Artifact_store  []map[string]interface{} `puppet:"type => Array[Struct[Optional[encryption_key]=>Array[Struct[id=>String,type=>String]],location=>String,type=>String]]"`
+		Artifact_store  *map[string]interface{} `puppet:"type => Optional[Struct[Optional[encryption_key]=>Struct[id=>String,type=>String],location=>String,type=>String]]"`
 		Name            string
 		Role_arn        string
-		Stage           []map[string]interface{} `puppet:"type => Array[Struct[action=>Array[Struct[category=>String,Optional[configuration]=>Hash[String,String],Optional[input_artifacts]=>Array[String],name=>String,Optional[output_artifacts]=>Array[String],owner=>String,provider=>String,Optional[role_arn]=>String,Optional[run_order]=>Integer,version=>String]],name=>String]]"`
+		Stage           []map[string]interface{} `puppet:"type => Array[Struct[action=>Array[Struct[category=>String,Optional[configuration]=>Hash[String,String],Optional[input_artifacts]=>Array[String],name=>String,Optional[output_artifacts]=>Array[String],owner=>String,provider=>String,Optional[role_arn]=>String,Optional[run_order]=>Integer,version=>String]],name=>String],2]"`
 	}
 
 	Codepipeline_webhook struct {
 		Codepipeline_webhook_id      *string `lyra:"tf-gen.ignore"`
 		Authentication               string
-		Authentication_configuration *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[allowed_ip_range]=>String,Optional[secret_token]=>String]]]"`
-		Filter                       []map[string]string  `puppet:"type => Array[Struct[json_path=>String,match_equals=>String]]"`
+		Authentication_configuration *map[string]string  `puppet:"type => Optional[Struct[Optional[allowed_ip_range]=>String,Optional[secret_token]=>String]]"`
+		Filter                       []map[string]string `puppet:"type => Array[Struct[json_path=>String,match_equals=>String],1]"`
 		Name                         string
 		Target_action                string
 		Target_pipeline              string
@@ -1088,7 +1088,7 @@ type (
 	Cognito_identity_pool_roles_attachment struct {
 		Cognito_identity_pool_roles_attachment_id *string `lyra:"tf-gen.ignore"`
 		Identity_pool_id                          string
-		Role_mapping                              *[]map[string]interface{}    `puppet:"type => Optional[Array[Struct[Optional[ambiguous_role_resolution]=>String,identity_provider=>String,Optional[mapping_rule]=>Array[Struct[claim=>String,match_type=>String,role_arn=>String,value=>String]],type=>String]]]"`
+		Role_mapping                              *[]map[string]interface{}    `puppet:"type => Optional[Array[Struct[Optional[ambiguous_role_resolution]=>String,identity_provider=>String,Optional[mapping_rule]=>Array[Struct[claim=>String,match_type=>String,role_arn=>String,value=>String],0,25],type=>String]]]"`
 		Roles                                     map[string]map[string]string `puppet:"type => Hash[String,Struct[Optional[authenticated]=>String,Optional[unauthenticated]=>String]]"`
 	}
 
@@ -1106,7 +1106,7 @@ type (
 		Cognito_resource_server_id *string `lyra:"tf-gen.ignore"`
 		Identifier                 string
 		Name                       string
-		Scope                      *[]map[string]string `puppet:"type => Optional[Array[Struct[scope_description=>String,scope_name=>String]]]"`
+		Scope                      *[]map[string]string `puppet:"type => Optional[Array[Struct[scope_description=>String,scope_name=>String],0,25]]"`
 		Scope_identifiers          *[]string
 		User_pool_id               string
 	}
@@ -1121,29 +1121,29 @@ type (
 	}
 
 	Cognito_user_pool struct {
-		Cognito_user_pool_id          *string                   `lyra:"tf-gen.ignore"`
-		Admin_create_user_config      *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[allow_admin_create_user_only]=>Boolean,Optional[invite_message_template]=>Array[Struct[Optional[email_message]=>String,Optional[email_subject]=>String,Optional[sms_message]=>String]],Optional[unused_account_validity_days]=>Integer]]]"`
+		Cognito_user_pool_id          *string                 `lyra:"tf-gen.ignore"`
+		Admin_create_user_config      *map[string]interface{} `puppet:"type => Optional[Struct[Optional[allow_admin_create_user_only]=>Boolean,Optional[invite_message_template]=>Struct[Optional[email_message]=>String,Optional[email_subject]=>String,Optional[sms_message]=>String],Optional[unused_account_validity_days]=>Integer]]"`
 		Alias_attributes              *[]string
 		Arn                           *string
 		Auto_verified_attributes      *[]string
 		Creation_date                 *string
-		Device_configuration          *[]map[string]bool   `puppet:"type => Optional[Array[Struct[Optional[challenge_required_on_new_device]=>Boolean,Optional[device_only_remembered_on_user_prompt]=>Boolean]]]"`
-		Email_configuration           *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[reply_to_email_address]=>String,Optional[source_arn]=>String]]]"`
+		Device_configuration          *map[string]bool   `puppet:"type => Optional[Struct[Optional[challenge_required_on_new_device]=>Boolean,Optional[device_only_remembered_on_user_prompt]=>Boolean]]"`
+		Email_configuration           *map[string]string `puppet:"type => Optional[Struct[Optional[reply_to_email_address]=>String,Optional[source_arn]=>String]]"`
 		Email_verification_message    *string
 		Email_verification_subject    *string
 		Endpoint                      *string
-		Lambda_config                 *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[create_auth_challenge]=>String,Optional[custom_message]=>String,Optional[define_auth_challenge]=>String,Optional[post_authentication]=>String,Optional[post_confirmation]=>String,Optional[pre_authentication]=>String,Optional[pre_sign_up]=>String,Optional[pre_token_generation]=>String,Optional[user_migration]=>String,Optional[verify_auth_challenge_response]=>String]]]"`
+		Lambda_config                 *map[string]string `puppet:"type => Optional[Struct[Optional[create_auth_challenge]=>String,Optional[custom_message]=>String,Optional[define_auth_challenge]=>String,Optional[post_authentication]=>String,Optional[post_confirmation]=>String,Optional[pre_authentication]=>String,Optional[pre_sign_up]=>String,Optional[pre_token_generation]=>String,Optional[user_migration]=>String,Optional[verify_auth_challenge_response]=>String]]"`
 		Last_modified_date            *string
 		Mfa_configuration             string `puppet:"value=>'OFF'"`
 		Name                          string
-		Password_policy               *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[minimum_length]=>Integer,Optional[require_lowercase]=>Boolean,Optional[require_numbers]=>Boolean,Optional[require_symbols]=>Boolean,Optional[require_uppercase]=>Boolean]]]"`
-		Schema                        *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[attribute_data_type=>String,Optional[developer_only_attribute]=>Boolean,Optional[mutable]=>Boolean,name=>String,Optional[number_attribute_constraints]=>Array[Struct[Optional[max_value]=>String,Optional[min_value]=>String]],Optional[required]=>Boolean,Optional[string_attribute_constraints]=>Array[Struct[Optional[max_length]=>String,Optional[min_length]=>String]]]]]"`
+		Password_policy               *map[string]interface{}   `puppet:"type => Optional[Struct[Optional[minimum_length]=>Integer,Optional[require_lowercase]=>Boolean,Optional[require_numbers]=>Boolean,Optional[require_symbols]=>Boolean,Optional[require_uppercase]=>Boolean]]"`
+		Schema                        *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[attribute_data_type=>String,Optional[developer_only_attribute]=>Boolean,Optional[mutable]=>Boolean,name=>String,Optional[number_attribute_constraints]=>Struct[Optional[max_value]=>String,Optional[min_value]=>String],Optional[required]=>Boolean,Optional[string_attribute_constraints]=>Struct[Optional[max_length]=>String,Optional[min_length]=>String]],1,50]]"`
 		Sms_authentication_message    *string
-		Sms_configuration             *[]map[string]string `puppet:"type => Optional[Array[Struct[external_id=>String,sns_caller_arn=>String]]]"`
+		Sms_configuration             *map[string]string `puppet:"type => Optional[Struct[external_id=>String,sns_caller_arn=>String]]"`
 		Sms_verification_message      *string
 		Tags                          *map[string]string
 		Username_attributes           *[]string
-		Verification_message_template *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[default_email_option]=>String,Optional[email_message]=>String,Optional[email_message_by_link]=>String,Optional[email_subject]=>String,Optional[email_subject_by_link]=>String,Optional[sms_message]=>String]]]"`
+		Verification_message_template *map[string]string `puppet:"type => Optional[Struct[Optional[default_email_option]=>String,Optional[email_message]=>String,Optional[email_message_by_link]=>String,Optional[email_subject]=>String,Optional[email_subject_by_link]=>String,Optional[sms_message]=>String]]"`
 	}
 
 	Cognito_user_pool_client struct {
@@ -1191,22 +1191,22 @@ type (
 		Maximum_execution_frequency *string
 		Name                        string
 		Rule_id                     *string
-		Scope                       *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[compliance_resource_id]=>String,Optional[compliance_resource_types]=>Array[String],Optional[tag_key]=>String,Optional[tag_value]=>String]]]"`
-		Source                      []map[string]interface{}  `puppet:"type => Array[Struct[owner=>String,Optional[source_detail]=>Array[Struct[Optional[event_source]=>String,Optional[maximum_execution_frequency]=>String,Optional[message_type]=>String]],source_identifier=>String]]"`
+		Scope                       *map[string]interface{} `puppet:"type => Optional[Struct[Optional[compliance_resource_id]=>String,Optional[compliance_resource_types]=>Array[String,0,100],Optional[tag_key]=>String,Optional[tag_value]=>String]]"`
+		Source                      *map[string]interface{} `puppet:"type => Optional[Struct[owner=>String,Optional[source_detail]=>Array[Struct[Optional[event_source]=>String,Optional[maximum_execution_frequency]=>String,Optional[message_type]=>String],0,25],source_identifier=>String]]"`
 	}
 
 	Config_configuration_aggregator struct {
-		Config_configuration_aggregator_id *string                   `lyra:"tf-gen.ignore"`
-		Account_aggregation_source         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[account_ids=>Array[String],Optional[all_regions]=>Boolean,Optional[regions]=>Array[String]]]]"`
+		Config_configuration_aggregator_id *string                 `lyra:"tf-gen.ignore"`
+		Account_aggregation_source         *map[string]interface{} `puppet:"type => Optional[Struct[account_ids=>Array[String,1],Optional[all_regions]=>Boolean,Optional[regions]=>Array[String,1]]]"`
 		Arn                                *string
 		Name                               string
-		Organization_aggregation_source    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[all_regions]=>Boolean,Optional[regions]=>Array[String],role_arn=>String]]]"`
+		Organization_aggregation_source    *map[string]interface{} `puppet:"type => Optional[Struct[Optional[all_regions]=>Boolean,Optional[regions]=>Array[String,1],role_arn=>String]]"`
 	}
 
 	Config_configuration_recorder struct {
-		Config_configuration_recorder_id *string                   `lyra:"tf-gen.ignore"`
-		Name                             string                    `puppet:"value=>'default'"`
-		Recording_group                  *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[all_supported]=>Boolean,Optional[include_global_resource_types]=>Boolean,Optional[resource_types]=>Array[String]]]]"`
+		Config_configuration_recorder_id *string                 `lyra:"tf-gen.ignore"`
+		Name                             string                  `puppet:"value=>'default'"`
+		Recording_group                  *map[string]interface{} `puppet:"type => Optional[Struct[Optional[all_supported]=>Boolean,Optional[include_global_resource_types]=>Boolean,Optional[resource_types]=>Array[String]]]"`
 		Role_arn                         string
 	}
 
@@ -1221,7 +1221,7 @@ type (
 		Name                         string  `puppet:"value=>'default'"`
 		S3_bucket_name               string
 		S3_key_prefix                *string
-		Snapshot_delivery_properties *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[delivery_frequency]=>String]]]"`
+		Snapshot_delivery_properties *map[string]string `puppet:"type => Optional[Struct[Optional[delivery_frequency]=>String]]"`
 		Sns_topic_arn                *string
 	}
 
@@ -1245,7 +1245,7 @@ type (
 	Datasync_location_efs struct {
 		Datasync_location_efs_id *string `lyra:"tf-gen.ignore"`
 		Arn                      *string
-		Ec2_config               []map[string]interface{} `puppet:"type => Array[Struct[security_group_arns=>Array[String],subnet_arn=>String]]"`
+		Ec2_config               *map[string]interface{} `puppet:"type => Optional[Struct[security_group_arns=>Array[String],subnet_arn=>String]]"`
 		Efs_file_system_arn      string
 		Subdirectory             string `puppet:"value=>'/'"`
 		Tags                     *map[string]string
@@ -1255,7 +1255,7 @@ type (
 	Datasync_location_nfs struct {
 		Datasync_location_nfs_id *string `lyra:"tf-gen.ignore"`
 		Arn                      *string
-		On_prem_config           []map[string][]interface{} `puppet:"type => Array[Struct[agent_arns=>Array[String]]]"`
+		On_prem_config           *map[string][]interface{} `puppet:"type => Optional[Struct[agent_arns=>Array[String]]]"`
 		Server_hostname          string
 		Subdirectory             string
 		Tags                     *map[string]string
@@ -1266,7 +1266,7 @@ type (
 		Datasync_location_s3_id *string `lyra:"tf-gen.ignore"`
 		Arn                     *string
 		S3_bucket_arn           string
-		S3_config               []map[string]string `puppet:"type => Array[Struct[bucket_access_role_arn=>String]]"`
+		S3_config               *map[string]string `puppet:"type => Optional[Struct[bucket_access_role_arn=>String]]"`
 		Subdirectory            string
 		Tags                    *map[string]string
 		Uri                     *string
@@ -1278,7 +1278,7 @@ type (
 		Cloudwatch_log_group_arn *string
 		Destination_location_arn string
 		Name                     *string
-		Options                  *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[atime]=>String,Optional[bytes_per_second]=>Integer,Optional[gid]=>String,Optional[mtime]=>String,Optional[posix_permissions]=>String,Optional[preserve_deleted_files]=>String,Optional[preserve_devices]=>String,Optional[uid]=>String,Optional[verify_mode]=>String]]]"`
+		Options                  *map[string]interface{} `puppet:"type => Optional[Struct[Optional[atime]=>String,Optional[bytes_per_second]=>Integer,Optional[gid]=>String,Optional[mtime]=>String,Optional[posix_permissions]=>String,Optional[preserve_deleted_files]=>String,Optional[preserve_devices]=>String,Optional[uid]=>String,Optional[verify_mode]=>String]]"`
 		Source_location_arn      string
 		Tags                     *map[string]string
 	}
@@ -1300,7 +1300,7 @@ type (
 		Port                   *int64
 		Replication_factor     int64
 		Security_group_ids     *[]string
-		Server_side_encryption *[]map[string]bool `puppet:"type => Optional[Array[Struct[Optional[enabled]=>Boolean]]]"`
+		Server_side_encryption *map[string]bool `puppet:"type => Optional[Struct[Optional[enabled]=>Boolean]]"`
 		Subnet_group_name      *string
 		Tags                   *map[string]string
 	}
@@ -1397,7 +1397,7 @@ type (
 		Replicas                            *[]string
 		Replicate_source_db                 *string
 		Resource_id                         *string
-		S3_import                           *[]map[string]string `puppet:"type => Optional[Array[Struct[bucket_name=>String,Optional[bucket_prefix]=>String,ingestion_role=>String,source_engine=>String,source_engine_version=>String]]]"`
+		S3_import                           *map[string]string `puppet:"type => Optional[Struct[bucket_name=>String,Optional[bucket_prefix]=>String,ingestion_role=>String,source_engine=>String,source_engine_version=>String]]"`
 		Security_group_names                *[]string
 		Skip_final_snapshot                 bool `puppet:"value=>false"`
 		Snapshot_identifier                 *string
@@ -1573,7 +1573,7 @@ type (
 		Directory_service_directory_id *string `lyra:"tf-gen.ignore"`
 		Access_url                     *string
 		Alias                          *string
-		Connect_settings               *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[customer_dns_ips=>Array[String],customer_username=>String,subnet_ids=>Array[String],vpc_id=>String]]]"`
+		Connect_settings               *map[string]interface{} `puppet:"type => Optional[Struct[customer_dns_ips=>Array[String],customer_username=>String,subnet_ids=>Array[String],vpc_id=>String]]"`
 		Description                    *string
 		Dns_ip_addresses               *[]string
 		Edition                        *string
@@ -1584,16 +1584,16 @@ type (
 		Short_name                     *string
 		Size                           *string
 		Tags                           *map[string]string
-		Type                           string                    `puppet:"value=>'SimpleAD'"`
-		Vpc_settings                   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[subnet_ids=>Array[String],vpc_id=>String]]]"`
+		Type                           string                  `puppet:"value=>'SimpleAD'"`
+		Vpc_settings                   *map[string]interface{} `puppet:"type => Optional[Struct[subnet_ids=>Array[String],vpc_id=>String]]"`
 	}
 
 	Dlm_lifecycle_policy struct {
 		Dlm_lifecycle_policy_id *string `lyra:"tf-gen.ignore"`
 		Description             string
 		Execution_role_arn      string
-		Policy_details          []map[string]interface{} `puppet:"type => Array[Struct[resource_types=>Array[String],schedule=>Array[Struct[Optional[copy_tags]=>Boolean,create_rule=>Array[Struct[interval=>Integer,Optional[interval_unit]=>String,Optional[times]=>Array[String]]],name=>String,retain_rule=>Array[Struct[count=>Integer]],Optional[tags_to_add]=>Hash[String,String]]],target_tags=>Hash[String,String]]]"`
-		State                   string                   `puppet:"value=>'ENABLED'"`
+		Policy_details          *map[string]interface{} `puppet:"type => Optional[Struct[resource_types=>Array[String],schedule=>Array[Struct[Optional[copy_tags]=>Boolean,create_rule=>Struct[interval=>Integer,Optional[interval_unit]=>String,Optional[times]=>Array[String,0,1]],name=>String,retain_rule=>Struct[count=>Integer],Optional[tags_to_add]=>Hash[String,String]]],target_tags=>Hash[String,String]]]"`
+		State                   string                  `puppet:"value=>'ENABLED'"`
 	}
 
 	Dms_certificate struct {
@@ -1614,10 +1614,10 @@ type (
 		Engine_name                 string
 		Extra_connection_attributes *string
 		Kms_key_arn                 *string
-		Mongodb_settings            *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[auth_mechanism]=>String,Optional[auth_source]=>String,Optional[auth_type]=>String,Optional[docs_to_investigate]=>String,Optional[extract_doc_id]=>String,Optional[nesting_level]=>String]]]"`
+		Mongodb_settings            *map[string]string `puppet:"type => Optional[Struct[Optional[auth_mechanism]=>String,Optional[auth_source]=>String,Optional[auth_type]=>String,Optional[docs_to_investigate]=>String,Optional[extract_doc_id]=>String,Optional[nesting_level]=>String]]"`
 		Password                    *string
 		Port                        *int64
-		S3_settings                 *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[bucket_folder]=>String,Optional[bucket_name]=>String,Optional[compression_type]=>String,Optional[csv_delimiter]=>String,Optional[csv_row_delimiter]=>String,Optional[external_table_definition]=>String,Optional[service_access_role_arn]=>String]]]"`
+		S3_settings                 *map[string]string `puppet:"type => Optional[Struct[Optional[bucket_folder]=>String,Optional[bucket_name]=>String,Optional[compression_type]=>String,Optional[csv_delimiter]=>String,Optional[csv_row_delimiter]=>String,Optional[external_table_definition]=>String,Optional[service_access_role_arn]=>String]]"`
 		Server_name                 *string
 		Service_access_role         *string
 		Ssl_mode                    *string
@@ -1837,16 +1837,16 @@ type (
 		Hash_key               string
 		Local_secondary_index  *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[name=>String,Optional[non_key_attributes]=>Array[String],projection_type=>String,range_key=>String]]]"`
 		Name                   string
-		Point_in_time_recovery *[]map[string]bool `puppet:"type => Optional[Array[Struct[enabled=>Boolean]]]"`
+		Point_in_time_recovery *map[string]bool `puppet:"type => Optional[Struct[enabled=>Boolean]]"`
 		Range_key              *string
 		Read_capacity          *int64
-		Server_side_encryption *[]map[string]bool `puppet:"type => Optional[Array[Struct[enabled=>Boolean]]]"`
+		Server_side_encryption *map[string]bool `puppet:"type => Optional[Struct[enabled=>Boolean]]"`
 		Stream_arn             *string
 		Stream_enabled         *bool
 		Stream_label           *string
 		Stream_view_type       *string
 		Tags                   *map[string]string
-		Ttl                    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[attribute_name=>String,enabled=>Boolean]]]"`
+		Ttl                    *map[string]interface{} `puppet:"type => Optional[Struct[attribute_name=>String,enabled=>Boolean]]"`
 		Write_capacity         *int64
 	}
 
@@ -1915,15 +1915,15 @@ type (
 	}
 
 	Ec2_fleet struct {
-		Ec2_fleet_id                        *string                    `lyra:"tf-gen.ignore"`
-		Excess_capacity_termination_policy  string                     `puppet:"value=>'termination'"`
-		Launch_template_config              []map[string][]interface{} `puppet:"type => Array[Struct[launch_template_specification=>Array[Struct[Optional[launch_template_id]=>String,Optional[launch_template_name]=>String,version=>String]],Optional[override]=>Array[Struct[Optional[availability_zone]=>String,Optional[instance_type]=>String,Optional[max_price]=>String,Optional[priority]=>Float,Optional[subnet_id]=>String,Optional[weighted_capacity]=>Float]]]]"`
-		On_demand_options                   *[]map[string]string       `puppet:"type => Optional[Array[Struct[Optional[allocation_strategy]=>String]]]"`
+		Ec2_fleet_id                        *string                  `lyra:"tf-gen.ignore"`
+		Excess_capacity_termination_policy  string                   `puppet:"value=>'termination'"`
+		Launch_template_config              map[string][]interface{} `puppet:"type => Struct[launch_template_specification=>Struct[Optional[launch_template_id]=>String,Optional[launch_template_name]=>String,version=>String],Optional[override]=>Array[Struct[Optional[availability_zone]=>String,Optional[instance_type]=>String,Optional[max_price]=>String,Optional[priority]=>Float,Optional[subnet_id]=>String,Optional[weighted_capacity]=>Float],0,50]]"`
+		On_demand_options                   *map[string]string       `puppet:"type => Optional[Struct[Optional[allocation_strategy]=>String]]"`
 		Replace_unhealthy_instances         *bool
-		Spot_options                        *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[allocation_strategy]=>String,Optional[instance_interruption_behavior]=>String,Optional[instance_pools_to_use_count]=>Integer]]]"`
+		Spot_options                        *map[string]interface{} `puppet:"type => Optional[Struct[Optional[allocation_strategy]=>String,Optional[instance_interruption_behavior]=>String,Optional[instance_pools_to_use_count]=>Integer]]"`
 		Tags                                *map[string]string
-		Target_capacity_specification       []map[string]interface{} `puppet:"type => Array[Struct[default_target_capacity_type=>String,Optional[on_demand_target_capacity]=>Integer,Optional[spot_target_capacity]=>Integer,total_target_capacity=>Integer]]"`
-		Terminate_instances                 bool                     `puppet:"value=>false"`
+		Target_capacity_specification       map[string]interface{} `puppet:"type => Struct[default_target_capacity_type=>String,Optional[on_demand_target_capacity]=>Integer,Optional[spot_target_capacity]=>Integer,total_target_capacity=>Integer]"`
+		Terminate_instances                 bool                   `puppet:"value=>false"`
 		Terminate_instances_with_expiration *bool
 		Type                                string `puppet:"value=>'maintain'"`
 	}
@@ -2021,24 +2021,24 @@ type (
 	Ecs_service struct {
 		Ecs_service_id                     *string `lyra:"tf-gen.ignore"`
 		Cluster                            *string
-		Deployment_controller              *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[type]=>String]]]"`
-		Deployment_maximum_percent         int64                `puppet:"value=>200"`
-		Deployment_minimum_healthy_percent int64                `puppet:"value=>100"`
+		Deployment_controller              *map[string]string `puppet:"type => Optional[Struct[Optional[type]=>String]]"`
+		Deployment_maximum_percent         int64              `puppet:"value=>200"`
+		Deployment_minimum_healthy_percent int64              `puppet:"value=>100"`
 		Desired_count                      *int64
 		Enable_ecs_managed_tags            bool `puppet:"value=>false"`
 		Health_check_grace_period_seconds  *int64
 		Iam_role                           *string
-		Launch_type                        string                    `puppet:"value=>'EC2'"`
-		Load_balancer                      *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[container_name=>String,container_port=>Integer,Optional[elb_name]=>String,Optional[target_group_arn]=>String]]]"`
+		Launch_type                        string                  `puppet:"value=>'EC2'"`
+		Load_balancer                      *map[string]interface{} `puppet:"type => Optional[Struct[container_name=>String,container_port=>Integer,Optional[elb_name]=>String,Optional[target_group_arn]=>String]]"`
 		Name                               string
-		Network_configuration              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[assign_public_ip]=>Boolean,Optional[security_groups]=>Array[String],subnets=>Array[String]]]]"`
-		Ordered_placement_strategy         *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[field]=>String,type=>String]]]"`
-		Placement_constraints              *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[expression]=>String,type=>String]]]"`
-		Placement_strategy                 *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[field]=>String,type=>String]]]"`
+		Network_configuration              *map[string]interface{} `puppet:"type => Optional[Struct[Optional[assign_public_ip]=>Boolean,Optional[security_groups]=>Array[String],subnets=>Array[String]]]"`
+		Ordered_placement_strategy         *[]map[string]string    `puppet:"type => Optional[Array[Struct[Optional[field]=>String,type=>String],0,5]]"`
+		Placement_constraints              *[]map[string]string    `puppet:"type => Optional[Array[Struct[Optional[expression]=>String,type=>String],0,10]]"`
+		Placement_strategy                 *[]map[string]string    `puppet:"type => Optional[Array[Struct[Optional[field]=>String,type=>String],0,5]]"`
 		Platform_version                   *string
 		Propagate_tags                     *string
-		Scheduling_strategy                string                    `puppet:"value=>'REPLICA'"`
-		Service_registries                 *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[container_name]=>String,Optional[container_port]=>Integer,Optional[port]=>Integer,registry_arn=>String]]]"`
+		Scheduling_strategy                string                  `puppet:"value=>'REPLICA'"`
+		Service_registries                 *map[string]interface{} `puppet:"type => Optional[Struct[Optional[container_name]=>String,Optional[container_port]=>Integer,Optional[port]=>Integer,registry_arn=>String]]"`
 		Tags                               *map[string]string
 		Task_definition                    string
 	}
@@ -2054,12 +2054,12 @@ type (
 		Memory                   *string
 		Network_mode             *string
 		Pid_mode                 *string
-		Placement_constraints    *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[expression]=>String,type=>String]]]"`
+		Placement_constraints    *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[expression]=>String,type=>String],0,10]]"`
 		Requires_compatibilities *[]string
 		Revision                 *int64
 		Tags                     *map[string]string
 		Task_role_arn            *string
-		Volume                   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[docker_volume_configuration]=>Array[Struct[Optional[autoprovision]=>Boolean,Optional[driver]=>String,Optional[driver_opts]=>Hash[String,String],Optional[labels]=>Hash[String,String],Optional[scope]=>String]],Optional[host_path]=>String,name=>String]]]"`
+		Volume                   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[docker_volume_configuration]=>Struct[Optional[autoprovision]=>Boolean,Optional[driver]=>String,Optional[driver_opts]=>Hash[String,String],Optional[labels]=>Hash[String,String],Optional[scope]=>String],Optional[host_path]=>String,name=>String]]]"`
 	}
 
 	Efs_file_system struct {
@@ -2120,19 +2120,19 @@ type (
 	Eks_cluster struct {
 		Eks_cluster_id        *string `lyra:"tf-gen.ignore"`
 		Arn                   *string
-		Certificate_authority *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[data]=>String]]]"`
+		Certificate_authority *map[string]string `puppet:"type => Optional[Struct[Optional[data]=>String]]"`
 		Created_at            *string
 		Endpoint              *string
 		Name                  string
 		Platform_version      *string
 		Role_arn              string
 		Version               *string
-		Vpc_config            []map[string]interface{} `puppet:"type => Array[Struct[Optional[security_group_ids]=>Array[String],subnet_ids=>Array[String],Optional[vpc_id]=>String]]"`
+		Vpc_config            map[string]interface{} `puppet:"type => Struct[Optional[security_group_ids]=>Array[String],subnet_ids=>Array[String,1],Optional[vpc_id]=>String]"`
 	}
 
 	Elastic_beanstalk_application struct {
-		Elastic_beanstalk_application_id *string                   `lyra:"tf-gen.ignore"`
-		Appversion_lifecycle             *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[delete_source_from_s3]=>Boolean,Optional[max_age_in_days]=>Integer,Optional[max_count]=>Integer,service_role=>String]]]"`
+		Elastic_beanstalk_application_id *string                 `lyra:"tf-gen.ignore"`
+		Appversion_lifecycle             *map[string]interface{} `puppet:"type => Optional[Struct[Optional[delete_source_from_s3]=>Boolean,Optional[max_age_in_days]=>Integer,Optional[max_count]=>Integer,service_role=>String]]"`
 		Description                      *string
 		Name                             string
 	}
@@ -2229,7 +2229,7 @@ type (
 		Auto_minor_version_upgrade       bool `puppet:"value=>true"`
 		Automatic_failover_enabled       bool `puppet:"value=>false"`
 		Availability_zones               *[]string
-		Cluster_mode                     *[]map[string]int64 `puppet:"type => Optional[Array[Struct[num_node_groups=>Integer,replicas_per_node_group=>Integer]]]"`
+		Cluster_mode                     *map[string]int64 `puppet:"type => Optional[Struct[num_node_groups=>Integer,replicas_per_node_group=>Integer]]"`
 		Configuration_endpoint_address   *string
 		Engine                           string `puppet:"value=>'redis'"`
 		Engine_version                   *string
@@ -2273,20 +2273,20 @@ type (
 		Access_policies         *string
 		Advanced_options        *map[string]string
 		Arn                     *string
-		Cluster_config          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[dedicated_master_count]=>Integer,Optional[dedicated_master_enabled]=>Boolean,Optional[dedicated_master_type]=>String,Optional[instance_count]=>Integer,Optional[instance_type]=>String,Optional[zone_awareness_enabled]=>Boolean]]]"`
-		Cognito_options         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[enabled]=>Boolean,identity_pool_id=>String,role_arn=>String,user_pool_id=>String]]]"`
+		Cluster_config          *map[string]interface{} `puppet:"type => Optional[Struct[Optional[dedicated_master_count]=>Integer,Optional[dedicated_master_enabled]=>Boolean,Optional[dedicated_master_type]=>String,Optional[instance_count]=>Integer,Optional[instance_type]=>String,Optional[zone_awareness_enabled]=>Boolean]]"`
+		Cognito_options         *map[string]interface{} `puppet:"type => Optional[Struct[Optional[enabled]=>Boolean,identity_pool_id=>String,role_arn=>String,user_pool_id=>String]]"`
 		Domain_id               *string
 		Domain_name             string
-		Ebs_options             *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[ebs_enabled=>Boolean,Optional[iops]=>Integer,Optional[volume_size]=>Integer,Optional[volume_type]=>String]]]"`
-		Elasticsearch_version   string                    `puppet:"value=>'1.5'"`
-		Encrypt_at_rest         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[enabled=>Boolean,Optional[kms_key_id]=>String]]]"`
+		Ebs_options             *map[string]interface{} `puppet:"type => Optional[Struct[ebs_enabled=>Boolean,Optional[iops]=>Integer,Optional[volume_size]=>Integer,Optional[volume_type]=>String]]"`
+		Elasticsearch_version   string                  `puppet:"value=>'1.5'"`
+		Encrypt_at_rest         *map[string]interface{} `puppet:"type => Optional[Struct[enabled=>Boolean,Optional[kms_key_id]=>String]]"`
 		Endpoint                *string
 		Kibana_endpoint         *string
 		Log_publishing_options  *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[cloudwatch_log_group_arn=>String,Optional[enabled]=>Boolean,log_type=>String]]]"`
-		Node_to_node_encryption *[]map[string]bool        `puppet:"type => Optional[Array[Struct[enabled=>Boolean]]]"`
-		Snapshot_options        *[]map[string]int64       `puppet:"type => Optional[Array[Struct[automated_snapshot_start_hour=>Integer]]]"`
+		Node_to_node_encryption *map[string]bool          `puppet:"type => Optional[Struct[enabled=>Boolean]]"`
+		Snapshot_options        *map[string]int64         `puppet:"type => Optional[Struct[automated_snapshot_start_hour=>Integer]]"`
 		Tags                    *map[string]string
-		Vpc_options             *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[availability_zones]=>Array[String],Optional[security_group_ids]=>Array[String],Optional[subnet_ids]=>Array[String],Optional[vpc_id]=>String]]]"`
+		Vpc_options             *map[string]interface{} `puppet:"type => Optional[Struct[Optional[availability_zones]=>Array[String],Optional[security_group_ids]=>Array[String],Optional[subnet_ids]=>Array[String],Optional[vpc_id]=>String]]"`
 	}
 
 	Elasticsearch_domain_policy struct {
@@ -2299,43 +2299,43 @@ type (
 		Elastictranscoder_pipeline_id *string `lyra:"tf-gen.ignore"`
 		Arn                           *string
 		Aws_kms_key_arn               *string
-		Content_config                *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[bucket]=>String,Optional[storage_class]=>String]]]"`
+		Content_config                *map[string]string        `puppet:"type => Optional[Struct[Optional[bucket]=>String,Optional[storage_class]=>String]]"`
 		Content_config_permissions    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[access]=>Array[String],Optional[grantee]=>String,Optional[grantee_type]=>String]]]"`
 		Input_bucket                  string
 		Name                          *string
-		Notifications                 *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[completed]=>String,Optional[error]=>String,Optional[progressing]=>String,Optional[warning]=>String]]]"`
+		Notifications                 *map[string]string `puppet:"type => Optional[Struct[Optional[completed]=>String,Optional[error]=>String,Optional[progressing]=>String,Optional[warning]=>String]]"`
 		Output_bucket                 *string
 		Role                          string
-		Thumbnail_config              *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[bucket]=>String,Optional[storage_class]=>String]]]"`
+		Thumbnail_config              *map[string]string        `puppet:"type => Optional[Struct[Optional[bucket]=>String,Optional[storage_class]=>String]]"`
 		Thumbnail_config_permissions  *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[access]=>Array[String],Optional[grantee]=>String,Optional[grantee_type]=>String]]]"`
 	}
 
 	Elastictranscoder_preset struct {
 		Elastictranscoder_preset_id *string `lyra:"tf-gen.ignore"`
 		Arn                         *string
-		Audio                       *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[audio_packing_mode]=>String,Optional[bit_rate]=>String,Optional[channels]=>String,Optional[codec]=>String,Optional[sample_rate]=>String]]]"`
-		Audio_codec_options         *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[bit_depth]=>String,Optional[bit_order]=>String,Optional[profile]=>String,Optional[signed]=>String]]]"`
+		Audio                       *map[string]string `puppet:"type => Optional[Struct[Optional[audio_packing_mode]=>String,Optional[bit_rate]=>String,Optional[channels]=>String,Optional[codec]=>String,Optional[sample_rate]=>String]]"`
+		Audio_codec_options         *map[string]string `puppet:"type => Optional[Struct[Optional[bit_depth]=>String,Optional[bit_order]=>String,Optional[profile]=>String,Optional[signed]=>String]]"`
 		Container                   string
 		Description                 *string
 		Name                        *string
-		Thumbnails                  *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[aspect_ratio]=>String,Optional[format]=>String,Optional[interval]=>String,Optional[max_height]=>String,Optional[max_width]=>String,Optional[padding_policy]=>String,Optional[resolution]=>String,Optional[sizing_policy]=>String]]]"`
+		Thumbnails                  *map[string]string `puppet:"type => Optional[Struct[Optional[aspect_ratio]=>String,Optional[format]=>String,Optional[interval]=>String,Optional[max_height]=>String,Optional[max_width]=>String,Optional[padding_policy]=>String,Optional[resolution]=>String,Optional[sizing_policy]=>String]]"`
 		Type                        *string
-		Video                       *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[aspect_ratio]=>String,Optional[bit_rate]=>String,Optional[codec]=>String,Optional[display_aspect_ratio]=>String,Optional[fixed_gop]=>String,Optional[frame_rate]=>String,Optional[keyframes_max_dist]=>String,Optional[max_frame_rate]=>String,Optional[max_height]=>String,Optional[max_width]=>String,Optional[padding_policy]=>String,Optional[resolution]=>String,Optional[sizing_policy]=>String]]]"`
+		Video                       *map[string]string `puppet:"type => Optional[Struct[Optional[aspect_ratio]=>String,Optional[bit_rate]=>String,Optional[codec]=>String,Optional[display_aspect_ratio]=>String,Optional[fixed_gop]=>String,Optional[frame_rate]=>String,Optional[keyframes_max_dist]=>String,Optional[max_frame_rate]=>String,Optional[max_height]=>String,Optional[max_width]=>String,Optional[padding_policy]=>String,Optional[resolution]=>String,Optional[sizing_policy]=>String]]"`
 		Video_codec_options         *map[string]string
 		Video_watermarks            *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[horizontal_align]=>String,Optional[horizontal_offset]=>String,Optional[id]=>String,Optional[max_height]=>String,Optional[max_width]=>String,Optional[opacity]=>String,Optional[sizing_policy]=>String,Optional[target]=>String,Optional[vertical_align]=>String,Optional[vertical_offset]=>String]]]"`
 	}
 
 	Elb struct {
-		Elb_id                      *string                   `lyra:"tf-gen.ignore"`
-		Access_logs                 *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[bucket=>String,Optional[bucket_prefix]=>String,Optional[enabled]=>Boolean,Optional[interval]=>Integer]]]"`
+		Elb_id                      *string                 `lyra:"tf-gen.ignore"`
+		Access_logs                 *map[string]interface{} `puppet:"type => Optional[Struct[bucket=>String,Optional[bucket_prefix]=>String,Optional[enabled]=>Boolean,Optional[interval]=>Integer]]"`
 		Arn                         *string
 		Availability_zones          *[]string
 		Connection_draining         bool  `puppet:"value=>false"`
 		Connection_draining_timeout int64 `puppet:"value=>300"`
 		Cross_zone_load_balancing   bool  `puppet:"value=>true"`
 		Dns_name                    *string
-		Health_check                *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[healthy_threshold=>Integer,interval=>Integer,target=>String,timeout=>Integer,unhealthy_threshold=>Integer]]]"`
-		Idle_timeout                int64                     `puppet:"value=>60"`
+		Health_check                *map[string]interface{} `puppet:"type => Optional[Struct[healthy_threshold=>Integer,interval=>Integer,target=>String,timeout=>Integer,unhealthy_threshold=>Integer]]"`
+		Idle_timeout                int64                   `puppet:"value=>60"`
 		Instances                   *[]string
 		Internal                    *bool
 		Listener                    []map[string]interface{} `puppet:"type => Array[Struct[instance_port=>Integer,instance_protocol=>String,lb_port=>Integer,lb_protocol=>String,Optional[ssl_certificate_id]=>String]]"`
@@ -2368,10 +2368,10 @@ type (
 		Core_instance_type                *string
 		Custom_ami_id                     *string
 		Ebs_root_volume_size              *int64
-		Ec2_attributes                    *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[additional_master_security_groups]=>String,Optional[additional_slave_security_groups]=>String,Optional[emr_managed_master_security_group]=>String,Optional[emr_managed_slave_security_group]=>String,instance_profile=>String,Optional[key_name]=>String,Optional[service_access_security_group]=>String,Optional[subnet_id]=>String]]]"`
+		Ec2_attributes                    *map[string]string        `puppet:"type => Optional[Struct[Optional[additional_master_security_groups]=>String,Optional[additional_slave_security_groups]=>String,Optional[emr_managed_master_security_group]=>String,Optional[emr_managed_slave_security_group]=>String,instance_profile=>String,Optional[key_name]=>String,Optional[service_access_security_group]=>String,Optional[subnet_id]=>String]]"`
 		Instance_group                    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[autoscaling_policy]=>String,Optional[bid_price]=>String,Optional[ebs_config]=>Array[Struct[Optional[iops]=>Integer,size=>Integer,type=>String,Optional[volumes_per_instance]=>Integer]],Optional[id]=>String,Optional[instance_count]=>Integer,instance_role=>String,instance_type=>String,Optional[name]=>String]]]"`
 		Keep_job_flow_alive_when_no_steps *bool
-		Kerberos_attributes               *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[ad_domain_join_password]=>String,Optional[ad_domain_join_user]=>String,Optional[cross_realm_trust_principal_password]=>String,kdc_admin_password=>String,realm=>String]]]"`
+		Kerberos_attributes               *map[string]string `puppet:"type => Optional[Struct[Optional[ad_domain_join_password]=>String,Optional[ad_domain_join_user]=>String,Optional[cross_realm_trust_principal_password]=>String,kdc_admin_password=>String,realm=>String]]"`
 		Log_uri                           *string
 		Master_instance_type              *string
 		Master_public_dns                 *string
@@ -2380,7 +2380,7 @@ type (
 		Scale_down_behavior               *string
 		Security_configuration            *string
 		Service_role                      string
-		Step                              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[action_on_failure=>String,hadoop_jar_step=>Array[Struct[Optional[args]=>Array[String],jar=>String,Optional[main_class]=>String,Optional[properties]=>Hash[String,String]]],name=>String]]]"`
+		Step                              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[action_on_failure=>String,hadoop_jar_step=>Struct[Optional[args]=>Array[String],jar=>String,Optional[main_class]=>String,Optional[properties]=>Hash[String,String]],name=>String]]]"`
 		Tags                              *map[string]string
 		Termination_protection            *bool
 		Visible_to_all_users              bool `puppet:"value=>true"`
@@ -2423,14 +2423,14 @@ type (
 		Arn               *string
 		Description       *string
 		Name              string
-		Routing_strategy  []map[string]string `puppet:"type => Array[Struct[Optional[fleet_id]=>String,Optional[message]=>String,type=>String]]"`
+		Routing_strategy  *map[string]string `puppet:"type => Optional[Struct[Optional[fleet_id]=>String,Optional[message]=>String,type=>String]]"`
 	}
 
 	Gamelift_build struct {
 		Gamelift_build_id *string `lyra:"tf-gen.ignore"`
 		Name              string
 		Operating_system  string
-		Storage_location  []map[string]string `puppet:"type => Array[Struct[bucket=>String,key=>String,role_arn=>String]]"`
+		Storage_location  *map[string]string `puppet:"type => Optional[Struct[bucket=>String,key=>String,role_arn=>String]]"`
 		Version           *string
 	}
 
@@ -2439,15 +2439,15 @@ type (
 		Arn                                *string
 		Build_id                           string
 		Description                        *string
-		Ec2_inbound_permission             *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[from_port=>Integer,ip_range=>String,protocol=>String,to_port=>Integer]]]"`
+		Ec2_inbound_permission             *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[from_port=>Integer,ip_range=>String,protocol=>String,to_port=>Integer],0,50]]"`
 		Ec2_instance_type                  string
 		Log_paths                          *[]string
 		Metric_groups                      *[]string
 		Name                               string
 		New_game_session_protection_policy string `puppet:"value=>'NoProtection'"`
 		Operating_system                   *string
-		Resource_creation_limit_policy     *[]map[string]int64       `puppet:"type => Optional[Array[Struct[Optional[new_game_sessions_per_creator]=>Integer,Optional[policy_period_in_minutes]=>Integer]]]"`
-		Runtime_configuration              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[game_session_activation_timeout_seconds]=>Integer,Optional[max_concurrent_game_session_activations]=>Integer,Optional[server_process]=>Array[Struct[concurrent_executions=>Integer,launch_path=>String,Optional[parameters]=>String]]]]]"`
+		Resource_creation_limit_policy     *map[string]int64       `puppet:"type => Optional[Struct[Optional[new_game_sessions_per_creator]=>Integer,Optional[policy_period_in_minutes]=>Integer]]"`
+		Runtime_configuration              *map[string]interface{} `puppet:"type => Optional[Struct[Optional[game_session_activation_timeout_seconds]=>Integer,Optional[max_concurrent_game_session_activations]=>Integer,Optional[server_process]=>Array[Struct[concurrent_executions=>Integer,launch_path=>String,Optional[parameters]=>String],0,50]]]"`
 	}
 
 	Gamelift_game_session_queue struct {
@@ -2479,7 +2479,7 @@ type (
 
 	Globalaccelerator_accelerator struct {
 		Globalaccelerator_accelerator_id *string                   `lyra:"tf-gen.ignore"`
-		Attributes                       *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[flow_logs_enabled]=>Boolean,Optional[flow_logs_s3_bucket]=>String,Optional[flow_logs_s3_prefix]=>String]]]"`
+		Attributes                       *map[string]interface{}   `puppet:"type => Optional[Struct[Optional[flow_logs_enabled]=>Boolean,Optional[flow_logs_s3_bucket]=>String,Optional[flow_logs_s3_prefix]=>String]]"`
 		Enabled                          bool                      `puppet:"value=>true"`
 		Ip_address_type                  string                    `puppet:"value=>'IPV4'"`
 		Ip_sets                          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[ip_addresses]=>Array[String],Optional[ip_family]=>String]]]"`
@@ -2505,18 +2505,18 @@ type (
 		Parameters            *map[string]string
 		Partition_keys        *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[comment]=>String,name=>String,Optional[type]=>String]]]"`
 		Retention             *int64
-		Storage_descriptor    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[bucket_columns]=>Array[String],Optional[columns]=>Array[Struct[Optional[comment]=>String,name=>String,Optional[type]=>String]],Optional[compressed]=>Boolean,Optional[input_format]=>String,Optional[location]=>String,Optional[number_of_buckets]=>Integer,Optional[output_format]=>String,Optional[parameters]=>Hash[String,String],Optional[ser_de_info]=>Array[Struct[Optional[name]=>String,Optional[parameters]=>Hash[String,String],Optional[serialization_library]=>String]],Optional[skewed_info]=>Array[Struct[Optional[skewed_column_names]=>Array[String],Optional[skewed_column_value_location_maps]=>Hash[String,String],Optional[skewed_column_values]=>Array[String]]],Optional[sort_columns]=>Array[Struct[column=>String,sort_order=>Integer]],Optional[stored_as_sub_directories]=>Boolean]]]"`
+		Storage_descriptor    *map[string]interface{} `puppet:"type => Optional[Struct[Optional[bucket_columns]=>Array[String],Optional[columns]=>Array[Struct[Optional[comment]=>String,name=>String,Optional[type]=>String]],Optional[compressed]=>Boolean,Optional[input_format]=>String,Optional[location]=>String,Optional[number_of_buckets]=>Integer,Optional[output_format]=>String,Optional[parameters]=>Hash[String,String],Optional[ser_de_info]=>Struct[Optional[name]=>String,Optional[parameters]=>Hash[String,String],Optional[serialization_library]=>String],Optional[skewed_info]=>Struct[Optional[skewed_column_names]=>Array[String],Optional[skewed_column_value_location_maps]=>Hash[String,String],Optional[skewed_column_values]=>Array[String]],Optional[sort_columns]=>Array[Struct[column=>String,sort_order=>Integer]],Optional[stored_as_sub_directories]=>Boolean]]"`
 		Table_type            *string
 		View_expanded_text    *string
 		View_original_text    *string
 	}
 
 	Glue_classifier struct {
-		Glue_classifier_id *string              `lyra:"tf-gen.ignore"`
-		Grok_classifier    *[]map[string]string `puppet:"type => Optional[Array[Struct[classification=>String,Optional[custom_patterns]=>String,grok_pattern=>String]]]"`
-		Json_classifier    *[]map[string]string `puppet:"type => Optional[Array[Struct[json_path=>String]]]"`
+		Glue_classifier_id *string            `lyra:"tf-gen.ignore"`
+		Grok_classifier    *map[string]string `puppet:"type => Optional[Struct[classification=>String,Optional[custom_patterns]=>String,grok_pattern=>String]]"`
+		Json_classifier    *map[string]string `puppet:"type => Optional[Struct[json_path=>String]]"`
 		Name               string
-		Xml_classifier     *[]map[string]string `puppet:"type => Optional[Array[Struct[classification=>String,row_tag=>String]]]"`
+		Xml_classifier     *map[string]string `puppet:"type => Optional[Struct[classification=>String,row_tag=>String]]"`
 	}
 
 	Glue_connection struct {
@@ -2527,7 +2527,7 @@ type (
 		Description                      *string
 		Match_criteria                   *[]string
 		Name                             string
-		Physical_connection_requirements *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[availability_zone]=>String,Optional[security_group_id_list]=>Array[String],Optional[subnet_id]=>String]]]"`
+		Physical_connection_requirements *map[string]interface{} `puppet:"type => Optional[Struct[Optional[availability_zone]=>String,Optional[security_group_id_list]=>Array[String],Optional[subnet_id]=>String]]"`
 	}
 
 	Glue_crawler struct {
@@ -2536,25 +2536,25 @@ type (
 		Configuration          *string
 		Database_name          string
 		Description            *string
-		Dynamodb_target        *[]map[string]string      `puppet:"type => Optional[Array[Struct[path=>String]]]"`
-		Jdbc_target            *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[connection_name=>String,Optional[exclusions]=>Array[String],path=>String]]]"`
+		Dynamodb_target        *[]map[string]string      `puppet:"type => Optional[Array[Struct[path=>String],1]]"`
+		Jdbc_target            *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[connection_name=>String,Optional[exclusions]=>Array[String],path=>String],1]]"`
 		Name                   string
 		Role                   string
-		S3_target              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[exclusions]=>Array[String],path=>String]]]"`
+		S3_target              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[exclusions]=>Array[String],path=>String],1]]"`
 		Schedule               *string
-		Schema_change_policy   *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[delete_behavior]=>String,Optional[update_behavior]=>String]]]"`
+		Schema_change_policy   *map[string]string `puppet:"type => Optional[Struct[Optional[delete_behavior]=>String,Optional[update_behavior]=>String]]"`
 		Security_configuration *string
 		Table_prefix           *string
 	}
 
 	Glue_job struct {
-		Glue_job_id            *string             `lyra:"tf-gen.ignore"`
-		Allocated_capacity     int64               `puppet:"value=>10"`
-		Command                []map[string]string `puppet:"type => Array[Struct[Optional[name]=>String,script_location=>String]]"`
+		Glue_job_id            *string            `lyra:"tf-gen.ignore"`
+		Allocated_capacity     int64              `puppet:"value=>10"`
+		Command                *map[string]string `puppet:"type => Optional[Struct[Optional[name]=>String,script_location=>String]]"`
 		Connections            *[]string
 		Default_arguments      *map[string]string
 		Description            *string
-		Execution_property     *[]map[string]int64 `puppet:"type => Optional[Array[Struct[Optional[max_concurrent_runs]=>Integer]]]"`
+		Execution_property     *map[string]int64 `puppet:"type => Optional[Struct[Optional[max_concurrent_runs]=>Integer]]"`
 		Max_retries            *int64
 		Name                   string
 		Role_arn               string
@@ -2563,18 +2563,18 @@ type (
 	}
 
 	Glue_security_configuration struct {
-		Glue_security_configuration_id *string                    `lyra:"tf-gen.ignore"`
-		Encryption_configuration       []map[string][]interface{} `puppet:"type => Array[Struct[cloudwatch_encryption=>Array[Struct[Optional[cloudwatch_encryption_mode]=>String,Optional[kms_key_arn]=>String]],job_bookmarks_encryption=>Array[Struct[Optional[job_bookmarks_encryption_mode]=>String,Optional[kms_key_arn]=>String]],s3_encryption=>Array[Struct[Optional[kms_key_arn]=>String,Optional[s3_encryption_mode]=>String]]]]"`
+		Glue_security_configuration_id *string                   `lyra:"tf-gen.ignore"`
+		Encryption_configuration       *map[string][]interface{} `puppet:"type => Optional[Struct[cloudwatch_encryption=>Struct[Optional[cloudwatch_encryption_mode]=>String,Optional[kms_key_arn]=>String],job_bookmarks_encryption=>Struct[Optional[job_bookmarks_encryption_mode]=>String,Optional[kms_key_arn]=>String],s3_encryption=>Struct[Optional[kms_key_arn]=>String,Optional[s3_encryption_mode]=>String]]]"`
 		Name                           string
 	}
 
 	Glue_trigger struct {
 		Glue_trigger_id *string                  `lyra:"tf-gen.ignore"`
-		Actions         []map[string]interface{} `puppet:"type => Array[Struct[Optional[arguments]=>Hash[String,String],job_name=>String,Optional[timeout]=>Integer]]"`
+		Actions         []map[string]interface{} `puppet:"type => Array[Struct[Optional[arguments]=>Hash[String,String],job_name=>String,Optional[timeout]=>Integer],1]"`
 		Description     *string
 		Enabled         bool `puppet:"value=>true"`
 		Name            string
-		Predicate       *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[conditions=>Array[Struct[job_name=>String,Optional[logical_operator]=>String,state=>String]],Optional[logical]=>String]]]"`
+		Predicate       *map[string]interface{} `puppet:"type => Optional[Struct[conditions=>Array[Struct[job_name=>String,Optional[logical_operator]=>String,state=>String],1],Optional[logical]=>String]]"`
 		Schedule        *string
 		Type            string
 	}
@@ -2856,7 +2856,7 @@ type (
 		Block_device                         *map[string]string
 		Cpu_core_count                       *int64
 		Cpu_threads_per_core                 *int64
-		Credit_specification                 *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[cpu_credits]=>String]]]"`
+		Credit_specification                 *map[string]string `puppet:"type => Optional[Struct[Optional[cpu_credits]=>String]]"`
 		Disable_api_termination              *bool
 		Ebs_block_device                     *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[delete_on_termination]=>Boolean,device_name=>String,Optional[encrypted]=>Boolean,Optional[iops]=>Integer,Optional[snapshot_id]=>String,Optional[volume_id]=>String,Optional[volume_size]=>Integer,Optional[volume_type]=>String]]]"`
 		Ebs_optimized                        *bool
@@ -2880,7 +2880,7 @@ type (
 		Private_ip                           *string
 		Public_dns                           *string
 		Public_ip                            *string
-		Root_block_device                    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[delete_on_termination]=>Boolean,Optional[iops]=>Integer,Optional[volume_id]=>String,Optional[volume_size]=>Integer,Optional[volume_type]=>String]]]"`
+		Root_block_device                    *map[string]interface{} `puppet:"type => Optional[Struct[Optional[delete_on_termination]=>Boolean,Optional[iops]=>Integer,Optional[volume_id]=>String,Optional[volume_size]=>Integer,Optional[volume_type]=>String]]"`
 		Security_groups                      *[]string
 		Source_dest_check                    bool `puppet:"value=>true"`
 		Subnet_id                            *string
@@ -2941,7 +2941,7 @@ type (
 		Arn               *string
 		Deprecated        bool `puppet:"value=>false"`
 		Name              string
-		Properties        *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[description]=>String,Optional[searchable_attributes]=>Array[String]]]]"`
+		Properties        *map[string]interface{} `puppet:"type => Optional[Struct[Optional[description]=>String,Optional[searchable_attributes]=>Array[String,0,3]]]"`
 	}
 
 	Iot_topic_rule struct {
@@ -2976,15 +2976,15 @@ type (
 	Kinesis_analytics_application struct {
 		Kinesis_analytics_application_id *string `lyra:"tf-gen.ignore"`
 		Arn                              *string
-		Cloudwatch_logging_options       *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[id]=>String,log_stream_arn=>String,role_arn=>String]]]"`
+		Cloudwatch_logging_options       *map[string]string `puppet:"type => Optional[Struct[Optional[id]=>String,log_stream_arn=>String,role_arn=>String]]"`
 		Code                             *string
 		Create_timestamp                 *string
 		Description                      *string
-		Inputs                           *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[id]=>String,Optional[kinesis_firehose]=>Array[Struct[resource_arn=>String,role_arn=>String]],Optional[kinesis_stream]=>Array[Struct[resource_arn=>String,role_arn=>String]],name_prefix=>String,Optional[parallelism]=>Array[Struct[count=>Integer]],Optional[processing_configuration]=>Array[Struct[lambda=>Array[Struct[resource_arn=>String,role_arn=>String]]]],schema=>Array[Struct[record_columns=>Array[Struct[Optional[mapping]=>String,name=>String,sql_type=>String]],Optional[record_encoding]=>String,record_format=>Array[Struct[Optional[mapping_parameters]=>Array[Struct[Optional[csv]=>Array[Struct[record_column_delimiter=>String,record_row_delimiter=>String]],Optional[json]=>Array[Struct[record_row_path=>String]]]],Optional[record_format_type]=>String]]]],Optional[starting_position_configuration]=>Array[Struct[Optional[starting_position]=>String]],Optional[stream_names]=>Array[String]]]]"`
+		Inputs                           *map[string]interface{} `puppet:"type => Optional[Struct[Optional[id]=>String,Optional[kinesis_firehose]=>Struct[resource_arn=>String,role_arn=>String],Optional[kinesis_stream]=>Struct[resource_arn=>String,role_arn=>String],name_prefix=>String,Optional[parallelism]=>Struct[count=>Integer],Optional[processing_configuration]=>Struct[lambda=>Struct[resource_arn=>String,role_arn=>String]],schema=>Struct[record_columns=>Array[Struct[Optional[mapping]=>String,name=>String,sql_type=>String]],Optional[record_encoding]=>String,record_format=>Struct[Optional[mapping_parameters]=>Struct[Optional[csv]=>Struct[record_column_delimiter=>String,record_row_delimiter=>String],Optional[json]=>Struct[record_row_path=>String]],Optional[record_format_type]=>String]],Optional[starting_position_configuration]=>Array[Struct[Optional[starting_position]=>String]],Optional[stream_names]=>Array[String]]]"`
 		Last_update_timestamp            *string
 		Name                             string
-		Outputs                          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[id]=>String,Optional[kinesis_firehose]=>Array[Struct[resource_arn=>String,role_arn=>String]],Optional[kinesis_stream]=>Array[Struct[resource_arn=>String,role_arn=>String]],Optional[lambda]=>Array[Struct[resource_arn=>String,role_arn=>String]],name=>String,schema=>Array[Struct[Optional[record_format_type]=>String]]]]]"`
-		Reference_data_sources           *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[id]=>String,s3=>Array[Struct[bucket_arn=>String,file_key=>String,role_arn=>String]],schema=>Array[Struct[record_columns=>Array[Struct[Optional[mapping]=>String,name=>String,sql_type=>String]],Optional[record_encoding]=>String,record_format=>Array[Struct[Optional[mapping_parameters]=>Array[Struct[Optional[csv]=>Array[Struct[record_column_delimiter=>String,record_row_delimiter=>String]],Optional[json]=>Array[Struct[record_row_path=>String]]]],Optional[record_format_type]=>String]]]],table_name=>String]]]"`
+		Outputs                          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[id]=>String,Optional[kinesis_firehose]=>Struct[resource_arn=>String,role_arn=>String],Optional[kinesis_stream]=>Struct[resource_arn=>String,role_arn=>String],Optional[lambda]=>Struct[resource_arn=>String,role_arn=>String],name=>String,schema=>Struct[Optional[record_format_type]=>String]],0,3]]"`
+		Reference_data_sources           *map[string]interface{}   `puppet:"type => Optional[Struct[Optional[id]=>String,s3=>Struct[bucket_arn=>String,file_key=>String,role_arn=>String],schema=>Struct[record_columns=>Array[Struct[Optional[mapping]=>String,name=>String,sql_type=>String]],Optional[record_encoding]=>String,record_format=>Struct[Optional[mapping_parameters]=>Struct[Optional[csv]=>Struct[record_column_delimiter=>String,record_row_delimiter=>String],Optional[json]=>Struct[record_row_path=>String]],Optional[record_format_type]=>String]],table_name=>String]]"`
 		Status                           *string
 		Version                          *int64
 	}
@@ -2994,13 +2994,13 @@ type (
 		Arn                                 *string
 		Destination                         string
 		Destination_id                      *string
-		Elasticsearch_configuration         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[buffering_interval]=>Integer,Optional[buffering_size]=>Integer,Optional[cloudwatch_logging_options]=>Array[Struct[Optional[enabled]=>Boolean,Optional[log_group_name]=>String,Optional[log_stream_name]=>String]],domain_arn=>String,index_name=>String,Optional[index_rotation_period]=>String,Optional[processing_configuration]=>Array[Struct[Optional[enabled]=>Boolean,Optional[processors]=>Array[Struct[Optional[parameters]=>Array[Struct[parameter_name=>String,parameter_value=>String]],type=>String]]]],Optional[retry_duration]=>Integer,role_arn=>String,Optional[s3_backup_mode]=>String,Optional[type_name]=>String]]]"`
-		Extended_s3_configuration           *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[bucket_arn=>String,Optional[buffer_interval]=>Integer,Optional[buffer_size]=>Integer,Optional[cloudwatch_logging_options]=>Array[Struct[Optional[enabled]=>Boolean,Optional[log_group_name]=>String,Optional[log_stream_name]=>String]],Optional[compression_format]=>String,Optional[data_format_conversion_configuration]=>Array[Struct[Optional[enabled]=>Boolean,input_format_configuration=>Array[Struct[deserializer=>Array[Struct[Optional[hive_json_ser_de]=>Array[Struct[Optional[timestamp_formats]=>Array[String]]],Optional[open_x_json_ser_de]=>Array[Struct[Optional[case_insensitive]=>Boolean,Optional[column_to_json_key_mappings]=>Hash[String,String],Optional[convert_dots_in_json_keys_to_underscores]=>Boolean]]]]]],output_format_configuration=>Array[Struct[serializer=>Array[Struct[Optional[orc_ser_de]=>Array[Struct[Optional[block_size_bytes]=>Integer,Optional[bloom_filter_columns]=>Array[String],Optional[bloom_filter_false_positive_probability]=>Float,Optional[compression]=>String,Optional[dictionary_key_threshold]=>Float,Optional[enable_padding]=>Boolean,Optional[format_version]=>String,Optional[padding_tolerance]=>Float,Optional[row_index_stride]=>Integer,Optional[stripe_size_bytes]=>Integer]],Optional[parquet_ser_de]=>Array[Struct[Optional[block_size_bytes]=>Integer,Optional[compression]=>String,Optional[enable_dictionary_compression]=>Boolean,Optional[max_padding_bytes]=>Integer,Optional[page_size_bytes]=>Integer,Optional[writer_version]=>String]]]]]],schema_configuration=>Array[Struct[Optional[catalog_id]=>String,database_name=>String,Optional[region]=>String,role_arn=>String,table_name=>String,Optional[version_id]=>String]]]],Optional[error_output_prefix]=>String,Optional[kms_key_arn]=>String,Optional[prefix]=>String,Optional[processing_configuration]=>Array[Struct[Optional[enabled]=>Boolean,Optional[processors]=>Array[Struct[Optional[parameters]=>Array[Struct[parameter_name=>String,parameter_value=>String]],type=>String]]]],role_arn=>String,Optional[s3_backup_configuration]=>Array[Struct[bucket_arn=>String,Optional[buffer_interval]=>Integer,Optional[buffer_size]=>Integer,Optional[cloudwatch_logging_options]=>Array[Struct[Optional[enabled]=>Boolean,Optional[log_group_name]=>String,Optional[log_stream_name]=>String]],Optional[compression_format]=>String,Optional[kms_key_arn]=>String,Optional[prefix]=>String,role_arn=>String]],Optional[s3_backup_mode]=>String]]]"`
-		Kinesis_source_configuration        *[]map[string]string      `puppet:"type => Optional[Array[Struct[kinesis_stream_arn=>String,role_arn=>String]]]"`
+		Elasticsearch_configuration         *map[string]interface{} `puppet:"type => Optional[Struct[Optional[buffering_interval]=>Integer,Optional[buffering_size]=>Integer,Optional[cloudwatch_logging_options]=>Struct[Optional[enabled]=>Boolean,Optional[log_group_name]=>String,Optional[log_stream_name]=>String],domain_arn=>String,index_name=>String,Optional[index_rotation_period]=>String,Optional[processing_configuration]=>Struct[Optional[enabled]=>Boolean,Optional[processors]=>Array[Struct[Optional[parameters]=>Array[Struct[parameter_name=>String,parameter_value=>String]],type=>String]]],Optional[retry_duration]=>Integer,role_arn=>String,Optional[s3_backup_mode]=>String,Optional[type_name]=>String]]"`
+		Extended_s3_configuration           *map[string]interface{} `puppet:"type => Optional[Struct[bucket_arn=>String,Optional[buffer_interval]=>Integer,Optional[buffer_size]=>Integer,Optional[cloudwatch_logging_options]=>Struct[Optional[enabled]=>Boolean,Optional[log_group_name]=>String,Optional[log_stream_name]=>String],Optional[compression_format]=>String,Optional[data_format_conversion_configuration]=>Struct[Optional[enabled]=>Boolean,input_format_configuration=>Struct[deserializer=>Struct[Optional[hive_json_ser_de]=>Struct[Optional[timestamp_formats]=>Array[String]],Optional[open_x_json_ser_de]=>Struct[Optional[case_insensitive]=>Boolean,Optional[column_to_json_key_mappings]=>Hash[String,String],Optional[convert_dots_in_json_keys_to_underscores]=>Boolean]]],output_format_configuration=>Struct[serializer=>Struct[Optional[orc_ser_de]=>Struct[Optional[block_size_bytes]=>Integer,Optional[bloom_filter_columns]=>Array[String],Optional[bloom_filter_false_positive_probability]=>Float,Optional[compression]=>String,Optional[dictionary_key_threshold]=>Float,Optional[enable_padding]=>Boolean,Optional[format_version]=>String,Optional[padding_tolerance]=>Float,Optional[row_index_stride]=>Integer,Optional[stripe_size_bytes]=>Integer],Optional[parquet_ser_de]=>Struct[Optional[block_size_bytes]=>Integer,Optional[compression]=>String,Optional[enable_dictionary_compression]=>Boolean,Optional[max_padding_bytes]=>Integer,Optional[page_size_bytes]=>Integer,Optional[writer_version]=>String]]],schema_configuration=>Struct[Optional[catalog_id]=>String,database_name=>String,Optional[region]=>String,role_arn=>String,table_name=>String,Optional[version_id]=>String]],Optional[error_output_prefix]=>String,Optional[kms_key_arn]=>String,Optional[prefix]=>String,Optional[processing_configuration]=>Struct[Optional[enabled]=>Boolean,Optional[processors]=>Array[Struct[Optional[parameters]=>Array[Struct[parameter_name=>String,parameter_value=>String]],type=>String]]],role_arn=>String,Optional[s3_backup_configuration]=>Struct[bucket_arn=>String,Optional[buffer_interval]=>Integer,Optional[buffer_size]=>Integer,Optional[cloudwatch_logging_options]=>Struct[Optional[enabled]=>Boolean,Optional[log_group_name]=>String,Optional[log_stream_name]=>String],Optional[compression_format]=>String,Optional[kms_key_arn]=>String,Optional[prefix]=>String,role_arn=>String],Optional[s3_backup_mode]=>String]]"`
+		Kinesis_source_configuration        *map[string]string      `puppet:"type => Optional[Struct[kinesis_stream_arn=>String,role_arn=>String]]"`
 		Name                                string
-		Redshift_configuration              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[cloudwatch_logging_options]=>Array[Struct[Optional[enabled]=>Boolean,Optional[log_group_name]=>String,Optional[log_stream_name]=>String]],cluster_jdbcurl=>String,Optional[copy_options]=>String,Optional[data_table_columns]=>String,data_table_name=>String,password=>String,Optional[processing_configuration]=>Array[Struct[Optional[enabled]=>Boolean,Optional[processors]=>Array[Struct[Optional[parameters]=>Array[Struct[parameter_name=>String,parameter_value=>String]],type=>String]]]],Optional[retry_duration]=>Integer,role_arn=>String,Optional[s3_backup_configuration]=>Array[Struct[bucket_arn=>String,Optional[buffer_interval]=>Integer,Optional[buffer_size]=>Integer,Optional[cloudwatch_logging_options]=>Array[Struct[Optional[enabled]=>Boolean,Optional[log_group_name]=>String,Optional[log_stream_name]=>String]],Optional[compression_format]=>String,Optional[kms_key_arn]=>String,Optional[prefix]=>String,role_arn=>String]],Optional[s3_backup_mode]=>String,username=>String]]]"`
-		S3_configuration                    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[bucket_arn=>String,Optional[buffer_interval]=>Integer,Optional[buffer_size]=>Integer,Optional[cloudwatch_logging_options]=>Array[Struct[Optional[enabled]=>Boolean,Optional[log_group_name]=>String,Optional[log_stream_name]=>String]],Optional[compression_format]=>String,Optional[kms_key_arn]=>String,Optional[prefix]=>String,role_arn=>String]]]"`
-		Splunk_configuration                *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[cloudwatch_logging_options]=>Array[Struct[Optional[enabled]=>Boolean,Optional[log_group_name]=>String,Optional[log_stream_name]=>String]],Optional[hec_acknowledgment_timeout]=>Integer,hec_endpoint=>String,Optional[hec_endpoint_type]=>String,hec_token=>String,Optional[processing_configuration]=>Array[Struct[Optional[enabled]=>Boolean,Optional[processors]=>Array[Struct[Optional[parameters]=>Array[Struct[parameter_name=>String,parameter_value=>String]],type=>String]]]],Optional[retry_duration]=>Integer,Optional[s3_backup_mode]=>String]]]"`
+		Redshift_configuration              *map[string]interface{} `puppet:"type => Optional[Struct[Optional[cloudwatch_logging_options]=>Struct[Optional[enabled]=>Boolean,Optional[log_group_name]=>String,Optional[log_stream_name]=>String],cluster_jdbcurl=>String,Optional[copy_options]=>String,Optional[data_table_columns]=>String,data_table_name=>String,password=>String,Optional[processing_configuration]=>Struct[Optional[enabled]=>Boolean,Optional[processors]=>Array[Struct[Optional[parameters]=>Array[Struct[parameter_name=>String,parameter_value=>String]],type=>String]]],Optional[retry_duration]=>Integer,role_arn=>String,Optional[s3_backup_configuration]=>Struct[bucket_arn=>String,Optional[buffer_interval]=>Integer,Optional[buffer_size]=>Integer,Optional[cloudwatch_logging_options]=>Struct[Optional[enabled]=>Boolean,Optional[log_group_name]=>String,Optional[log_stream_name]=>String],Optional[compression_format]=>String,Optional[kms_key_arn]=>String,Optional[prefix]=>String,role_arn=>String],Optional[s3_backup_mode]=>String,username=>String]]"`
+		S3_configuration                    *map[string]interface{} `puppet:"type => Optional[Struct[bucket_arn=>String,Optional[buffer_interval]=>Integer,Optional[buffer_size]=>Integer,Optional[cloudwatch_logging_options]=>Struct[Optional[enabled]=>Boolean,Optional[log_group_name]=>String,Optional[log_stream_name]=>String],Optional[compression_format]=>String,Optional[kms_key_arn]=>String,Optional[prefix]=>String,role_arn=>String]]"`
+		Splunk_configuration                *map[string]interface{} `puppet:"type => Optional[Struct[Optional[cloudwatch_logging_options]=>Struct[Optional[enabled]=>Boolean,Optional[log_group_name]=>String,Optional[log_stream_name]=>String],Optional[hec_acknowledgment_timeout]=>Integer,hec_endpoint=>String,Optional[hec_endpoint_type]=>String,hec_token=>String,Optional[processing_configuration]=>Struct[Optional[enabled]=>Boolean,Optional[processors]=>Array[Struct[Optional[parameters]=>Array[Struct[parameter_name=>String,parameter_value=>String]],type=>String]]],Optional[retry_duration]=>Integer,Optional[s3_backup_mode]=>String]]"`
 		Tags                                *map[string]string
 		Version_id                          *string
 	}
@@ -3061,7 +3061,7 @@ type (
 		Function_version string
 		Invoke_arn       *string
 		Name             string
-		Routing_config   *[]map[string]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[additional_version_weights]=>Hash[String,Float]]]]"`
+		Routing_config   *map[string]map[string]interface{} `puppet:"type => Optional[Struct[Optional[additional_version_weights]=>Hash[String,Float]]]"`
 	}
 
 	Lambda_event_source_mapping struct {
@@ -3083,9 +3083,9 @@ type (
 	Lambda_function struct {
 		Lambda_function_id             *string `lyra:"tf-gen.ignore"`
 		Arn                            *string
-		Dead_letter_config             *[]map[string]string `puppet:"type => Optional[Array[Struct[target_arn=>String]]]"`
+		Dead_letter_config             *map[string]string `puppet:"type => Optional[Struct[target_arn=>String]]"`
 		Description                    *string
-		Environment                    *[]map[string]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[variables]=>Hash[String,String]]]]"`
+		Environment                    *map[string]map[string]interface{} `puppet:"type => Optional[Struct[Optional[variables]=>Hash[String,String]]]"`
 		Filename                       *string
 		Function_name                  string
 		Handler                        string
@@ -3105,10 +3105,10 @@ type (
 		Source_code_hash               *string
 		Source_code_size               *int64
 		Tags                           *map[string]string
-		Timeout                        int64                `puppet:"value=>3"`
-		Tracing_config                 *[]map[string]string `puppet:"type => Optional[Array[Struct[mode=>String]]]"`
+		Timeout                        int64              `puppet:"value=>3"`
+		Tracing_config                 *map[string]string `puppet:"type => Optional[Struct[mode=>String]]"`
 		Version                        *string
-		Vpc_config                     *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[security_group_ids=>Array[String],subnet_ids=>Array[String],Optional[vpc_id]=>String]]]"`
+		Vpc_config                     *map[string]interface{} `puppet:"type => Optional[Struct[security_group_ids=>Array[String],subnet_ids=>Array[String],Optional[vpc_id]=>String]]"`
 	}
 
 	Lambda_layer_version struct {
@@ -3156,7 +3156,7 @@ type (
 		Name                             *string
 		Name_prefix                      *string
 		Placement_tenancy                *string
-		Root_block_device                *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[delete_on_termination]=>Boolean,Optional[iops]=>Integer,Optional[volume_size]=>Integer,Optional[volume_type]=>String]]]"`
+		Root_block_device                *map[string]interface{} `puppet:"type => Optional[Struct[Optional[delete_on_termination]=>Boolean,Optional[iops]=>Integer,Optional[volume_size]=>Integer,Optional[volume_type]=>String]]"`
 		Security_groups                  *[]string
 		Spot_price                       *string
 		User_data                        *string
@@ -3168,28 +3168,28 @@ type (
 	Launch_template struct {
 		Launch_template_id                   *string `lyra:"tf-gen.ignore"`
 		Arn                                  *string
-		Block_device_mappings                *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[device_name]=>String,Optional[ebs]=>Array[Struct[Optional[delete_on_termination]=>String,Optional[encrypted]=>String,Optional[iops]=>Integer,Optional[kms_key_id]=>String,Optional[snapshot_id]=>String,Optional[volume_size]=>Integer,Optional[volume_type]=>String]],Optional[no_device]=>String,Optional[virtual_name]=>String]]]"`
-		Capacity_reservation_specification   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[capacity_reservation_preference]=>String,Optional[capacity_reservation_target]=>Array[Struct[Optional[capacity_reservation_id]=>String]]]]]"`
-		Credit_specification                 *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[cpu_credits]=>String]]]"`
+		Block_device_mappings                *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[device_name]=>String,Optional[ebs]=>Struct[Optional[delete_on_termination]=>String,Optional[encrypted]=>String,Optional[iops]=>Integer,Optional[kms_key_id]=>String,Optional[snapshot_id]=>String,Optional[volume_size]=>Integer,Optional[volume_type]=>String],Optional[no_device]=>String,Optional[virtual_name]=>String]]]"`
+		Capacity_reservation_specification   *map[string]interface{}   `puppet:"type => Optional[Struct[Optional[capacity_reservation_preference]=>String,Optional[capacity_reservation_target]=>Struct[Optional[capacity_reservation_id]=>String]]]"`
+		Credit_specification                 *map[string]string        `puppet:"type => Optional[Struct[Optional[cpu_credits]=>String]]"`
 		Default_version                      *int64
 		Description                          *string
 		Disable_api_termination              *bool
 		Ebs_optimized                        *string
 		Elastic_gpu_specifications           *[]map[string]string `puppet:"type => Optional[Array[Struct[type=>String]]]"`
-		Iam_instance_profile                 *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[arn]=>String,Optional[name]=>String]]]"`
+		Iam_instance_profile                 *map[string]string   `puppet:"type => Optional[Struct[Optional[arn]=>String,Optional[name]=>String]]"`
 		Image_id                             *string
 		Instance_initiated_shutdown_behavior *string
-		Instance_market_options              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[market_type]=>String,Optional[spot_options]=>Array[Struct[Optional[block_duration_minutes]=>Integer,Optional[instance_interruption_behavior]=>String,Optional[max_price]=>String,Optional[spot_instance_type]=>String,Optional[valid_until]=>Timestamp]]]]]"`
+		Instance_market_options              *map[string]interface{} `puppet:"type => Optional[Struct[Optional[market_type]=>String,Optional[spot_options]=>Struct[Optional[block_duration_minutes]=>Integer,Optional[instance_interruption_behavior]=>String,Optional[max_price]=>String,Optional[spot_instance_type]=>String,Optional[valid_until]=>Timestamp]]]"`
 		Instance_type                        *string
 		Kernel_id                            *string
 		Key_name                             *string
 		Latest_version                       *int64
 		License_specification                *[]map[string]string `puppet:"type => Optional[Array[Struct[license_configuration_arn=>String]]]"`
-		Monitoring                           *[]map[string]bool   `puppet:"type => Optional[Array[Struct[Optional[enabled]=>Boolean]]]"`
+		Monitoring                           *map[string]bool     `puppet:"type => Optional[Struct[Optional[enabled]=>Boolean]]"`
 		Name                                 *string
 		Name_prefix                          *string
 		Network_interfaces                   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[associate_public_ip_address]=>Boolean,Optional[delete_on_termination]=>Boolean,Optional[description]=>String,Optional[device_index]=>Integer,Optional[ipv4_address_count]=>Integer,Optional[ipv4_addresses]=>Array[String],Optional[ipv6_address_count]=>Integer,Optional[ipv6_addresses]=>Array[String],Optional[network_interface_id]=>String,Optional[private_ip_address]=>String,Optional[security_groups]=>Array[String],Optional[subnet_id]=>String]]]"`
-		Placement                            *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[affinity]=>String,Optional[availability_zone]=>String,Optional[group_name]=>String,Optional[host_id]=>String,Optional[spread_domain]=>String,Optional[tenancy]=>String]]]"`
+		Placement                            *map[string]string        `puppet:"type => Optional[Struct[Optional[affinity]=>String,Optional[availability_zone]=>String,Optional[group_name]=>String,Optional[host_id]=>String,Optional[spread_domain]=>String,Optional[tenancy]=>String]]"`
 		Ram_disk_id                          *string
 		Security_group_names                 *[]string
 		Tag_specifications                   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[resource_type]=>String,Optional[tags]=>Hash[String,String]]]]"`
@@ -3199,8 +3199,8 @@ type (
 	}
 
 	Lb struct {
-		Lb_id                            *string                   `lyra:"tf-gen.ignore"`
-		Access_logs                      *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[bucket=>String,Optional[enabled]=>Boolean,Optional[prefix]=>String]]]"`
+		Lb_id                            *string                 `lyra:"tf-gen.ignore"`
+		Access_logs                      *map[string]interface{} `puppet:"type => Optional[Struct[bucket=>String,Optional[enabled]=>Boolean,Optional[prefix]=>String]]"`
 		Arn                              *string
 		Arn_suffix                       *string
 		Dns_name                         *string
@@ -3233,7 +3233,7 @@ type (
 		Lb_listener_id    *string `lyra:"tf-gen.ignore"`
 		Arn               *string
 		Certificate_arn   *string
-		Default_action    []map[string]interface{} `puppet:"type => Array[Struct[Optional[authenticate_cognito]=>Array[Struct[Optional[authentication_request_extra_params]=>Hash[String,String],Optional[on_unauthenticated_request]=>String,Optional[scope]=>String,Optional[session_cookie_name]=>String,Optional[session_timeout]=>Integer,user_pool_arn=>String,user_pool_client_id=>String,user_pool_domain=>String]],Optional[authenticate_oidc]=>Array[Struct[Optional[authentication_request_extra_params]=>Hash[String,String],authorization_endpoint=>String,client_id=>String,client_secret=>String,issuer=>String,Optional[on_unauthenticated_request]=>String,Optional[scope]=>String,Optional[session_cookie_name]=>String,Optional[session_timeout]=>Integer,token_endpoint=>String,user_info_endpoint=>String]],Optional[fixed_response]=>Array[Struct[content_type=>String,Optional[message_body]=>String,Optional[status_code]=>String]],Optional[order]=>Integer,Optional[redirect]=>Array[Struct[Optional[host]=>String,Optional[path]=>String,Optional[port]=>String,Optional[protocol]=>String,Optional[query]=>String,status_code=>String]],Optional[target_group_arn]=>String,type=>String]]"`
+		Default_action    []map[string]interface{} `puppet:"type => Array[Struct[Optional[authenticate_cognito]=>Struct[Optional[authentication_request_extra_params]=>Hash[String,String],Optional[on_unauthenticated_request]=>String,Optional[scope]=>String,Optional[session_cookie_name]=>String,Optional[session_timeout]=>Integer,user_pool_arn=>String,user_pool_client_id=>String,user_pool_domain=>String],Optional[authenticate_oidc]=>Struct[Optional[authentication_request_extra_params]=>Hash[String,String],authorization_endpoint=>String,client_id=>String,client_secret=>String,issuer=>String,Optional[on_unauthenticated_request]=>String,Optional[scope]=>String,Optional[session_cookie_name]=>String,Optional[session_timeout]=>Integer,token_endpoint=>String,user_info_endpoint=>String],Optional[fixed_response]=>Struct[content_type=>String,Optional[message_body]=>String,Optional[status_code]=>String],Optional[order]=>Integer,Optional[redirect]=>Struct[Optional[host]=>String,Optional[path]=>String,Optional[port]=>String,Optional[protocol]=>String,Optional[query]=>String,status_code=>String],Optional[target_group_arn]=>String,type=>String]]"`
 		Load_balancer_arn string
 		Port              int64
 		Protocol          string `puppet:"value=>'HTTP'"`
@@ -3248,9 +3248,9 @@ type (
 
 	Lb_listener_rule struct {
 		Lb_listener_rule_id *string                  `lyra:"tf-gen.ignore"`
-		Action              []map[string]interface{} `puppet:"type => Array[Struct[Optional[authenticate_cognito]=>Array[Struct[Optional[authentication_request_extra_params]=>Hash[String,String],Optional[on_unauthenticated_request]=>String,Optional[scope]=>String,Optional[session_cookie_name]=>String,Optional[session_timeout]=>Integer,user_pool_arn=>String,user_pool_client_id=>String,user_pool_domain=>String]],Optional[authenticate_oidc]=>Array[Struct[Optional[authentication_request_extra_params]=>Hash[String,String],authorization_endpoint=>String,client_id=>String,client_secret=>String,issuer=>String,Optional[on_unauthenticated_request]=>String,Optional[scope]=>String,Optional[session_cookie_name]=>String,Optional[session_timeout]=>Integer,token_endpoint=>String,user_info_endpoint=>String]],Optional[fixed_response]=>Array[Struct[content_type=>String,Optional[message_body]=>String,Optional[status_code]=>String]],Optional[order]=>Integer,Optional[redirect]=>Array[Struct[Optional[host]=>String,Optional[path]=>String,Optional[port]=>String,Optional[protocol]=>String,Optional[query]=>String,status_code=>String]],Optional[target_group_arn]=>String,type=>String]]"`
+		Action              []map[string]interface{} `puppet:"type => Array[Struct[Optional[authenticate_cognito]=>Struct[Optional[authentication_request_extra_params]=>Hash[String,String],Optional[on_unauthenticated_request]=>String,Optional[scope]=>String,Optional[session_cookie_name]=>String,Optional[session_timeout]=>Integer,user_pool_arn=>String,user_pool_client_id=>String,user_pool_domain=>String],Optional[authenticate_oidc]=>Struct[Optional[authentication_request_extra_params]=>Hash[String,String],authorization_endpoint=>String,client_id=>String,client_secret=>String,issuer=>String,Optional[on_unauthenticated_request]=>String,Optional[scope]=>String,Optional[session_cookie_name]=>String,Optional[session_timeout]=>Integer,token_endpoint=>String,user_info_endpoint=>String],Optional[fixed_response]=>Struct[content_type=>String,Optional[message_body]=>String,Optional[status_code]=>String],Optional[order]=>Integer,Optional[redirect]=>Struct[Optional[host]=>String,Optional[path]=>String,Optional[port]=>String,Optional[protocol]=>String,Optional[query]=>String,status_code=>String],Optional[target_group_arn]=>String,type=>String]]"`
 		Arn                 *string
-		Condition           []map[string]interface{} `puppet:"type => Array[Struct[Optional[field]=>String,Optional[values]=>Array[String]]]"`
+		Condition           []map[string]interface{} `puppet:"type => Array[Struct[Optional[field]=>String,Optional[values]=>Array[String,0,1]]]"`
 		Listener_arn        string
 		Priority            *int64
 	}
@@ -3267,15 +3267,15 @@ type (
 		Lb_target_group_id   *string `lyra:"tf-gen.ignore"`
 		Arn                  *string
 		Arn_suffix           *string
-		Deregistration_delay int64                     `puppet:"value=>300"`
-		Health_check         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[healthy_threshold]=>Integer,Optional[interval]=>Integer,Optional[matcher]=>String,Optional[path]=>String,Optional[port]=>String,Optional[protocol]=>String,Optional[timeout]=>Integer,Optional[unhealthy_threshold]=>Integer]]]"`
+		Deregistration_delay int64                   `puppet:"value=>300"`
+		Health_check         *map[string]interface{} `puppet:"type => Optional[Struct[Optional[healthy_threshold]=>Integer,Optional[interval]=>Integer,Optional[matcher]=>String,Optional[path]=>String,Optional[port]=>String,Optional[protocol]=>String,Optional[timeout]=>Integer,Optional[unhealthy_threshold]=>Integer]]"`
 		Name                 *string
 		Name_prefix          *string
 		Port                 *int64
 		Protocol             *string
-		Proxy_protocol_v2    bool                      `puppet:"value=>false"`
-		Slow_start           int64                     `puppet:"value=>0"`
-		Stickiness           *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[cookie_duration]=>Integer,Optional[enabled]=>Boolean,type=>String]]]"`
+		Proxy_protocol_v2    bool                    `puppet:"value=>false"`
+		Slow_start           int64                   `puppet:"value=>0"`
+		Stickiness           *map[string]interface{} `puppet:"type => Optional[Struct[Optional[cookie_duration]=>Integer,Optional[enabled]=>Boolean,type=>String]]"`
 		Tags                 *map[string]string
 		Target_type          string `puppet:"value=>'instance'"`
 		Vpc_id               *string
@@ -3388,7 +3388,7 @@ type (
 	Macie_s3_bucket_association struct {
 		Macie_s3_bucket_association_id *string `lyra:"tf-gen.ignore"`
 		Bucket_name                    string
-		Classification_type            *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[continuous]=>String,Optional[one_time]=>String]]]"`
+		Classification_type            *map[string]string `puppet:"type => Optional[Struct[Optional[continuous]=>String,Optional[one_time]=>String]]"`
 		Member_account_id              *string
 		Prefix                         *string
 	}
@@ -3427,14 +3427,14 @@ type (
 		Arn                           *string
 		Auto_minor_version_upgrade    bool `puppet:"value=>false"`
 		Broker_name                   string
-		Configuration                 *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[id]=>String,Optional[revision]=>Integer]]]"`
-		Deployment_mode               string                    `puppet:"value=>'SINGLE_INSTANCE'"`
+		Configuration                 *map[string]interface{} `puppet:"type => Optional[Struct[Optional[id]=>String,Optional[revision]=>Integer]]"`
+		Deployment_mode               string                  `puppet:"value=>'SINGLE_INSTANCE'"`
 		Engine_type                   string
 		Engine_version                string
 		Host_instance_type            string
 		Instances                     *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[console_url]=>String,Optional[endpoints]=>Array[String],Optional[ip_address]=>String]]]"`
-		Logs                          *[]map[string]bool        `puppet:"type => Optional[Array[Struct[Optional[audit]=>Boolean,Optional[general]=>Boolean]]]"`
-		Maintenance_window_start_time *[]map[string]string      `puppet:"type => Optional[Array[Struct[day_of_week=>String,time_of_day=>String,time_zone=>String]]]"`
+		Logs                          *map[string]bool          `puppet:"type => Optional[Struct[Optional[audit]=>Boolean,Optional[general]=>Boolean]]"`
+		Maintenance_window_start_time *map[string]string        `puppet:"type => Optional[Struct[day_of_week=>String,time_of_day=>String,time_zone=>String]]"`
 		Publicly_accessible           bool                      `puppet:"value=>false"`
 		Security_groups               []string
 		Subnet_ids                    *[]string
@@ -4131,11 +4131,11 @@ type (
 	Pinpoint_app struct {
 		Pinpoint_app_id *string `lyra:"tf-gen.ignore"`
 		Application_id  *string
-		Campaign_hook   *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[lambda_function_name]=>String,Optional[mode]=>String,Optional[web_url]=>String]]]"`
-		Limits          *[]map[string]int64  `puppet:"type => Optional[Array[Struct[Optional[daily]=>Integer,Optional[maximum_duration]=>Integer,Optional[messages_per_second]=>Integer,Optional[total]=>Integer]]]"`
+		Campaign_hook   *map[string]string `puppet:"type => Optional[Struct[Optional[lambda_function_name]=>String,Optional[mode]=>String,Optional[web_url]=>String]]"`
+		Limits          *map[string]int64  `puppet:"type => Optional[Struct[Optional[daily]=>Integer,Optional[maximum_duration]=>Integer,Optional[messages_per_second]=>Integer,Optional[total]=>Integer]]"`
 		Name            *string
 		Name_prefix     *string
-		Quiet_time      *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[end]=>String,Optional[start]=>String]]]"`
+		Quiet_time      *map[string]string `puppet:"type => Optional[Struct[Optional[end]=>String,Optional[start]=>String]]"`
 	}
 
 	Pinpoint_baidu_channel struct {
@@ -4232,9 +4232,9 @@ type (
 		Preferred_maintenance_window        *string
 		Reader_endpoint                     *string
 		Replication_source_identifier       *string
-		S3_import                           *[]map[string]string      `puppet:"type => Optional[Array[Struct[bucket_name=>String,Optional[bucket_prefix]=>String,ingestion_role=>String,source_engine=>String,source_engine_version=>String]]]"`
-		Scaling_configuration               *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[auto_pause]=>Boolean,Optional[max_capacity]=>Integer,Optional[min_capacity]=>Integer,Optional[seconds_until_auto_pause]=>Integer]]]"`
-		Skip_final_snapshot                 bool                      `puppet:"value=>false"`
+		S3_import                           *map[string]string      `puppet:"type => Optional[Struct[bucket_name=>String,Optional[bucket_prefix]=>String,ingestion_role=>String,source_engine=>String,source_engine_version=>String]]"`
+		Scaling_configuration               *map[string]interface{} `puppet:"type => Optional[Struct[Optional[auto_pause]=>Boolean,Optional[max_capacity]=>Integer,Optional[min_capacity]=>Integer,Optional[seconds_until_auto_pause]=>Integer]]"`
+		Skip_final_snapshot                 bool                    `puppet:"value=>false"`
 		Snapshot_identifier                 *string
 		Source_region                       *string
 		Storage_encrypted                   *bool
@@ -4332,7 +4332,7 @@ type (
 		Final_snapshot_identifier           *string
 		Iam_roles                           *[]string
 		Kms_key_id                          *string
-		Logging                             *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[bucket_name]=>String,enable=>Boolean,Optional[s3_key_prefix]=>String]]]"`
+		Logging                             *map[string]interface{} `puppet:"type => Optional[Struct[Optional[bucket_name]=>String,enable=>Boolean,Optional[s3_key_prefix]=>String]]"`
 		Master_password                     *string
 		Master_username                     *string
 		Node_type                           string
@@ -4344,7 +4344,7 @@ type (
 		S3_key_prefix                       *string
 		Skip_final_snapshot                 bool `puppet:"value=>false"`
 		Snapshot_cluster_identifier         *string
-		Snapshot_copy                       *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[destination_region=>String,Optional[grant_name]=>String,Optional[retention_period]=>Integer]]]"`
+		Snapshot_copy                       *map[string]interface{} `puppet:"type => Optional[Struct[destination_region=>String,Optional[grant_name]=>String,Optional[retention_period]=>Integer]]"`
 		Snapshot_identifier                 *string
 		Tags                                *map[string]string
 		Vpc_security_group_ids              *[]string
@@ -4399,7 +4399,7 @@ type (
 		Arn                     *string
 		Description             *string
 		Name                    string
-		Resource_query          []map[string]string `puppet:"type => Array[Struct[query=>String,Optional[type]=>String]]"`
+		Resource_query          map[string]string `puppet:"type => Struct[query=>String,Optional[type]=>String]"`
 	}
 
 	Route struct {
@@ -4484,7 +4484,7 @@ type (
 		Name              string
 		Name_servers      *[]string
 		Tags              *map[string]string
-		Vpc               *[]map[string]string `puppet:"type => Optional[Array[Struct[vpc_id=>String,Optional[vpc_region]=>String]]]"`
+		Vpc               *[]map[string]string `puppet:"type => Optional[Array[Struct[vpc_id=>String,Optional[vpc_region]=>String],1]]"`
 		Vpc_id            *string
 		Vpc_region        *string
 		Zone_id           *string
@@ -4535,15 +4535,15 @@ type (
 		Hosted_zone_id                       *string
 		Lifecycle_rule                       *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[abort_incomplete_multipart_upload_days]=>Integer,enabled=>Boolean,Optional[expiration]=>Array[Struct[Optional[date]=>String,Optional[days]=>Integer,Optional[expired_object_delete_marker]=>Boolean]],Optional[id]=>String,Optional[noncurrent_version_expiration]=>Array[Struct[Optional[days]=>Integer]],Optional[noncurrent_version_transition]=>Array[Struct[Optional[days]=>Integer,storage_class=>String]],Optional[prefix]=>String,Optional[tags]=>Hash[String,String],Optional[transition]=>Array[Struct[Optional[date]=>String,Optional[days]=>Integer,storage_class=>String]]]]]"`
 		Logging                              *[]map[string]string      `puppet:"type => Optional[Array[Struct[target_bucket=>String,Optional[target_prefix]=>String]]]"`
-		Object_lock_configuration            *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[object_lock_enabled=>String,Optional[rule]=>Array[Struct[default_retention=>Array[Struct[Optional[days]=>Integer,mode=>String,Optional[years]=>Integer]]]]]]]"`
+		Object_lock_configuration            *map[string]interface{}   `puppet:"type => Optional[Struct[object_lock_enabled=>String,Optional[rule]=>Struct[default_retention=>Struct[Optional[days]=>Integer,mode=>String,Optional[years]=>Integer]]]]"`
 		Policy                               *string
 		Region                               *string
-		Replication_configuration            *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[role=>String,rules=>Array[Struct[destination=>Array[Struct[Optional[access_control_translation]=>Array[Struct[owner=>String]],Optional[account_id]=>String,bucket=>String,Optional[replica_kms_key_id]=>String,Optional[storage_class]=>String]],Optional[filter]=>Array[Struct[Optional[prefix]=>String,Optional[tags]=>Hash[String,String]]],Optional[id]=>String,Optional[prefix]=>String,Optional[priority]=>Integer,Optional[source_selection_criteria]=>Array[Struct[Optional[sse_kms_encrypted_objects]=>Array[Struct[enabled=>Boolean]]]],status=>String]]]]]"`
+		Replication_configuration            *map[string]interface{} `puppet:"type => Optional[Struct[role=>String,rules=>Array[Struct[destination=>Struct[Optional[access_control_translation]=>Struct[owner=>String],Optional[account_id]=>String,bucket=>String,Optional[replica_kms_key_id]=>String,Optional[storage_class]=>String],Optional[filter]=>Struct[Optional[prefix]=>String,Optional[tags]=>Hash[String,String]],Optional[id]=>String,Optional[prefix]=>String,Optional[priority]=>Integer,Optional[source_selection_criteria]=>Struct[Optional[sse_kms_encrypted_objects]=>Struct[enabled=>Boolean]],status=>String]]]]"`
 		Request_payer                        *string
-		Server_side_encryption_configuration *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[rule=>Array[Struct[apply_server_side_encryption_by_default=>Array[Struct[Optional[kms_master_key_id]=>String,sse_algorithm=>String]]]]]]]"`
+		Server_side_encryption_configuration *map[string][]interface{} `puppet:"type => Optional[Struct[rule=>Struct[apply_server_side_encryption_by_default=>Struct[Optional[kms_master_key_id]=>String,sse_algorithm=>String]]]]"`
 		Tags                                 *map[string]string
-		Versioning                           *[]map[string]bool   `puppet:"type => Optional[Array[Struct[Optional[enabled]=>Boolean,Optional[mfa_delete]=>Boolean]]]"`
-		Website                              *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[error_document]=>String,Optional[index_document]=>String,Optional[redirect_all_requests_to]=>String,Optional[routing_rules]=>String]]]"`
+		Versioning                           *map[string]bool   `puppet:"type => Optional[Struct[Optional[enabled]=>Boolean,Optional[mfa_delete]=>Boolean]]"`
+		Website                              *map[string]string `puppet:"type => Optional[Struct[Optional[error_document]=>String,Optional[index_document]=>String,Optional[redirect_all_requests_to]=>String,Optional[routing_rules]=>String]]"`
 		Website_domain                       *string
 		Website_endpoint                     *string
 	}
@@ -4551,19 +4551,19 @@ type (
 	S3_bucket_inventory struct {
 		S3_bucket_inventory_id   *string `lyra:"tf-gen.ignore"`
 		Bucket                   string
-		Destination              []map[string][]interface{} `puppet:"type => Array[Struct[bucket=>Array[Struct[Optional[account_id]=>String,bucket_arn=>String,Optional[encryption]=>Array[Struct[Optional[sse_kms]=>Array[Struct[key_id=>String]],Optional[sse_s3]=>Array[Struct[]]]],format=>String,Optional[prefix]=>String]]]]"`
-		Enabled                  bool                       `puppet:"value=>true"`
-		Filter                   *[]map[string]string       `puppet:"type => Optional[Array[Struct[Optional[prefix]=>String]]]"`
+		Destination              map[string][]interface{} `puppet:"type => Struct[bucket=>Struct[Optional[account_id]=>String,bucket_arn=>String,Optional[encryption]=>Struct[Optional[sse_kms]=>Struct[key_id=>String],Optional[sse_s3]=>Struct[]],format=>String,Optional[prefix]=>String]]"`
+		Enabled                  bool                     `puppet:"value=>true"`
+		Filter                   *map[string]string       `puppet:"type => Optional[Struct[Optional[prefix]=>String]]"`
 		Included_object_versions string
 		Name                     string
 		Optional_fields          *[]string
-		Schedule                 []map[string]string `puppet:"type => Array[Struct[frequency=>String]]"`
+		Schedule                 map[string]string `puppet:"type => Struct[frequency=>String]"`
 	}
 
 	S3_bucket_metric struct {
 		S3_bucket_metric_id *string `lyra:"tf-gen.ignore"`
 		Bucket              string
-		Filter              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[prefix]=>String,Optional[tags]=>Hash[String,String]]]]"`
+		Filter              *map[string]interface{} `puppet:"type => Optional[Struct[Optional[prefix]=>String,Optional[tags]=>Hash[String,String]]]"`
 		Name                string
 	}
 
@@ -4635,7 +4635,7 @@ type (
 		Recovery_window_in_days  int64 `puppet:"value=>30"`
 		Rotation_enabled         *bool
 		Rotation_lambda_arn      *string
-		Rotation_rules           *[]map[string]int64 `puppet:"type => Optional[Array[Struct[automatically_after_days=>Integer]]]"`
+		Rotation_rules           *map[string]int64 `puppet:"type => Optional[Struct[automatically_after_days=>Integer]]"`
 		Tags                     *map[string]string
 	}
 
@@ -4721,9 +4721,9 @@ type (
 		Service_discovery_service_id *string `lyra:"tf-gen.ignore"`
 		Arn                          *string
 		Description                  *string
-		Dns_config                   []map[string]interface{}  `puppet:"type => Array[Struct[dns_records=>Array[Struct[ttl=>Integer,type=>String]],namespace_id=>String,Optional[routing_policy]=>String]]"`
-		Health_check_config          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[failure_threshold]=>Integer,Optional[resource_path]=>String,Optional[type]=>String]]]"`
-		Health_check_custom_config   *[]map[string]int64       `puppet:"type => Optional[Array[Struct[Optional[failure_threshold]=>Integer]]]"`
+		Dns_config                   *map[string]interface{} `puppet:"type => Optional[Struct[dns_records=>Array[Struct[ttl=>Integer,type=>String]],namespace_id=>String,Optional[routing_policy]=>String]]"`
+		Health_check_config          *map[string]interface{} `puppet:"type => Optional[Struct[Optional[failure_threshold]=>Integer,Optional[resource_path]=>String,Optional[type]=>String]]"`
+		Health_check_custom_config   *map[string]int64       `puppet:"type => Optional[Struct[Optional[failure_threshold]=>Integer]]"`
 		Name                         string
 	}
 
@@ -4777,11 +4777,11 @@ type (
 		Ses_event_destination_id *string              `lyra:"tf-gen.ignore"`
 		Cloudwatch_destination   *[]map[string]string `puppet:"type => Optional[Array[Struct[default_value=>String,dimension_name=>String,value_source=>String]]]"`
 		Configuration_set_name   string
-		Enabled                  bool                 `puppet:"value=>false"`
-		Kinesis_destination      *[]map[string]string `puppet:"type => Optional[Array[Struct[role_arn=>String,stream_arn=>String]]]"`
+		Enabled                  bool               `puppet:"value=>false"`
+		Kinesis_destination      *map[string]string `puppet:"type => Optional[Struct[role_arn=>String,stream_arn=>String]]"`
 		Matching_types           []string
 		Name                     string
-		Sns_destination          *[]map[string]string `puppet:"type => Optional[Array[Struct[topic_arn=>String]]]"`
+		Sns_destination          *map[string]string `puppet:"type => Optional[Struct[topic_arn=>String]]"`
 	}
 
 	Ses_identity_notification_topic struct {
@@ -4963,7 +4963,7 @@ type (
 		Block_duration_minutes               *int64
 		Cpu_core_count                       *int64
 		Cpu_threads_per_core                 *int64
-		Credit_specification                 *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[cpu_credits]=>String]]]"`
+		Credit_specification                 *map[string]string `puppet:"type => Optional[Struct[Optional[cpu_credits]=>String]]"`
 		Disable_api_termination              *bool
 		Ebs_block_device                     *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[delete_on_termination]=>Boolean,device_name=>String,Optional[encrypted]=>Boolean,Optional[iops]=>Integer,Optional[snapshot_id]=>String,Optional[volume_id]=>String,Optional[volume_size]=>Integer,Optional[volume_type]=>String]]]"`
 		Ebs_optimized                        *bool
@@ -4989,7 +4989,7 @@ type (
 		Private_ip                           *string
 		Public_dns                           *string
 		Public_ip                            *string
-		Root_block_device                    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[delete_on_termination]=>Boolean,Optional[iops]=>Integer,Optional[volume_id]=>String,Optional[volume_size]=>Integer,Optional[volume_type]=>String]]]"`
+		Root_block_device                    *map[string]interface{} `puppet:"type => Optional[Struct[Optional[delete_on_termination]=>Boolean,Optional[iops]=>Integer,Optional[volume_id]=>String,Optional[volume_size]=>Integer,Optional[volume_type]=>String]]"`
 		Security_groups                      *[]string
 		Source_dest_check                    bool `puppet:"value=>true"`
 		Spot_bid_status                      *string
@@ -5053,10 +5053,10 @@ type (
 		Document_version    *string
 		Instance_id         *string
 		Name                string
-		Output_location     *[]map[string]string `puppet:"type => Optional[Array[Struct[s3_bucket_name=>String,Optional[s3_key_prefix]=>String]]]"`
+		Output_location     *map[string]string `puppet:"type => Optional[Struct[s3_bucket_name=>String,Optional[s3_key_prefix]=>String]]"`
 		Parameters          *map[string]string
 		Schedule_expression *string
-		Targets             *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[key=>String,values=>Array[String]]]]"`
+		Targets             *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[key=>String,values=>Array[String]],0,5]]"`
 	}
 
 	Ssm_document struct {
@@ -5098,14 +5098,14 @@ type (
 		Ssm_maintenance_window_target_id *string `lyra:"tf-gen.ignore"`
 		Owner_information                *string
 		Resource_type                    string
-		Targets                          []map[string]interface{} `puppet:"type => Array[Struct[key=>String,values=>Array[String]]]"`
+		Targets                          []map[string]interface{} `puppet:"type => Array[Struct[key=>String,values=>Array[String]],0,5]"`
 		Window_id                        string
 	}
 
 	Ssm_maintenance_window_task struct {
 		Ssm_maintenance_window_task_id *string `lyra:"tf-gen.ignore"`
 		Description                    *string
-		Logging_info                   *[]map[string]string `puppet:"type => Optional[Array[Struct[s3_bucket_name=>String,Optional[s3_bucket_prefix]=>String,s3_region=>String]]]"`
+		Logging_info                   *map[string]string `puppet:"type => Optional[Struct[s3_bucket_name=>String,Optional[s3_bucket_prefix]=>String,s3_region=>String]]"`
 		Max_concurrency                string
 		Max_errors                     string
 		Name                           *string
@@ -5133,11 +5133,11 @@ type (
 
 	Ssm_patch_baseline struct {
 		Ssm_patch_baseline_id             *string                   `lyra:"tf-gen.ignore"`
-		Approval_rule                     *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[approve_after_days=>Integer,Optional[compliance_level]=>String,Optional[enable_non_security]=>Boolean,patch_filter=>Array[Struct[key=>String,values=>Array[String]]]]]]"`
+		Approval_rule                     *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[approve_after_days=>Integer,Optional[compliance_level]=>String,Optional[enable_non_security]=>Boolean,patch_filter=>Array[Struct[key=>String,values=>Array[String]],0,10]]]]"`
 		Approved_patches                  *[]string
 		Approved_patches_compliance_level string `puppet:"value=>'UNSPECIFIED'"`
 		Description                       *string
-		Global_filter                     *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[key=>String,values=>Array[String]]]]"`
+		Global_filter                     *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[key=>String,values=>Array[String]],0,4]]"`
 		Name                              string
 		Operating_system                  string `puppet:"value=>'WINDOWS'"`
 		Rejected_patches                  *[]string
@@ -5152,7 +5152,7 @@ type (
 	Ssm_resource_data_sync struct {
 		Ssm_resource_data_sync_id *string `lyra:"tf-gen.ignore"`
 		Name                      string
-		S3_destination            []map[string]string `puppet:"type => Array[Struct[bucket_name=>String,Optional[kms_key_arn]=>String,Optional[prefix]=>String,region=>String,Optional[sync_format]=>String]]"`
+		S3_destination            *map[string]string `puppet:"type => Optional[Struct[bucket_name=>String,Optional[kms_key_arn]=>String,Optional[prefix]=>String,region=>String,Optional[sync_format]=>String]]"`
 	}
 
 	Storagegateway_cache struct {
@@ -5188,7 +5188,7 @@ type (
 		Gateway_timezone              string
 		Gateway_type                  string `puppet:"value=>'STORED'"`
 		Medium_changer_type           *string
-		Smb_active_directory_settings *[]map[string]string `puppet:"type => Optional[Array[Struct[domain_name=>String,password=>String,username=>String]]]"`
+		Smb_active_directory_settings *map[string]string `puppet:"type => Optional[Struct[domain_name=>String,password=>String,username=>String]]"`
 		Smb_guest_password            *string
 		Tape_drive_type               *string
 	}
@@ -5204,10 +5204,10 @@ type (
 		Kms_encrypted                    bool `puppet:"value=>false"`
 		Kms_key_arn                      *string
 		Location_arn                     string
-		Nfs_file_share_defaults          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[directory_mode]=>String,Optional[file_mode]=>String,Optional[group_id]=>Integer,Optional[owner_id]=>Integer]]]"`
-		Object_acl                       string                    `puppet:"value=>'private'"`
-		Read_only                        bool                      `puppet:"value=>false"`
-		Requester_pays                   bool                      `puppet:"value=>false"`
+		Nfs_file_share_defaults          *map[string]interface{} `puppet:"type => Optional[Struct[Optional[directory_mode]=>String,Optional[file_mode]=>String,Optional[group_id]=>Integer,Optional[owner_id]=>Integer]]"`
+		Object_acl                       string                  `puppet:"value=>'private'"`
+		Read_only                        bool                    `puppet:"value=>false"`
+		Requester_pays                   bool                    `puppet:"value=>false"`
 		Role_arn                         string
 		Squash                           string `puppet:"value=>'RootSquash'"`
 	}
@@ -5411,12 +5411,12 @@ type (
 	Vpc_peering_connection struct {
 		Vpc_peering_connection_id *string `lyra:"tf-gen.ignore"`
 		Accept_status             *string
-		Accepter                  *[]map[string]bool `puppet:"type => Optional[Array[Struct[Optional[allow_classic_link_to_remote_vpc]=>Boolean,Optional[allow_remote_vpc_dns_resolution]=>Boolean,Optional[allow_vpc_to_remote_classic_link]=>Boolean]]]"`
+		Accepter                  *map[string]bool `puppet:"type => Optional[Struct[Optional[allow_classic_link_to_remote_vpc]=>Boolean,Optional[allow_remote_vpc_dns_resolution]=>Boolean,Optional[allow_vpc_to_remote_classic_link]=>Boolean]]"`
 		Auto_accept               *bool
 		Peer_owner_id             *string
 		Peer_region               *string
 		Peer_vpc_id               string
-		Requester                 *[]map[string]bool `puppet:"type => Optional[Array[Struct[Optional[allow_classic_link_to_remote_vpc]=>Boolean,Optional[allow_remote_vpc_dns_resolution]=>Boolean,Optional[allow_vpc_to_remote_classic_link]=>Boolean]]]"`
+		Requester                 *map[string]bool `puppet:"type => Optional[Struct[Optional[allow_classic_link_to_remote_vpc]=>Boolean,Optional[allow_remote_vpc_dns_resolution]=>Boolean,Optional[allow_vpc_to_remote_classic_link]=>Boolean]]"`
 		Tags                      *map[string]string
 		Vpc_id                    string
 	}
@@ -5424,21 +5424,21 @@ type (
 	Vpc_peering_connection_accepter struct {
 		Vpc_peering_connection_accepter_id *string `lyra:"tf-gen.ignore"`
 		Accept_status                      *string
-		Accepter                           *[]map[string]bool `puppet:"type => Optional[Array[Struct[Optional[allow_classic_link_to_remote_vpc]=>Boolean,Optional[allow_remote_vpc_dns_resolution]=>Boolean,Optional[allow_vpc_to_remote_classic_link]=>Boolean]]]"`
+		Accepter                           *map[string]bool `puppet:"type => Optional[Struct[Optional[allow_classic_link_to_remote_vpc]=>Boolean,Optional[allow_remote_vpc_dns_resolution]=>Boolean,Optional[allow_vpc_to_remote_classic_link]=>Boolean]]"`
 		Auto_accept                        *bool
 		Peer_owner_id                      *string
 		Peer_region                        *string
 		Peer_vpc_id                        *string
-		Requester                          *[]map[string]bool `puppet:"type => Optional[Array[Struct[Optional[allow_classic_link_to_remote_vpc]=>Boolean,Optional[allow_remote_vpc_dns_resolution]=>Boolean,Optional[allow_vpc_to_remote_classic_link]=>Boolean]]]"`
+		Requester                          *map[string]bool `puppet:"type => Optional[Struct[Optional[allow_classic_link_to_remote_vpc]=>Boolean,Optional[allow_remote_vpc_dns_resolution]=>Boolean,Optional[allow_vpc_to_remote_classic_link]=>Boolean]]"`
 		Tags                               *map[string]string
 		Vpc_id                             *string
 		Vpc_peering_connection_id          string
 	}
 
 	Vpc_peering_connection_options struct {
-		Vpc_peering_connection_options_id *string            `lyra:"tf-gen.ignore"`
-		Accepter                          *[]map[string]bool `puppet:"type => Optional[Array[Struct[Optional[allow_classic_link_to_remote_vpc]=>Boolean,Optional[allow_remote_vpc_dns_resolution]=>Boolean,Optional[allow_vpc_to_remote_classic_link]=>Boolean]]]"`
-		Requester                         *[]map[string]bool `puppet:"type => Optional[Array[Struct[Optional[allow_classic_link_to_remote_vpc]=>Boolean,Optional[allow_remote_vpc_dns_resolution]=>Boolean,Optional[allow_vpc_to_remote_classic_link]=>Boolean]]]"`
+		Vpc_peering_connection_options_id *string          `lyra:"tf-gen.ignore"`
+		Accepter                          *map[string]bool `puppet:"type => Optional[Struct[Optional[allow_classic_link_to_remote_vpc]=>Boolean,Optional[allow_remote_vpc_dns_resolution]=>Boolean,Optional[allow_vpc_to_remote_classic_link]=>Boolean]]"`
+		Requester                         *map[string]bool `puppet:"type => Optional[Struct[Optional[allow_classic_link_to_remote_vpc]=>Boolean,Optional[allow_remote_vpc_dns_resolution]=>Boolean,Optional[allow_vpc_to_remote_classic_link]=>Boolean]]"`
 		Vpc_peering_connection_id         string
 	}
 
@@ -5497,7 +5497,7 @@ type (
 
 	Waf_byte_match_set struct {
 		Waf_byte_match_set_id *string                   `lyra:"tf-gen.ignore"`
-		Byte_match_tuples     *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[field_to_match=>Array[Struct[Optional[data]=>String,type=>String]],positional_constraint=>String,Optional[target_string]=>String,text_transformation=>String]]]"`
+		Byte_match_tuples     *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[field_to_match=>Struct[Optional[data]=>String,type=>String],positional_constraint=>String,Optional[target_string]=>String,text_transformation=>String]]]"`
 		Name                  string
 	}
 
@@ -5526,7 +5526,7 @@ type (
 	Waf_regex_match_set struct {
 		Waf_regex_match_set_id *string `lyra:"tf-gen.ignore"`
 		Name                   string
-		Regex_match_tuple      *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[field_to_match=>Array[Struct[Optional[data]=>String,type=>String]],regex_pattern_set_id=>String,text_transformation=>String]]]"`
+		Regex_match_tuple      *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[field_to_match=>Struct[Optional[data]=>String,type=>String],regex_pattern_set_id=>String,text_transformation=>String]]]"`
 	}
 
 	Waf_regex_pattern_set struct {
@@ -5544,7 +5544,7 @@ type (
 
 	Waf_rule_group struct {
 		Waf_rule_group_id *string                   `lyra:"tf-gen.ignore"`
-		Activated_rule    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[action=>Array[Struct[type=>String]],priority=>Integer,rule_id=>String,Optional[type]=>String]]]"`
+		Activated_rule    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[action=>Struct[type=>String],priority=>Integer,rule_id=>String,Optional[type]=>String]]]"`
 		Metric_name       string
 		Name              string
 	}
@@ -5552,33 +5552,33 @@ type (
 	Waf_size_constraint_set struct {
 		Waf_size_constraint_set_id *string `lyra:"tf-gen.ignore"`
 		Name                       string
-		Size_constraints           *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[comparison_operator=>String,field_to_match=>Array[Struct[Optional[data]=>String,type=>String]],size=>Integer,text_transformation=>String]]]"`
+		Size_constraints           *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[comparison_operator=>String,field_to_match=>Struct[Optional[data]=>String,type=>String],size=>Integer,text_transformation=>String]]]"`
 	}
 
 	Waf_sql_injection_match_set struct {
 		Waf_sql_injection_match_set_id *string `lyra:"tf-gen.ignore"`
 		Name                           string
-		Sql_injection_match_tuples     *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[field_to_match=>Array[Struct[Optional[data]=>String,type=>String]],text_transformation=>String]]]"`
+		Sql_injection_match_tuples     *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[field_to_match=>Struct[Optional[data]=>String,type=>String],text_transformation=>String]]]"`
 	}
 
 	Waf_web_acl struct {
-		Waf_web_acl_id *string             `lyra:"tf-gen.ignore"`
-		Default_action []map[string]string `puppet:"type => Array[Struct[type=>String]]"`
+		Waf_web_acl_id *string            `lyra:"tf-gen.ignore"`
+		Default_action *map[string]string `puppet:"type => Optional[Struct[type=>String]]"`
 		Metric_name    string
 		Name           string
-		Rules          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[action]=>Array[Struct[type=>String]],Optional[override_action]=>Array[Struct[type=>String]],priority=>Integer,rule_id=>String,Optional[type]=>String]]]"`
+		Rules          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[action]=>Struct[type=>String],Optional[override_action]=>Struct[type=>String],priority=>Integer,rule_id=>String,Optional[type]=>String]]]"`
 	}
 
 	Waf_xss_match_set struct {
 		Waf_xss_match_set_id *string `lyra:"tf-gen.ignore"`
 		Name                 string
-		Xss_match_tuples     *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[field_to_match=>Array[Struct[Optional[data]=>String,type=>String]],text_transformation=>String]]]"`
+		Xss_match_tuples     *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[field_to_match=>Struct[Optional[data]=>String,type=>String],text_transformation=>String]]]"`
 	}
 
 	Wafregional_byte_match_set struct {
 		Wafregional_byte_match_set_id *string                   `lyra:"tf-gen.ignore"`
-		Byte_match_tuple              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[field_to_match=>Array[Struct[Optional[data]=>String,type=>String]],positional_constraint=>String,Optional[target_string]=>String,text_transformation=>String]]]"`
-		Byte_match_tuples             *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[field_to_match=>Array[Struct[Optional[data]=>String,type=>String]],positional_constraint=>String,Optional[target_string]=>String,text_transformation=>String]]]"`
+		Byte_match_tuple              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[field_to_match=>Struct[Optional[data]=>String,type=>String],positional_constraint=>String,Optional[target_string]=>String,text_transformation=>String]]]"`
+		Byte_match_tuples             *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[field_to_match=>Struct[Optional[data]=>String,type=>String],positional_constraint=>String,Optional[target_string]=>String,text_transformation=>String]]]"`
 		Name                          string
 	}
 
@@ -5607,7 +5607,7 @@ type (
 	Wafregional_regex_match_set struct {
 		Wafregional_regex_match_set_id *string `lyra:"tf-gen.ignore"`
 		Name                           string
-		Regex_match_tuple              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[field_to_match=>Array[Struct[Optional[data]=>String,type=>String]],regex_pattern_set_id=>String,text_transformation=>String]]]"`
+		Regex_match_tuple              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[field_to_match=>Struct[Optional[data]=>String,type=>String],regex_pattern_set_id=>String,text_transformation=>String]]]"`
 	}
 
 	Wafregional_regex_pattern_set struct {
@@ -5625,7 +5625,7 @@ type (
 
 	Wafregional_rule_group struct {
 		Wafregional_rule_group_id *string                   `lyra:"tf-gen.ignore"`
-		Activated_rule            *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[action=>Array[Struct[type=>String]],priority=>Integer,rule_id=>String,Optional[type]=>String]]]"`
+		Activated_rule            *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[action=>Struct[type=>String],priority=>Integer,rule_id=>String,Optional[type]=>String]]]"`
 		Metric_name               string
 		Name                      string
 	}
@@ -5633,21 +5633,21 @@ type (
 	Wafregional_size_constraint_set struct {
 		Wafregional_size_constraint_set_id *string `lyra:"tf-gen.ignore"`
 		Name                               string
-		Size_constraints                   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[comparison_operator=>String,field_to_match=>Array[Struct[Optional[data]=>String,type=>String]],size=>Integer,text_transformation=>String]]]"`
+		Size_constraints                   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[comparison_operator=>String,field_to_match=>Struct[Optional[data]=>String,type=>String],size=>Integer,text_transformation=>String]]]"`
 	}
 
 	Wafregional_sql_injection_match_set struct {
 		Wafregional_sql_injection_match_set_id *string `lyra:"tf-gen.ignore"`
 		Name                                   string
-		Sql_injection_match_tuple              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[field_to_match=>Array[Struct[Optional[data]=>String,type=>String]],text_transformation=>String]]]"`
+		Sql_injection_match_tuple              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[field_to_match=>Struct[Optional[data]=>String,type=>String],text_transformation=>String]]]"`
 	}
 
 	Wafregional_web_acl struct {
-		Wafregional_web_acl_id *string             `lyra:"tf-gen.ignore"`
-		Default_action         []map[string]string `puppet:"type => Array[Struct[type=>String]]"`
+		Wafregional_web_acl_id *string            `lyra:"tf-gen.ignore"`
+		Default_action         *map[string]string `puppet:"type => Optional[Struct[type=>String]]"`
 		Metric_name            string
 		Name                   string
-		Rule                   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[action]=>Array[Struct[type=>String]],Optional[override_action]=>Array[Struct[type=>String]],priority=>Integer,rule_id=>String,Optional[type]=>String]]]"`
+		Rule                   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[action]=>Struct[type=>String],Optional[override_action]=>Struct[type=>String],priority=>Integer,rule_id=>String,Optional[type]=>String]]]"`
 	}
 
 	Wafregional_web_acl_association struct {
@@ -5659,7 +5659,7 @@ type (
 	Wafregional_xss_match_set struct {
 		Wafregional_xss_match_set_id *string `lyra:"tf-gen.ignore"`
 		Name                         string
-		Xss_match_tuple              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[field_to_match=>Array[Struct[Optional[data]=>String,type=>String]],text_transformation=>String]]]"`
+		Xss_match_tuple              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[field_to_match=>Struct[Optional[data]=>String,type=>String],text_transformation=>String]]]"`
 	}
 )
 

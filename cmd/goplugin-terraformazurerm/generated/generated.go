@@ -14,13 +14,13 @@ import (
 
 type (
 	Api_management struct {
-		Api_management_id         *string                   `lyra:"tf-gen.ignore"`
-		Additional_location       *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[gateway_regional_url]=>String,location=>String,Optional[public_ip_addresses]=>Array[String]]]]"`
-		Certificate               *[]map[string]string      `puppet:"type => Optional[Array[Struct[certificate_password=>String,encoded_certificate=>String,store_name=>String]]]"`
+		Api_management_id         *string                 `lyra:"tf-gen.ignore"`
+		Additional_location       *map[string]interface{} `puppet:"type => Optional[Struct[Optional[gateway_regional_url]=>String,location=>String,Optional[public_ip_addresses]=>Array[String]]]"`
+		Certificate               *[]map[string]string    `puppet:"type => Optional[Array[Struct[certificate_password=>String,encoded_certificate=>String,store_name=>String],0,10]]"`
 		Gateway_regional_url      *string
 		Gateway_url               *string
-		Hostname_configuration    *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[Optional[management]=>Array[Struct[Optional[certificate]=>String,Optional[certificate_password]=>String,host_name=>String,Optional[key_vault_id]=>String,Optional[negotiate_client_certificate]=>Boolean]],Optional[portal]=>Array[Struct[Optional[certificate]=>String,Optional[certificate_password]=>String,host_name=>String,Optional[key_vault_id]=>String,Optional[negotiate_client_certificate]=>Boolean]],Optional[proxy]=>Array[Struct[Optional[certificate]=>String,Optional[certificate_password]=>String,Optional[default_ssl_binding]=>Boolean,host_name=>String,Optional[key_vault_id]=>String,Optional[negotiate_client_certificate]=>Boolean]],Optional[scm]=>Array[Struct[Optional[certificate]=>String,Optional[certificate_password]=>String,host_name=>String,Optional[key_vault_id]=>String,Optional[negotiate_client_certificate]=>Boolean]]]]]"`
-		Identity                  *[]map[string]string        `puppet:"type => Optional[Array[Struct[Optional[principal_id]=>String,Optional[tenant_id]=>String,type=>String]]]"`
+		Hostname_configuration    *map[string][]interface{} `puppet:"type => Optional[Struct[Optional[management]=>Array[Struct[Optional[certificate]=>String,Optional[certificate_password]=>String,host_name=>String,Optional[key_vault_id]=>String,Optional[negotiate_client_certificate]=>Boolean]],Optional[portal]=>Array[Struct[Optional[certificate]=>String,Optional[certificate_password]=>String,host_name=>String,Optional[key_vault_id]=>String,Optional[negotiate_client_certificate]=>Boolean]],Optional[proxy]=>Array[Struct[Optional[certificate]=>String,Optional[certificate_password]=>String,Optional[default_ssl_binding]=>Boolean,host_name=>String,Optional[key_vault_id]=>String,Optional[negotiate_client_certificate]=>Boolean]],Optional[scm]=>Array[Struct[Optional[certificate]=>String,Optional[certificate_password]=>String,host_name=>String,Optional[key_vault_id]=>String,Optional[negotiate_client_certificate]=>Boolean]]]]"`
+		Identity                  *map[string]string        `puppet:"type => Optional[Struct[Optional[principal_id]=>String,Optional[tenant_id]=>String,type=>String]]"`
 		Location                  string
 		Management_api_url        *string
 		Name                      string
@@ -31,8 +31,8 @@ type (
 		Publisher_name            string
 		Resource_group_name       string
 		Scm_url                   *string
-		Security                  *[]map[string]bool       `puppet:"type => Optional[Array[Struct[Optional[disable_backend_ssl30]=>Boolean,Optional[disable_backend_tls10]=>Boolean,Optional[disable_backend_tls11]=>Boolean,Optional[disable_frontend_ssl30]=>Boolean,Optional[disable_frontend_tls10]=>Boolean,Optional[disable_frontend_tls11]=>Boolean,Optional[disable_triple_des_chipers]=>Boolean]]]"`
-		Sku                       []map[string]interface{} `puppet:"type => Array[Struct[capacity=>Integer,name=>String]]"`
+		Security                  *map[string]bool        `puppet:"type => Optional[Struct[Optional[disable_backend_ssl30]=>Boolean,Optional[disable_backend_tls10]=>Boolean,Optional[disable_backend_tls11]=>Boolean,Optional[disable_frontend_ssl30]=>Boolean,Optional[disable_frontend_tls10]=>Boolean,Optional[disable_frontend_tls11]=>Boolean,Optional[disable_triple_des_chipers]=>Boolean]]"`
+		Sku                       *map[string]interface{} `puppet:"type => Optional[Struct[capacity=>Integer,name=>String]]"`
 		Tags                      *map[string]string
 	}
 
@@ -43,17 +43,17 @@ type (
 		Client_affinity_enabled        *bool
 		Connection_string              *[]map[string]string `puppet:"type => Optional[Array[Struct[name=>String,type=>String,value=>String]]]"`
 		Default_site_hostname          *string
-		Enabled                        bool                 `puppet:"value=>true"`
-		Https_only                     bool                 `puppet:"value=>false"`
-		Identity                       *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[principal_id]=>String,Optional[tenant_id]=>String,type=>String]]]"`
+		Enabled                        bool               `puppet:"value=>true"`
+		Https_only                     bool               `puppet:"value=>false"`
+		Identity                       *map[string]string `puppet:"type => Optional[Struct[Optional[principal_id]=>String,Optional[tenant_id]=>String,type=>String]]"`
 		Location                       string
 		Name                           string
 		Outbound_ip_addresses          *string
 		Possible_outbound_ip_addresses *string
 		Resource_group_name            string
-		Site_config                    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[always_on]=>Boolean,Optional[app_command_line]=>String,Optional[default_documents]=>Array[String],Optional[dotnet_framework_version]=>String,Optional[ftps_state]=>String,Optional[http2_enabled]=>Boolean,Optional[ip_restriction]=>Array[Struct[ip_address=>String,Optional[subnet_mask]=>String]],Optional[java_container]=>String,Optional[java_container_version]=>String,Optional[java_version]=>String,Optional[linux_fx_version]=>String,Optional[local_mysql_enabled]=>Boolean,Optional[managed_pipeline_mode]=>String,Optional[min_tls_version]=>String,Optional[php_version]=>String,Optional[python_version]=>String,Optional[remote_debugging_enabled]=>Boolean,Optional[remote_debugging_version]=>String,Optional[scm_type]=>String,Optional[use_32_bit_worker_process]=>Boolean,Optional[virtual_network_name]=>String,Optional[websockets_enabled]=>Boolean]]]"`
-		Site_credential                *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[password]=>String,Optional[username]=>String]]]"`
-		Source_control                 *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[branch]=>String,Optional[repo_url]=>String]]]"`
+		Site_config                    *map[string]interface{} `puppet:"type => Optional[Struct[Optional[always_on]=>Boolean,Optional[app_command_line]=>String,Optional[default_documents]=>Array[String],Optional[dotnet_framework_version]=>String,Optional[ftps_state]=>String,Optional[http2_enabled]=>Boolean,Optional[ip_restriction]=>Array[Struct[ip_address=>String,Optional[subnet_mask]=>String]],Optional[java_container]=>String,Optional[java_container_version]=>String,Optional[java_version]=>String,Optional[linux_fx_version]=>String,Optional[local_mysql_enabled]=>Boolean,Optional[managed_pipeline_mode]=>String,Optional[min_tls_version]=>String,Optional[php_version]=>String,Optional[python_version]=>String,Optional[remote_debugging_enabled]=>Boolean,Optional[remote_debugging_version]=>String,Optional[scm_type]=>String,Optional[use_32_bit_worker_process]=>Boolean,Optional[virtual_network_name]=>String,Optional[websockets_enabled]=>Boolean]]"`
+		Site_credential                *map[string]string      `puppet:"type => Optional[Struct[Optional[password]=>String,Optional[username]=>String]]"`
+		Source_control                 *map[string]string      `puppet:"type => Optional[Struct[Optional[branch]=>String,Optional[repo_url]=>String]]"`
 		Tags                           *map[string]string
 	}
 
@@ -79,10 +79,10 @@ type (
 		Maximum_number_of_workers  *int64
 		Name                       string
 		Per_site_scaling           *bool
-		Properties                 *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[]]]"`
+		Properties                 *map[string]interface{} `puppet:"type => Optional[Struct[]]"`
 		Reserved                   *bool
 		Resource_group_name        string
-		Sku                        []map[string]interface{} `puppet:"type => Array[Struct[Optional[capacity]=>Integer,size=>String,tier=>String]]"`
+		Sku                        *map[string]interface{} `puppet:"type => Optional[Struct[Optional[capacity]=>Integer,size=>String,tier=>String]]"`
 		Tags                       *map[string]string
 	}
 
@@ -94,36 +94,36 @@ type (
 		Client_affinity_enabled *bool
 		Connection_string       *[]map[string]string `puppet:"type => Optional[Array[Struct[name=>String,type=>String,value=>String]]]"`
 		Default_site_hostname   *string
-		Enabled                 bool                 `puppet:"value=>true"`
-		Https_only              bool                 `puppet:"value=>false"`
-		Identity                *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[principal_id]=>String,Optional[tenant_id]=>String,type=>String]]]"`
+		Enabled                 bool               `puppet:"value=>true"`
+		Https_only              bool               `puppet:"value=>false"`
+		Identity                *map[string]string `puppet:"type => Optional[Struct[Optional[principal_id]=>String,Optional[tenant_id]=>String,type=>String]]"`
 		Location                string
 		Name                    string
 		Resource_group_name     string
-		Site_config             *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[always_on]=>Boolean,Optional[app_command_line]=>String,Optional[default_documents]=>Array[String],Optional[dotnet_framework_version]=>String,Optional[ftps_state]=>String,Optional[http2_enabled]=>Boolean,Optional[ip_restriction]=>Array[Struct[ip_address=>String,Optional[subnet_mask]=>String]],Optional[java_container]=>String,Optional[java_container_version]=>String,Optional[java_version]=>String,Optional[linux_fx_version]=>String,Optional[local_mysql_enabled]=>Boolean,Optional[managed_pipeline_mode]=>String,Optional[min_tls_version]=>String,Optional[php_version]=>String,Optional[python_version]=>String,Optional[remote_debugging_enabled]=>Boolean,Optional[remote_debugging_version]=>String,Optional[scm_type]=>String,Optional[use_32_bit_worker_process]=>Boolean,Optional[virtual_network_name]=>String,Optional[websockets_enabled]=>Boolean]]]"`
+		Site_config             *map[string]interface{} `puppet:"type => Optional[Struct[Optional[always_on]=>Boolean,Optional[app_command_line]=>String,Optional[default_documents]=>Array[String],Optional[dotnet_framework_version]=>String,Optional[ftps_state]=>String,Optional[http2_enabled]=>Boolean,Optional[ip_restriction]=>Array[Struct[ip_address=>String,Optional[subnet_mask]=>String]],Optional[java_container]=>String,Optional[java_container_version]=>String,Optional[java_version]=>String,Optional[linux_fx_version]=>String,Optional[local_mysql_enabled]=>Boolean,Optional[managed_pipeline_mode]=>String,Optional[min_tls_version]=>String,Optional[php_version]=>String,Optional[python_version]=>String,Optional[remote_debugging_enabled]=>Boolean,Optional[remote_debugging_version]=>String,Optional[scm_type]=>String,Optional[use_32_bit_worker_process]=>Boolean,Optional[virtual_network_name]=>String,Optional[websockets_enabled]=>Boolean]]"`
 		Tags                    *map[string]string
 	}
 
 	Application_gateway struct {
 		Application_gateway_id     *string                  `lyra:"tf-gen.ignore"`
 		Authentication_certificate *[]map[string]string     `puppet:"type => Optional[Array[Struct[data=>String,Optional[id]=>String,name=>String]]]"`
-		Backend_address_pool       []map[string]interface{} `puppet:"type => Array[Struct[Optional[fqdn_list]=>Array[String],Optional[id]=>String,Optional[ip_address_list]=>Array[String],name=>String]]"`
-		Backend_http_settings      []map[string]interface{} `puppet:"type => Array[Struct[Optional[authentication_certificate]=>Array[Struct[Optional[id]=>String,name=>String]],cookie_based_affinity=>String,Optional[id]=>String,name=>String,port=>Integer,Optional[probe_id]=>String,Optional[probe_name]=>String,protocol=>String,Optional[request_timeout]=>Integer]]"`
+		Backend_address_pool       []map[string]interface{} `puppet:"type => Array[Struct[Optional[fqdn_list]=>Array[String,1],Optional[id]=>String,Optional[ip_address_list]=>Array[String,1],name=>String]]"`
+		Backend_http_settings      []map[string]interface{} `puppet:"type => Array[Struct[Optional[authentication_certificate]=>Array[Struct[Optional[id]=>String,name=>String]],cookie_based_affinity=>String,Optional[id]=>String,name=>String,port=>Integer,Optional[probe_id]=>String,Optional[probe_name]=>String,protocol=>String,Optional[request_timeout]=>Integer],1]"`
 		Disabled_ssl_protocols     *[]string
-		Frontend_ip_configuration  []map[string]string      `puppet:"type => Array[Struct[Optional[id]=>String,name=>String,Optional[private_ip_address]=>String,Optional[private_ip_address_allocation]=>String,Optional[public_ip_address_id]=>String,Optional[subnet_id]=>String]]"`
+		Frontend_ip_configuration  []map[string]string      `puppet:"type => Array[Struct[Optional[id]=>String,name=>String,Optional[private_ip_address]=>String,Optional[private_ip_address_allocation]=>String,Optional[public_ip_address_id]=>String,Optional[subnet_id]=>String],1]"`
 		Frontend_port              []map[string]interface{} `puppet:"type => Array[Struct[Optional[id]=>String,name=>String,port=>Integer]]"`
 		Gateway_ip_configuration   []map[string]string      `puppet:"type => Array[Struct[Optional[id]=>String,name=>String,subnet_id=>String]]"`
 		Http_listener              []map[string]interface{} `puppet:"type => Array[Struct[Optional[frontend_ip_configuration_id]=>String,frontend_ip_configuration_name=>String,Optional[frontend_port_id]=>String,frontend_port_name=>String,Optional[host_name]=>String,Optional[id]=>String,name=>String,protocol=>String,Optional[require_sni]=>Boolean,Optional[ssl_certificate_id]=>String,Optional[ssl_certificate_name]=>String]]"`
 		Location                   string
 		Name                       string
-		Probe                      *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[host=>String,Optional[id]=>String,interval=>Integer,Optional[match]=>Array[Struct[Optional[body]=>String,Optional[status_code]=>Array[String]]],Optional[minimum_servers]=>Integer,name=>String,path=>String,protocol=>String,timeout=>Integer,unhealthy_threshold=>Integer]]]"`
-		Request_routing_rule       []map[string]string       `puppet:"type => Array[Struct[Optional[backend_address_pool_id]=>String,Optional[backend_address_pool_name]=>String,Optional[backend_http_settings_id]=>String,Optional[backend_http_settings_name]=>String,Optional[http_listener_id]=>String,http_listener_name=>String,Optional[id]=>String,name=>String,rule_type=>String,Optional[url_path_map_id]=>String,Optional[url_path_map_name]=>String]]"`
+		Probe                      *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[host=>String,Optional[id]=>String,interval=>Integer,Optional[match]=>Struct[Optional[body]=>String,Optional[status_code]=>Array[String]],Optional[minimum_servers]=>Integer,name=>String,path=>String,protocol=>String,timeout=>Integer,unhealthy_threshold=>Integer]]]"`
+		Request_routing_rule       []map[string]string       `puppet:"type => Array[Struct[Optional[backend_address_pool_id]=>String,Optional[backend_address_pool_name]=>String,Optional[backend_http_settings_id]=>String,Optional[backend_http_settings_name]=>String,Optional[http_listener_id]=>String,http_listener_name=>String,Optional[id]=>String,name=>String,rule_type=>String,Optional[url_path_map_id]=>String,Optional[url_path_map_name]=>String],1]"`
 		Resource_group_name        string
-		Sku                        []map[string]interface{} `puppet:"type => Array[Struct[capacity=>Integer,name=>String,tier=>String]]"`
-		Ssl_certificate            *[]map[string]string     `puppet:"type => Optional[Array[Struct[data=>String,Optional[id]=>String,name=>String,password=>String,Optional[public_cert_data]=>String]]]"`
+		Sku                        *map[string]interface{} `puppet:"type => Optional[Struct[capacity=>Integer,name=>String,tier=>String]]"`
+		Ssl_certificate            *[]map[string]string    `puppet:"type => Optional[Array[Struct[data=>String,Optional[id]=>String,name=>String,password=>String,Optional[public_cert_data]=>String]]]"`
 		Tags                       *map[string]string
 		Url_path_map               *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[default_backend_address_pool_id]=>String,default_backend_address_pool_name=>String,Optional[default_backend_http_settings_id]=>String,default_backend_http_settings_name=>String,Optional[id]=>String,name=>String,path_rule=>Array[Struct[Optional[backend_address_pool_id]=>String,backend_address_pool_name=>String,Optional[backend_http_settings_id]=>String,backend_http_settings_name=>String,Optional[id]=>String,name=>String,paths=>Array[String]]]]]]"`
-		Waf_configuration          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[enabled=>Boolean,firewall_mode=>String,Optional[rule_set_type]=>String,rule_set_version=>String]]]"`
+		Waf_configuration          *map[string]interface{}   `puppet:"type => Optional[Struct[enabled=>Boolean,firewall_mode=>String,Optional[rule_set_type]=>String,rule_set_version=>String]]"`
 	}
 
 	Application_insights struct {
@@ -162,7 +162,7 @@ type (
 		Location                 string
 		Name                     string
 		Resource_group_name      string
-		Sku                      []map[string]string `puppet:"type => Array[Struct[Optional[name]=>String]]"`
+		Sku                      *map[string]string `puppet:"type => Optional[Struct[Optional[name]=>String]]"`
 		Tags                     *map[string]string
 	}
 
@@ -200,7 +200,7 @@ type (
 	Automation_module struct {
 		Automation_module_id    *string `lyra:"tf-gen.ignore"`
 		Automation_account_name string
-		Module_link             []map[string]interface{} `puppet:"type => Array[Struct[Optional[hash]=>Array[Struct[algorithm=>String,value=>String]],uri=>String]]"`
+		Module_link             *map[string]interface{} `puppet:"type => Optional[Struct[Optional[hash]=>Struct[algorithm=>String,value=>String],uri=>String]]"`
 		Name                    string
 		Resource_group_name     string
 	}
@@ -214,7 +214,7 @@ type (
 		Log_progress          bool
 		Log_verbose           bool
 		Name                  string
-		Publish_content_link  []map[string]interface{} `puppet:"type => Array[Struct[Optional[hash]=>Array[Struct[algorithm=>String,value=>String]],uri=>String,Optional[version]=>String]]"`
+		Publish_content_link  *map[string]interface{} `puppet:"type => Optional[Struct[Optional[hash]=>Struct[algorithm=>String,value=>String],uri=>String,Optional[version]=>String]]"`
 		Resource_group_name   string
 		Runbook_type          string
 		Tags                  *map[string]string
@@ -242,8 +242,8 @@ type (
 		Enabled              bool    `puppet:"value=>true"`
 		Location             string
 		Name                 string
-		Notification         *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[Optional[email]=>Array[Struct[Optional[custom_emails]=>Array[String],Optional[send_to_subscription_administrator]=>Boolean,Optional[send_to_subscription_co_administrator]=>Boolean]],Optional[webhook]=>Array[Struct[Optional[properties]=>Hash[String,String],service_uri=>String]]]]]"`
-		Profile              []map[string]interface{}    `puppet:"type => Array[Struct[capacity=>Array[Struct['default'=>Integer,maximum=>Integer,minimum=>Integer]],Optional[fixed_date]=>Array[Struct[end=>String,start=>String,Optional[timezone]=>String]],name=>String,Optional[recurrence]=>Array[Struct[days=>Array[String],hours=>Array[Integer],minutes=>Array[Integer],Optional[timezone]=>String]],Optional[rule]=>Array[Struct[metric_trigger=>Array[Struct[metric_name=>String,metric_resource_id=>String,operator=>String,statistic=>String,threshold=>Float,time_aggregation=>String,time_grain=>String,time_window=>String]],scale_action=>Array[Struct[cooldown=>String,direction=>String,type=>String,value=>Integer]]]]]]"`
+		Notification         *map[string][]interface{} `puppet:"type => Optional[Struct[Optional[email]=>Struct[Optional[custom_emails]=>Array[String],Optional[send_to_subscription_administrator]=>Boolean,Optional[send_to_subscription_co_administrator]=>Boolean],Optional[webhook]=>Array[Struct[Optional[properties]=>Hash[String,String],service_uri=>String]]]]"`
+		Profile              []map[string]interface{}  `puppet:"type => Array[Struct[capacity=>Struct['default'=>Integer,maximum=>Integer,minimum=>Integer],Optional[fixed_date]=>Struct[end=>String,start=>String,Optional[timezone]=>String],name=>String,Optional[recurrence]=>Struct[days=>Array[String],hours=>Array[Integer,0,1],minutes=>Array[Integer,0,1],Optional[timezone]=>String],Optional[rule]=>Array[Struct[metric_trigger=>Struct[metric_name=>String,metric_resource_id=>String,operator=>String,statistic=>String,threshold=>Float,time_aggregation=>String,time_grain=>String,time_window=>String],scale_action=>Struct[cooldown=>String,direction=>String,type=>String,value=>Integer]],0,10]],0,20]"`
 		Resource_group_name  string
 		Tags                 *map[string]string
 		Target_resource_id   string
@@ -299,15 +299,15 @@ type (
 	Batch_pool struct {
 		Batch_pool_id                 *string `lyra:"tf-gen.ignore"`
 		Account_name                  string
-		Auto_scale                    *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[evaluation_interval]=>String,formula=>String]]]"`
+		Auto_scale                    *map[string]string `puppet:"type => Optional[Struct[Optional[evaluation_interval]=>String,formula=>String]]"`
 		Display_name                  *string
-		Fixed_scale                   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[resize_timeout]=>String,Optional[target_dedicated_nodes]=>Integer,Optional[target_low_priority_nodes]=>Integer]]]"`
+		Fixed_scale                   *map[string]interface{} `puppet:"type => Optional[Struct[Optional[resize_timeout]=>String,Optional[target_dedicated_nodes]=>Integer,Optional[target_low_priority_nodes]=>Integer]]"`
 		Name                          string
 		Node_agent_sku_id             string
 		Resource_group_name           string
-		Start_task                    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[command_line=>String,Optional[environment]=>Hash[String,String],Optional[max_task_retry_count]=>Integer,user_identity=>Array[Struct[Optional[auto_user]=>Array[Struct[Optional[elevation_level]=>String,Optional[scope]=>String]],Optional[user_name]=>String]],Optional[wait_for_success]=>Boolean]]]"`
-		Stop_pending_resize_operation bool                      `puppet:"value=>false"`
-		Storage_image_reference       []map[string]string       `puppet:"type => Array[Struct[Optional[id]=>String,offer=>String,publisher=>String,sku=>String,version=>String]]"`
+		Start_task                    *map[string]interface{} `puppet:"type => Optional[Struct[command_line=>String,Optional[environment]=>Hash[String,String],Optional[max_task_retry_count]=>Integer,user_identity=>Struct[Optional[auto_user]=>Struct[Optional[elevation_level]=>String,Optional[scope]=>String],Optional[user_name]=>String],Optional[wait_for_success]=>Boolean]]"`
+		Stop_pending_resize_operation bool                    `puppet:"value=>false"`
+		Storage_image_reference       *map[string]string      `puppet:"type => Optional[Struct[Optional[id]=>String,offer=>String,publisher=>String,sku=>String,version=>String]]"`
 		Vm_size                       string
 	}
 
@@ -348,7 +348,7 @@ type (
 		Location             string
 		Name                 string
 		Resource_group_name  string
-		Sku                  []map[string]string `puppet:"type => Array[Struct[name=>String,tier=>String]]"`
+		Sku                  *map[string]string `puppet:"type => Optional[Struct[name=>String,tier=>String]]"`
 		Tags                 *map[string]string
 	}
 
@@ -378,23 +378,23 @@ type (
 		Login_server             *string
 		Name                     string
 		Resource_group_name      string
-		Sku                      string               `puppet:"value=>'Classic'"`
-		Storage_account          *[]map[string]string `puppet:"type => Optional[Array[Struct[access_key=>String,name=>String]]]"`
+		Sku                      string             `puppet:"value=>'Classic'"`
+		Storage_account          *map[string]string `puppet:"type => Optional[Struct[access_key=>String,name=>String]]"`
 		Storage_account_id       *string
 		Tags                     *map[string]string
 	}
 
 	Container_service struct {
-		Container_service_id   *string                  `lyra:"tf-gen.ignore"`
-		Agent_pool_profile     []map[string]interface{} `puppet:"type => Array[Struct[Optional[count]=>Integer,dns_prefix=>String,Optional[fqdn]=>String,name=>String,vm_size=>String]]"`
-		Diagnostics_profile    []map[string]interface{} `puppet:"type => Array[Struct[enabled=>Boolean,Optional[storage_uri]=>String]]"`
-		Linux_profile          []map[string]interface{} `puppet:"type => Array[Struct[admin_username=>String,ssh_key=>Array[Struct[key_data=>String]]]]"`
+		Container_service_id   *string                 `lyra:"tf-gen.ignore"`
+		Agent_pool_profile     *map[string]interface{} `puppet:"type => Optional[Struct[Optional[count]=>Integer,dns_prefix=>String,Optional[fqdn]=>String,name=>String,vm_size=>String]]"`
+		Diagnostics_profile    *map[string]interface{} `puppet:"type => Optional[Struct[enabled=>Boolean,Optional[storage_uri]=>String]]"`
+		Linux_profile          *map[string]interface{} `puppet:"type => Optional[Struct[admin_username=>String,ssh_key=>Struct[key_data=>String]]]"`
 		Location               string
-		Master_profile         []map[string]interface{} `puppet:"type => Array[Struct[Optional[count]=>Integer,dns_prefix=>String,Optional[fqdn]=>String]]"`
+		Master_profile         *map[string]interface{} `puppet:"type => Optional[Struct[Optional[count]=>Integer,dns_prefix=>String,Optional[fqdn]=>String]]"`
 		Name                   string
 		Orchestration_platform string
 		Resource_group_name    string
-		Service_principal      *[]map[string]string `puppet:"type => Optional[Array[Struct[client_id=>String,client_secret=>String]]]"`
+		Service_principal      *map[string]string `puppet:"type => Optional[Struct[client_id=>String,client_secret=>String]]"`
 		Tags                   *map[string]string
 	}
 
@@ -402,9 +402,9 @@ type (
 		Cosmosdb_account_id               *string              `lyra:"tf-gen.ignore"`
 		Capabilities                      *[]map[string]string `puppet:"type => Optional[Array[Struct[name=>String]]]"`
 		Connection_strings                *[]string
-		Consistency_policy                []map[string]interface{} `puppet:"type => Array[Struct[consistency_level=>String,Optional[max_interval_in_seconds]=>Integer,Optional[max_staleness_prefix]=>Integer]]"`
-		Enable_automatic_failover         bool                     `puppet:"value=>false"`
-		Enable_multiple_write_locations   bool                     `puppet:"value=>false"`
+		Consistency_policy                *map[string]interface{} `puppet:"type => Optional[Struct[consistency_level=>String,Optional[max_interval_in_seconds]=>Integer,Optional[max_staleness_prefix]=>Integer]]"`
+		Enable_automatic_failover         bool                    `puppet:"value=>false"`
+		Enable_multiple_write_locations   bool                    `puppet:"value=>false"`
 		Endpoint                          *string
 		Failover_policy                   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[id]=>String,location=>String,priority=>Integer]]]"`
 		Geo_location                      *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[failover_priority=>Integer,Optional[id]=>String,location=>String,Optional[prefix]=>String]]]"`
@@ -505,7 +505,7 @@ type (
 		Allow_claim                       bool    `puppet:"value=>true"`
 		Disallow_public_ip_address        *bool
 		Fqdn                              *string
-		Gallery_image_reference           []map[string]string       `puppet:"type => Array[Struct[offer=>String,publisher=>String,sku=>String,version=>String]]"`
+		Gallery_image_reference           *map[string]string        `puppet:"type => Optional[Struct[offer=>String,publisher=>String,sku=>String,version=>String]]"`
 		Inbound_nat_rule                  *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[backend_port=>Integer,Optional[frontend_port]=>Integer,protocol=>String]]]"`
 		Lab_name                          string
 		Lab_subnet_name                   string
@@ -542,7 +542,7 @@ type (
 		Lab_name                    string
 		Name                        string
 		Resource_group_name         string
-		Subnet                      *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[name]=>String,Optional[use_in_virtual_machine_creation]=>String,Optional[use_public_ip_address]=>String]]]"`
+		Subnet                      *map[string]string `puppet:"type => Optional[Struct[Optional[name]=>String,Optional[use_in_virtual_machine_creation]=>String,Optional[use_public_ip_address]=>String]]"`
 		Tags                        *map[string]string
 		Unique_identifier           *string
 	}
@@ -552,7 +552,7 @@ type (
 		Allow_claim                         bool    `puppet:"value=>true"`
 		Disallow_public_ip_address          *bool
 		Fqdn                                *string
-		Gallery_image_reference             []map[string]string       `puppet:"type => Array[Struct[offer=>String,publisher=>String,sku=>String,version=>String]]"`
+		Gallery_image_reference             *map[string]string        `puppet:"type => Optional[Struct[offer=>String,publisher=>String,sku=>String,version=>String]]"`
 		Inbound_nat_rule                    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[backend_port=>Integer,Optional[frontend_port]=>Integer,protocol=>String]]]"`
 		Lab_name                            string
 		Lab_subnet_name                     string
@@ -576,7 +576,7 @@ type (
 		Location                                 string
 		Name                                     string
 		Resource_group_name                      string
-		Sku                                      []map[string]string `puppet:"type => Array[Struct[name=>String,tier=>String]]"`
+		Sku                                      *map[string]string `puppet:"type => Optional[Struct[name=>String,tier=>String]]"`
 		Tags                                     *map[string]string
 		Target_container_host_credentials_base64 string
 		Target_container_host_resource_id        string
@@ -699,8 +699,8 @@ type (
 	}
 
 	Eventhub struct {
-		Eventhub_id         *string                   `lyra:"tf-gen.ignore"`
-		Capture_description *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[destination=>Array[Struct[archive_name_format=>String,blob_container_name=>String,name=>String,storage_account_id=>String]],enabled=>Boolean,encoding=>String,Optional[interval_in_seconds]=>Integer,Optional[size_limit_in_bytes]=>Integer]]]"`
+		Eventhub_id         *string                 `lyra:"tf-gen.ignore"`
+		Capture_description *map[string]interface{} `puppet:"type => Optional[Struct[destination=>Struct[archive_name_format=>String,blob_container_name=>String,name=>String,storage_account_id=>String],enabled=>Boolean,encoding=>String,Optional[interval_in_seconds]=>Integer,Optional[size_limit_in_bytes]=>Integer]]"`
 		Location            *string
 		Message_retention   int64
 		Name                string
@@ -779,7 +779,7 @@ type (
 		Service_key                         *string
 		Service_provider_name               string
 		Service_provider_provisioning_state *string
-		Sku                                 []map[string]string `puppet:"type => Array[Struct[family=>String,tier=>String]]"`
+		Sku                                 *map[string]string `puppet:"type => Optional[Struct[family=>String,tier=>String]]"`
 		Tags                                *map[string]string
 	}
 
@@ -796,7 +796,7 @@ type (
 		Express_route_circuit_peering_id *string `lyra:"tf-gen.ignore"`
 		Azure_asn                        *int64
 		Express_route_circuit_name       string
-		Microsoft_peering_config         *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[advertised_public_prefixes=>Array[String]]]]"`
+		Microsoft_peering_config         *map[string][]interface{} `puppet:"type => Optional[Struct[advertised_public_prefixes=>Array[String]]]"`
 		Peer_asn                         *int64
 		Peering_type                     string
 		Primary_azure_port               *string
@@ -809,8 +809,8 @@ type (
 	}
 
 	Firewall struct {
-		Firewall_id         *string             `lyra:"tf-gen.ignore"`
-		Ip_configuration    []map[string]string `puppet:"type => Array[Struct[name=>String,Optional[private_ip_address]=>String,Optional[public_ip_address_id]=>String,subnet_id=>String]]"`
+		Firewall_id         *string            `lyra:"tf-gen.ignore"`
+		Ip_configuration    *map[string]string `puppet:"type => Optional[Struct[name=>String,Optional[private_ip_address]=>String,Optional[public_ip_address_id]=>String,subnet_id=>String]]"`
 		Location            string
 		Name                string
 		Resource_group_name string
@@ -824,7 +824,7 @@ type (
 		Name                                    string
 		Priority                                int64
 		Resource_group_name                     string
-		Rule                                    []map[string]interface{} `puppet:"type => Array[Struct[Optional[description]=>String,Optional[fqdn_tags]=>Array[String],name=>String,Optional[protocol]=>Array[Struct[Optional[port]=>Integer,type=>String]],source_addresses=>Array[String],Optional[target_fqdns]=>Array[String]]]"`
+		Rule                                    []map[string]interface{} `puppet:"type => Array[Struct[Optional[description]=>String,Optional[fqdn_tags]=>Array[String],name=>String,Optional[protocol]=>Array[Struct[Optional[port]=>Integer,type=>String],1],source_addresses=>Array[String],Optional[target_fqdns]=>Array[String]],1]"`
 	}
 
 	Firewall_network_rule_collection struct {
@@ -834,7 +834,7 @@ type (
 		Name                                string
 		Priority                            int64
 		Resource_group_name                 string
-		Rule                                []map[string]interface{} `puppet:"type => Array[Struct[Optional[description]=>String,destination_addresses=>Array[String],destination_ports=>Array[String],name=>String,protocols=>Array[String],source_addresses=>Array[String]]]"`
+		Rule                                []map[string]interface{} `puppet:"type => Array[Struct[Optional[description]=>String,destination_addresses=>Array[String],destination_ports=>Array[String],name=>String,protocols=>Array[String],source_addresses=>Array[String]],1]"`
 	}
 
 	Function_app struct {
@@ -844,16 +844,16 @@ type (
 		Client_affinity_enabled   *bool
 		Connection_string         *[]map[string]string `puppet:"type => Optional[Array[Struct[name=>String,type=>String,value=>String]]]"`
 		Default_hostname          *string
-		Enable_builtin_logging    bool                 `puppet:"value=>true"`
-		Enabled                   bool                 `puppet:"value=>true"`
-		Https_only                bool                 `puppet:"value=>false"`
-		Identity                  *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[principal_id]=>String,Optional[tenant_id]=>String,type=>String]]]"`
+		Enable_builtin_logging    bool               `puppet:"value=>true"`
+		Enabled                   bool               `puppet:"value=>true"`
+		Https_only                bool               `puppet:"value=>false"`
+		Identity                  *map[string]string `puppet:"type => Optional[Struct[Optional[principal_id]=>String,Optional[tenant_id]=>String,type=>String]]"`
 		Location                  string
 		Name                      string
 		Outbound_ip_addresses     *string
 		Resource_group_name       string
-		Site_config               *[]map[string]bool   `puppet:"type => Optional[Array[Struct[Optional[always_on]=>Boolean,Optional[use_32_bit_worker_process]=>Boolean,Optional[websockets_enabled]=>Boolean]]]"`
-		Site_credential           *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[password]=>String,Optional[username]=>String]]]"`
+		Site_config               *map[string]bool   `puppet:"type => Optional[Struct[Optional[always_on]=>Boolean,Optional[use_32_bit_worker_process]=>Boolean,Optional[websockets_enabled]=>Boolean]]"`
+		Site_credential           *map[string]string `puppet:"type => Optional[Struct[Optional[password]=>String,Optional[username]=>String]]"`
 		Storage_connection_string string
 		Tags                      *map[string]string
 		Version                   string `puppet:"value=>'~1'"`
@@ -864,7 +864,7 @@ type (
 		Data_disk                 *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[blob_uri]=>String,Optional[caching]=>String,Optional[lun]=>Integer,Optional[managed_disk_id]=>String,Optional[size_gb]=>Integer]]]"`
 		Location                  string
 		Name                      string
-		Os_disk                   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[blob_uri]=>String,Optional[caching]=>String,Optional[managed_disk_id]=>String,Optional[os_state]=>String,Optional[os_type]=>String,Optional[size_gb]=>Integer]]]"`
+		Os_disk                   *map[string]interface{} `puppet:"type => Optional[Struct[Optional[blob_uri]=>String,Optional[caching]=>String,Optional[managed_disk_id]=>String,Optional[os_state]=>String,Optional[os_type]=>String,Optional[size_gb]=>Integer]]"`
 		Resource_group_name       string
 		Source_virtual_machine_id *string
 		Tags                      *map[string]string
@@ -883,7 +883,7 @@ type (
 		Resource_group_name           string
 		Route                         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[condition]=>String,enabled=>Boolean,endpoint_names=>Array[String],name=>String,source=>String]]]"`
 		Shared_access_policy          *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[key_name]=>String,Optional[permissions]=>String,Optional[primary_key]=>String,Optional[secondary_key]=>String]]]"`
-		Sku                           []map[string]interface{}  `puppet:"type => Array[Struct[capacity=>Integer,name=>String,tier=>String]]"`
+		Sku                           *map[string]interface{}   `puppet:"type => Optional[Struct[capacity=>Integer,name=>String,tier=>String]]"`
 		Tags                          *map[string]string
 		Type                          *string
 	}
@@ -898,13 +898,13 @@ type (
 
 	Key_vault struct {
 		Key_vault_id                    *string                   `lyra:"tf-gen.ignore"`
-		Access_policy                   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[application_id]=>String,Optional[certificate_permissions]=>Array[String],Optional[key_permissions]=>Array[String],object_id=>String,Optional[secret_permissions]=>Array[String],tenant_id=>String]]]"`
+		Access_policy                   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[application_id]=>String,Optional[certificate_permissions]=>Array[String],Optional[key_permissions]=>Array[String],object_id=>String,Optional[secret_permissions]=>Array[String],tenant_id=>String],0,16]]"`
 		Enabled_for_deployment          *bool
 		Enabled_for_disk_encryption     *bool
 		Enabled_for_template_deployment *bool
 		Location                        string
 		Name                            string
-		Network_acls                    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[bypass=>String,default_action=>String,Optional[ip_rules]=>Array[String],Optional[virtual_network_subnet_ids]=>Array[String]]]]"`
+		Network_acls                    *map[string]interface{} `puppet:"type => Optional[Struct[bypass=>String,default_action=>String,Optional[ip_rules]=>Array[String],Optional[virtual_network_subnet_ids]=>Array[String]]]"`
 		Resource_group_name             string
 		Sku                             []map[string]string `puppet:"type => Array[Struct[name=>String]]"`
 		Tags                            *map[string]string
@@ -925,10 +925,10 @@ type (
 	}
 
 	Key_vault_certificate struct {
-		Key_vault_certificate_id *string              `lyra:"tf-gen.ignore"`
-		Certificate              *[]map[string]string `puppet:"type => Optional[Array[Struct[contents=>String,Optional[password]=>String]]]"`
+		Key_vault_certificate_id *string            `lyra:"tf-gen.ignore"`
+		Certificate              *map[string]string `puppet:"type => Optional[Struct[contents=>String,Optional[password]=>String]]"`
 		Certificate_data         *string
-		Certificate_policy       []map[string][]interface{} `puppet:"type => Array[Struct[issuer_parameters=>Array[Struct[name=>String]],key_properties=>Array[Struct[exportable=>Boolean,key_size=>Integer,key_type=>String,reuse_key=>Boolean]],Optional[lifetime_action]=>Array[Struct[action=>Array[Struct[action_type=>String]],trigger=>Array[Struct[Optional[days_before_expiry]=>Integer,Optional[lifetime_percentage]=>Integer]]]],secret_properties=>Array[Struct[content_type=>String]],Optional[x509_certificate_properties]=>Array[Struct[Optional[extended_key_usage]=>Array[String],key_usage=>Array[String],subject=>String,Optional[subject_alternative_names]=>Array[Struct[Optional[dns_names]=>Array[String],Optional[emails]=>Array[String],Optional[upns]=>Array[String]]],validity_in_months=>Integer]]]]"`
+		Certificate_policy       *map[string][]interface{} `puppet:"type => Optional[Struct[issuer_parameters=>Struct[name=>String],key_properties=>Struct[exportable=>Boolean,key_size=>Integer,key_type=>String,reuse_key=>Boolean],Optional[lifetime_action]=>Array[Struct[action=>Struct[action_type=>String],trigger=>Struct[Optional[days_before_expiry]=>Integer,Optional[lifetime_percentage]=>Integer]]],secret_properties=>Struct[content_type=>String],Optional[x509_certificate_properties]=>Struct[Optional[extended_key_usage]=>Array[String],key_usage=>Array[String],subject=>String,Optional[subject_alternative_names]=>Struct[Optional[dns_names]=>Array[String],Optional[emails]=>Array[String],Optional[upns]=>Array[String]],validity_in_months=>Integer]]]"`
 		Name                     string
 		Secret_id                *string
 		Tags                     *map[string]string
@@ -961,30 +961,30 @@ type (
 	}
 
 	Kubernetes_cluster struct {
-		Kubernetes_cluster_id     *string                     `lyra:"tf-gen.ignore"`
-		Addon_profile             *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[Optional[aci_connector_linux]=>Array[Struct[enabled=>Boolean,subnet_name=>String]],Optional[http_application_routing]=>Array[Struct[enabled=>Boolean,Optional[http_application_routing_zone_name]=>String]],Optional[oms_agent]=>Array[Struct[enabled=>Boolean,log_analytics_workspace_id=>String]]]]]"`
-		Agent_pool_profile        []map[string]interface{}    `puppet:"type => Array[Struct[Optional[count]=>Integer,Optional[max_pods]=>Integer,name=>String,Optional[os_disk_size_gb]=>Integer,Optional[os_type]=>String,vm_size=>String,Optional[vnet_subnet_id]=>String]]"`
+		Kubernetes_cluster_id     *string                   `lyra:"tf-gen.ignore"`
+		Addon_profile             *map[string][]interface{} `puppet:"type => Optional[Struct[Optional[aci_connector_linux]=>Struct[enabled=>Boolean,subnet_name=>String],Optional[http_application_routing]=>Struct[enabled=>Boolean,Optional[http_application_routing_zone_name]=>String],Optional[oms_agent]=>Struct[enabled=>Boolean,log_analytics_workspace_id=>String]]]"`
+		Agent_pool_profile        *map[string]interface{}   `puppet:"type => Optional[Struct[Optional[count]=>Integer,Optional[max_pods]=>Integer,name=>String,Optional[os_disk_size_gb]=>Integer,Optional[os_type]=>String,vm_size=>String,Optional[vnet_subnet_id]=>String]]"`
 		Dns_prefix                string
 		Fqdn                      *string
-		Kube_admin_config         *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[client_certificate]=>String,Optional[client_key]=>String,Optional[cluster_ca_certificate]=>String,Optional[host]=>String,Optional[password]=>String,Optional[username]=>String]]]"`
+		Kube_admin_config         *map[string]string `puppet:"type => Optional[Struct[Optional[client_certificate]=>String,Optional[client_key]=>String,Optional[cluster_ca_certificate]=>String,Optional[host]=>String,Optional[password]=>String,Optional[username]=>String]]"`
 		Kube_admin_config_raw     *string
-		Kube_config               *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[client_certificate]=>String,Optional[client_key]=>String,Optional[cluster_ca_certificate]=>String,Optional[host]=>String,Optional[password]=>String,Optional[username]=>String]]]"`
+		Kube_config               *map[string]string `puppet:"type => Optional[Struct[Optional[client_certificate]=>String,Optional[client_key]=>String,Optional[cluster_ca_certificate]=>String,Optional[host]=>String,Optional[password]=>String,Optional[username]=>String]]"`
 		Kube_config_raw           *string
 		Kubernetes_version        *string
-		Linux_profile             *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[admin_username=>String,ssh_key=>Array[Struct[key_data=>String]]]]]"`
+		Linux_profile             *map[string]interface{} `puppet:"type => Optional[Struct[admin_username=>String,ssh_key=>Array[Struct[key_data=>String]]]]"`
 		Location                  string
 		Name                      string
-		Network_profile           *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[dns_service_ip]=>String,Optional[docker_bridge_cidr]=>String,network_plugin=>String,Optional[pod_cidr]=>String,Optional[service_cidr]=>String]]]"`
+		Network_profile           *map[string]string `puppet:"type => Optional[Struct[Optional[dns_service_ip]=>String,Optional[docker_bridge_cidr]=>String,network_plugin=>String,Optional[pod_cidr]=>String,Optional[service_cidr]=>String]]"`
 		Node_resource_group       *string
 		Resource_group_name       string
-		Role_based_access_control *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[azure_active_directory]=>Array[Struct[client_app_id=>String,server_app_id=>String,server_app_secret=>String,Optional[tenant_id]=>String]],enabled=>Boolean]]]"`
-		Service_principal         []map[string]string       `puppet:"type => Array[Struct[client_id=>String,client_secret=>String]]"`
+		Role_based_access_control *map[string]interface{} `puppet:"type => Optional[Struct[Optional[azure_active_directory]=>Struct[client_app_id=>String,server_app_id=>String,server_app_secret=>String,Optional[tenant_id]=>String],enabled=>Boolean]]"`
+		Service_principal         *map[string]string      `puppet:"type => Optional[Struct[client_id=>String,client_secret=>String]]"`
 		Tags                      *map[string]string
 	}
 
 	Lb struct {
 		Lb_id                     *string                   `lyra:"tf-gen.ignore"`
-		Frontend_ip_configuration *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[inbound_nat_rules]=>Array[String],Optional[load_balancer_rules]=>Array[String],name=>String,Optional[private_ip_address]=>String,Optional[private_ip_address_allocation]=>String,Optional[public_ip_address_id]=>String,Optional[subnet_id]=>String,Optional[zones]=>Array[String]]]]"`
+		Frontend_ip_configuration *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[inbound_nat_rules]=>Array[String],Optional[load_balancer_rules]=>Array[String],name=>String,Optional[private_ip_address]=>String,Optional[private_ip_address_allocation]=>String,Optional[public_ip_address_id]=>String,Optional[subnet_id]=>String,Optional[zones]=>Array[String,0,1]],1]]"`
 		Location                  string
 		Name                      string
 		Private_ip_address        *string
@@ -1068,7 +1068,7 @@ type (
 	Local_network_gateway struct {
 		Local_network_gateway_id *string `lyra:"tf-gen.ignore"`
 		Address_space            []string
-		Bgp_settings             *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[asn=>Integer,bgp_peering_address=>String,Optional[peer_weight]=>Integer]]]"`
+		Bgp_settings             *map[string]interface{} `puppet:"type => Optional[Struct[asn=>Integer,bgp_peering_address=>String,Optional[peer_weight]=>Integer]]"`
 		Gateway_address          string
 		Location                 string
 		Name                     string
@@ -1079,7 +1079,7 @@ type (
 	Log_analytics_solution struct {
 		Log_analytics_solution_id *string `lyra:"tf-gen.ignore"`
 		Location                  string
-		Plan                      []map[string]string `puppet:"type => Array[Struct[Optional[name]=>String,product=>String,Optional[promotion_code]=>String,publisher=>String]]"`
+		Plan                      *map[string]string `puppet:"type => Optional[Struct[Optional[name]=>String,product=>String,Optional[promotion_code]=>String,publisher=>String]]"`
 		Resource_group_name       string
 		Solution_name             string
 		Workspace_name            string
@@ -1167,7 +1167,7 @@ type (
 		Managed_disk_id      *string `lyra:"tf-gen.ignore"`
 		Create_option        string
 		Disk_size_gb         *int64
-		Encryption_settings  *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[disk_encryption_key]=>Array[Struct[secret_url=>String,source_vault_id=>String]],enabled=>Boolean,Optional[key_encryption_key]=>Array[Struct[key_url=>String,source_vault_id=>String]]]]]"`
+		Encryption_settings  *map[string]interface{} `puppet:"type => Optional[Struct[Optional[disk_encryption_key]=>Struct[secret_url=>String,source_vault_id=>String],enabled=>Boolean,Optional[key_encryption_key]=>Struct[key_url=>String,source_vault_id=>String]]]"`
 		Image_reference_id   *string
 		Location             string
 		Name                 string
@@ -1213,9 +1213,9 @@ type (
 		Location                     string
 		Name                         string
 		Resource_group_name          string
-		Sku                          []map[string]interface{} `puppet:"type => Array[Struct[capacity=>Integer,family=>String,name=>String,tier=>String]]"`
+		Sku                          *map[string]interface{} `puppet:"type => Optional[Struct[capacity=>Integer,family=>String,name=>String,tier=>String]]"`
 		Ssl_enforcement              string
-		Storage_profile              []map[string]interface{} `puppet:"type => Array[Struct[Optional[backup_retention_days]=>Integer,Optional[geo_redundant_backup]=>String,storage_mb=>Integer]]"`
+		Storage_profile              *map[string]interface{} `puppet:"type => Optional[Struct[Optional[backup_retention_days]=>Integer,Optional[geo_redundant_backup]=>String,storage_mb=>Integer]]"`
 		Tags                         *map[string]string
 		Version                      string
 	}
@@ -1224,8 +1224,8 @@ type (
 		Metric_alertrule_id *string `lyra:"tf-gen.ignore"`
 		Aggregation         string
 		Description         *string
-		Email_action        *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[custom_emails]=>Array[String],Optional[send_to_service_owners]=>Boolean]]]"`
-		Enabled             bool                      `puppet:"value=>true"`
+		Email_action        *map[string]interface{} `puppet:"type => Optional[Struct[Optional[custom_emails]=>Array[String],Optional[send_to_service_owners]=>Boolean]]"`
+		Enabled             bool                    `puppet:"value=>true"`
 		Location            string
 		Metric_name         string
 		Name                string
@@ -1235,7 +1235,7 @@ type (
 		Resource_id         string
 		Tags                *map[string]string
 		Threshold           float64
-		Webhook_action      *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[properties]=>Hash[String,String],service_uri=>String]]]"`
+		Webhook_action      *map[string]interface{} `puppet:"type => Optional[Struct[Optional[properties]=>Hash[String,String],service_uri=>String]]"`
 	}
 
 	Monitor_action_group struct {
@@ -1253,7 +1253,7 @@ type (
 	Monitor_activity_log_alert struct {
 		Monitor_activity_log_alert_id *string                   `lyra:"tf-gen.ignore"`
 		Action                        *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[action_group_id=>String,Optional[webhook_properties]=>Hash[String,String]]]]"`
-		Criteria                      []map[string]string       `puppet:"type => Array[Struct[Optional[caller]=>String,category=>String,Optional[level]=>String,Optional[operation_name]=>String,Optional[resource_group]=>String,Optional[resource_id]=>String,Optional[resource_provider]=>String,Optional[resource_type]=>String,Optional[status]=>String,Optional[sub_status]=>String]]"`
+		Criteria                      *map[string]string        `puppet:"type => Optional[Struct[Optional[caller]=>String,category=>String,Optional[level]=>String,Optional[operation_name]=>String,Optional[resource_group]=>String,Optional[resource_id]=>String,Optional[resource_provider]=>String,Optional[resource_type]=>String,Optional[status]=>String,Optional[sub_status]=>String]]"`
 		Description                   *string
 		Enabled                       bool `puppet:"value=>true"`
 		Name                          string
@@ -1266,9 +1266,9 @@ type (
 		Monitor_diagnostic_setting_id  *string `lyra:"tf-gen.ignore"`
 		Eventhub_authorization_rule_id *string
 		Eventhub_name                  *string
-		Log                            *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[category=>String,Optional[enabled]=>Boolean,retention_policy=>Array[Struct[Optional[days]=>Integer,enabled=>Boolean]]]]]"`
+		Log                            *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[category=>String,Optional[enabled]=>Boolean,retention_policy=>Struct[Optional[days]=>Integer,enabled=>Boolean]]]]"`
 		Log_analytics_workspace_id     *string
-		Metric                         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[category=>String,Optional[enabled]=>Boolean,retention_policy=>Array[Struct[Optional[days]=>Integer,enabled=>Boolean]]]]]"`
+		Metric                         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[category=>String,Optional[enabled]=>Boolean,retention_policy=>Struct[Optional[days]=>Integer,enabled=>Boolean]]]]"`
 		Name                           string
 		Storage_account_id             *string
 		Target_resource_id             string
@@ -1279,7 +1279,7 @@ type (
 		Categories             []string
 		Locations              []string
 		Name                   string
-		Retention_policy       []map[string]interface{} `puppet:"type => Array[Struct[Optional[days]=>Integer,enabled=>Boolean]]"`
+		Retention_policy       *map[string]interface{} `puppet:"type => Optional[Struct[Optional[days]=>Integer,enabled=>Boolean]]"`
 		Servicebus_rule_id     *string
 		Storage_account_id     *string
 	}
@@ -1288,7 +1288,7 @@ type (
 		Monitor_metric_alert_id *string                   `lyra:"tf-gen.ignore"`
 		Action                  *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[action_group_id=>String,Optional[webhook_properties]=>Hash[String,String]]]]"`
 		Auto_mitigate           bool                      `puppet:"value=>false"`
-		Criteria                []map[string]interface{}  `puppet:"type => Array[Struct[aggregation=>String,Optional[dimension]=>Array[Struct[name=>String,operator=>String,values=>Array[String]]],metric_name=>String,metric_namespace=>String,operator=>String,threshold=>Float]]"`
+		Criteria                []map[string]interface{}  `puppet:"type => Array[Struct[aggregation=>String,Optional[dimension]=>Array[Struct[name=>String,operator=>String,values=>Array[String,1]]],metric_name=>String,metric_namespace=>String,operator=>String,threshold=>Float],1]"`
 		Description             *string
 		Enabled                 bool   `puppet:"value=>true"`
 		Frequency               string `puppet:"value=>'PT1M'"`
@@ -1301,15 +1301,15 @@ type (
 	}
 
 	Mssql_elasticpool struct {
-		Mssql_elasticpool_id    *string                   `lyra:"tf-gen.ignore"`
-		Elastic_pool_properties *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[]]]"`
+		Mssql_elasticpool_id    *string                 `lyra:"tf-gen.ignore"`
+		Elastic_pool_properties *map[string]interface{} `puppet:"type => Optional[Struct[]]"`
 		Location                string
 		Max_size_bytes          *int64
 		Name                    string
-		Per_database_settings   []map[string]float64 `puppet:"type => Array[Struct[max_capacity=>Float,min_capacity=>Float]]"`
+		Per_database_settings   *map[string]float64 `puppet:"type => Optional[Struct[max_capacity=>Float,min_capacity=>Float]]"`
 		Resource_group_name     string
 		Server_name             string
-		Sku                     []map[string]interface{} `puppet:"type => Array[Struct[capacity=>Integer,Optional[family]=>String,name=>String,tier=>String]]"`
+		Sku                     *map[string]interface{} `puppet:"type => Optional[Struct[capacity=>Integer,Optional[family]=>String,name=>String,tier=>String]]"`
 		Tags                    *map[string]string
 		Zone_redundant          *bool
 	}
@@ -1348,9 +1348,9 @@ type (
 		Location                     string
 		Name                         string
 		Resource_group_name          string
-		Sku                          []map[string]interface{} `puppet:"type => Array[Struct[capacity=>Integer,family=>String,name=>String,tier=>String]]"`
+		Sku                          *map[string]interface{} `puppet:"type => Optional[Struct[capacity=>Integer,family=>String,name=>String,tier=>String]]"`
 		Ssl_enforcement              string
-		Storage_profile              []map[string]interface{} `puppet:"type => Array[Struct[Optional[backup_retention_days]=>Integer,Optional[geo_redundant_backup]=>String,storage_mb=>Integer]]"`
+		Storage_profile              *map[string]interface{} `puppet:"type => Optional[Struct[Optional[backup_retention_days]=>Integer,Optional[geo_redundant_backup]=>String,storage_mb=>Integer]]"`
 		Tags                         *map[string]string
 		Version                      string
 	}
@@ -1444,9 +1444,9 @@ type (
 	}
 
 	Notification_hub struct {
-		Notification_hub_id *string              `lyra:"tf-gen.ignore"`
-		Apns_credential     *[]map[string]string `puppet:"type => Optional[Array[Struct[application_mode=>String,bundle_id=>String,key_id=>String,team_id=>String,token=>String]]]"`
-		Gcm_credential      *[]map[string]string `puppet:"type => Optional[Array[Struct[api_key=>String]]]"`
+		Notification_hub_id *string            `lyra:"tf-gen.ignore"`
+		Apns_credential     *map[string]string `puppet:"type => Optional[Struct[application_mode=>String,bundle_id=>String,key_id=>String,team_id=>String,token=>String]]"`
+		Gcm_credential      *map[string]string `puppet:"type => Optional[Struct[api_key=>String]]"`
 		Location            string
 		Name                string
 		Namespace_name      string
@@ -1474,7 +1474,7 @@ type (
 		Namespace_type                string
 		Resource_group_name           string
 		Servicebus_endpoint           *string
-		Sku                           []map[string]string `puppet:"type => Array[Struct[name=>String]]"`
+		Sku                           *map[string]string `puppet:"type => Optional[Struct[name=>String]]"`
 	}
 
 	Packet_capture struct {
@@ -1486,7 +1486,7 @@ type (
 		Name                      string
 		Network_watcher_name      string
 		Resource_group_name       string
-		Storage_location          []map[string]string `puppet:"type => Array[Struct[Optional[file_path]=>String,Optional[storage_account_id]=>String,Optional[storage_path]=>String]]"`
+		Storage_location          *map[string]string `puppet:"type => Optional[Struct[Optional[file_path]=>String,Optional[storage_account_id]=>String,Optional[storage_path]=>String]]"`
 		Target_resource_id        string
 	}
 
@@ -1494,7 +1494,7 @@ type (
 		Policy_assignment_id *string `lyra:"tf-gen.ignore"`
 		Description          *string
 		Display_name         *string
-		Identity             *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[principal_id]=>String,Optional[tenant_id]=>String,Optional[type]=>String]]]"`
+		Identity             *map[string]string `puppet:"type => Optional[Struct[Optional[principal_id]=>String,Optional[tenant_id]=>String,Optional[type]=>String]]"`
 		Location             *string
 		Name                 string
 		Not_scopes           *[]string
@@ -1562,9 +1562,9 @@ type (
 		Location                     string
 		Name                         string
 		Resource_group_name          string
-		Sku                          []map[string]interface{} `puppet:"type => Array[Struct[capacity=>Integer,family=>String,name=>String,tier=>String]]"`
+		Sku                          *map[string]interface{} `puppet:"type => Optional[Struct[capacity=>Integer,family=>String,name=>String,tier=>String]]"`
 		Ssl_enforcement              string
-		Storage_profile              []map[string]interface{} `puppet:"type => Array[Struct[Optional[backup_retention_days]=>Integer,Optional[geo_redundant_backup]=>String,storage_mb=>Integer]]"`
+		Storage_profile              *map[string]interface{} `puppet:"type => Optional[Struct[Optional[backup_retention_days]=>Integer,Optional[geo_redundant_backup]=>String,storage_mb=>Integer]]"`
 		Tags                         *map[string]string
 		Version                      string
 	}
@@ -1606,15 +1606,15 @@ type (
 	}
 
 	Recovery_services_protection_policy_vm struct {
-		Recovery_services_protection_policy_vm_id *string                  `lyra:"tf-gen.ignore"`
-		Backup                                    []map[string]interface{} `puppet:"type => Array[Struct[frequency=>String,time=>String,Optional[weekdays]=>Array[String]]]"`
+		Recovery_services_protection_policy_vm_id *string                 `lyra:"tf-gen.ignore"`
+		Backup                                    *map[string]interface{} `puppet:"type => Optional[Struct[frequency=>String,time=>String,Optional[weekdays]=>Array[String]]]"`
 		Name                                      string
 		Recovery_vault_name                       string
 		Resource_group_name                       string
-		Retention_daily                           *[]map[string]int64       `puppet:"type => Optional[Array[Struct[count=>Integer]]]"`
-		Retention_monthly                         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[count=>Integer,weekdays=>Array[String],weeks=>Array[String]]]]"`
-		Retention_weekly                          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[count=>Integer,weekdays=>Array[String]]]]"`
-		Retention_yearly                          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[count=>Integer,months=>Array[String],weekdays=>Array[String],weeks=>Array[String]]]]"`
+		Retention_daily                           *map[string]int64       `puppet:"type => Optional[Struct[count=>Integer]]"`
+		Retention_monthly                         *map[string]interface{} `puppet:"type => Optional[Struct[count=>Integer,weekdays=>Array[String],weeks=>Array[String]]]"`
+		Retention_weekly                          *map[string]interface{} `puppet:"type => Optional[Struct[count=>Integer,weekdays=>Array[String]]]"`
+		Retention_yearly                          *map[string]interface{} `puppet:"type => Optional[Struct[count=>Integer,months=>Array[String],weekdays=>Array[String],weeks=>Array[String]]]"`
 		Tags                                      *map[string]string
 		Timezone                                  string `puppet:"value=>'UTC'"`
 	}
@@ -1640,7 +1640,7 @@ type (
 		Port                      *int64
 		Primary_access_key        *string
 		Private_static_ip_address *string
-		Redis_configuration       []map[string]interface{} `puppet:"type => Array[Struct[Optional[maxclients]=>Integer,Optional[maxmemory_delta]=>Integer,Optional[maxmemory_policy]=>String,Optional[maxmemory_reserved]=>Integer,Optional[notify_keyspace_events]=>String,Optional[rdb_backup_enabled]=>Boolean,Optional[rdb_backup_frequency]=>Integer,Optional[rdb_backup_max_snapshot_count]=>Integer,Optional[rdb_storage_connection_string]=>String]]"`
+		Redis_configuration       *map[string]interface{} `puppet:"type => Optional[Struct[Optional[maxclients]=>Integer,Optional[maxmemory_delta]=>Integer,Optional[maxmemory_policy]=>String,Optional[maxmemory_reserved]=>Integer,Optional[notify_keyspace_events]=>String,Optional[rdb_backup_enabled]=>Boolean,Optional[rdb_backup_frequency]=>Integer,Optional[rdb_backup_max_snapshot_count]=>Integer,Optional[rdb_storage_connection_string]=>String]]"`
 		Resource_group_name       string
 		Secondary_access_key      *string
 		Shard_count               *int64
@@ -1670,7 +1670,7 @@ type (
 		Resource_group_name         string
 		Secondary_connection_string *string
 		Secondary_key               *string
-		Sku                         []map[string]string `puppet:"type => Array[Struct[name=>String]]"`
+		Sku                         *map[string]string `puppet:"type => Optional[Struct[name=>String]]"`
 		Tags                        *map[string]string
 	}
 
@@ -1722,16 +1722,16 @@ type (
 	}
 
 	Scheduler_job struct {
-		Scheduler_job_id           *string                   `lyra:"tf-gen.ignore"`
-		Action_storage_queue       *[]map[string]string      `puppet:"type => Optional[Array[Struct[message=>String,sas_token=>String,storage_account_name=>String,storage_queue_name=>String]]]"`
-		Action_web                 *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[authentication_active_directory]=>Array[Struct[Optional[audience]=>String,client_id=>String,secret=>String,tenant_id=>String]],Optional[authentication_basic]=>Array[Struct[password=>String,username=>String]],Optional[authentication_certificate]=>Array[Struct[Optional[expiration]=>String,password=>String,pfx=>String,Optional[subject_name]=>String,Optional[thumbprint]=>String]],Optional[body]=>String,Optional[headers]=>Hash[String,String],method=>String,url=>String]]]"`
-		Error_action_storage_queue *[]map[string]string      `puppet:"type => Optional[Array[Struct[message=>String,sas_token=>String,storage_account_name=>String,storage_queue_name=>String]]]"`
-		Error_action_web           *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[authentication_active_directory]=>Array[Struct[Optional[audience]=>String,client_id=>String,secret=>String,tenant_id=>String]],Optional[authentication_basic]=>Array[Struct[password=>String,username=>String]],Optional[authentication_certificate]=>Array[Struct[Optional[expiration]=>String,password=>String,pfx=>String,Optional[subject_name]=>String,Optional[thumbprint]=>String]],Optional[body]=>String,Optional[headers]=>Hash[String,String],method=>String,url=>String]]]"`
+		Scheduler_job_id           *string                 `lyra:"tf-gen.ignore"`
+		Action_storage_queue       *map[string]string      `puppet:"type => Optional[Struct[message=>String,sas_token=>String,storage_account_name=>String,storage_queue_name=>String]]"`
+		Action_web                 *map[string]interface{} `puppet:"type => Optional[Struct[Optional[authentication_active_directory]=>Struct[Optional[audience]=>String,client_id=>String,secret=>String,tenant_id=>String],Optional[authentication_basic]=>Struct[password=>String,username=>String],Optional[authentication_certificate]=>Struct[Optional[expiration]=>String,password=>String,pfx=>String,Optional[subject_name]=>String,Optional[thumbprint]=>String],Optional[body]=>String,Optional[headers]=>Hash[String,String],method=>String,url=>String]]"`
+		Error_action_storage_queue *map[string]string      `puppet:"type => Optional[Struct[message=>String,sas_token=>String,storage_account_name=>String,storage_queue_name=>String]]"`
+		Error_action_web           *map[string]interface{} `puppet:"type => Optional[Struct[Optional[authentication_active_directory]=>Struct[Optional[audience]=>String,client_id=>String,secret=>String,tenant_id=>String],Optional[authentication_basic]=>Struct[password=>String,username=>String],Optional[authentication_certificate]=>Struct[Optional[expiration]=>String,password=>String,pfx=>String,Optional[subject_name]=>String,Optional[thumbprint]=>String],Optional[body]=>String,Optional[headers]=>Hash[String,String],method=>String,url=>String]]"`
 		Job_collection_name        string
 		Name                       string
-		Recurrence                 *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[count]=>Integer,Optional[end_time]=>String,frequency=>String,Optional[hours]=>Array[Integer],Optional[interval]=>Integer,Optional[minutes]=>Array[Integer],Optional[month_days]=>Array[Integer],Optional[monthly_occurrences]=>Array[Struct[day=>String,occurrence=>Integer]],Optional[week_days]=>Array[String]]]]"`
+		Recurrence                 *map[string]interface{} `puppet:"type => Optional[Struct[Optional[count]=>Integer,Optional[end_time]=>String,frequency=>String,Optional[hours]=>Array[Integer],Optional[interval]=>Integer,Optional[minutes]=>Array[Integer],Optional[month_days]=>Array[Integer,1],Optional[monthly_occurrences]=>Array[Struct[day=>String,occurrence=>Integer],1],Optional[week_days]=>Array[String]]]"`
 		Resource_group_name        string
-		Retry                      *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[count]=>Integer,Optional[interval]=>String]]]"`
+		Retry                      *map[string]interface{} `puppet:"type => Optional[Struct[Optional[count]=>Integer,Optional[interval]=>String]]"`
 		Start_time                 *string
 		State                      *string
 	}
@@ -1740,7 +1740,7 @@ type (
 		Scheduler_job_collection_id *string `lyra:"tf-gen.ignore"`
 		Location                    string
 		Name                        string
-		Quota                       *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[max_job_count]=>Integer,max_recurrence_frequency=>String,Optional[max_recurrence_interval]=>Integer]]]"`
+		Quota                       *map[string]interface{} `puppet:"type => Optional[Struct[Optional[max_job_count]=>Integer,max_recurrence_frequency=>String,Optional[max_recurrence_interval]=>Integer]]"`
 		Resource_group_name         string
 		Sku                         string
 		State                       string `puppet:"value=>'Enabled'"`
@@ -1782,20 +1782,20 @@ type (
 	Service_fabric_cluster struct {
 		Service_fabric_cluster_id     *string `lyra:"tf-gen.ignore"`
 		Add_on_features               *[]string
-		Azure_active_directory        *[]map[string]string      `puppet:"type => Optional[Array[Struct[client_application_id=>String,cluster_application_id=>String,tenant_id=>String]]]"`
-		Certificate                   *[]map[string]string      `puppet:"type => Optional[Array[Struct[thumbprint=>String,Optional[thumbprint_secondary]=>String,x509_store_name=>String]]]"`
-		Client_certificate_thumbprint *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[is_admin=>Boolean,thumbprint=>String]]]"`
+		Azure_active_directory        *map[string]string        `puppet:"type => Optional[Struct[client_application_id=>String,cluster_application_id=>String,tenant_id=>String]]"`
+		Certificate                   *map[string]string        `puppet:"type => Optional[Struct[thumbprint=>String,Optional[thumbprint_secondary]=>String,x509_store_name=>String]]"`
+		Client_certificate_thumbprint *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[is_admin=>Boolean,thumbprint=>String],0,2]]"`
 		Cluster_code_version          *string
 		Cluster_endpoint              *string
-		Diagnostics_config            *[]map[string]string      `puppet:"type => Optional[Array[Struct[blob_endpoint=>String,protected_account_key_name=>String,queue_endpoint=>String,storage_account_name=>String,table_endpoint=>String]]]"`
+		Diagnostics_config            *map[string]string        `puppet:"type => Optional[Struct[blob_endpoint=>String,protected_account_key_name=>String,queue_endpoint=>String,storage_account_name=>String,table_endpoint=>String]]"`
 		Fabric_settings               *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[name=>String,Optional[parameters]=>Hash[String,String]]]]"`
 		Location                      string
 		Management_endpoint           string
 		Name                          string
-		Node_type                     []map[string]interface{} `puppet:"type => Array[Struct[Optional[application_ports]=>Array[Struct[end_port=>Integer,start_port=>Integer]],client_endpoint_port=>Integer,Optional[durability_level]=>String,Optional[ephemeral_ports]=>Array[Struct[end_port=>Integer,start_port=>Integer]],http_endpoint_port=>Integer,instance_count=>Integer,is_primary=>Boolean,name=>String,Optional[reverse_proxy_endpoint_port]=>Integer]]"`
+		Node_type                     []map[string]interface{} `puppet:"type => Array[Struct[Optional[application_ports]=>Struct[end_port=>Integer,start_port=>Integer],client_endpoint_port=>Integer,Optional[durability_level]=>String,Optional[ephemeral_ports]=>Struct[end_port=>Integer,start_port=>Integer],http_endpoint_port=>Integer,instance_count=>Integer,is_primary=>Boolean,name=>String,Optional[reverse_proxy_endpoint_port]=>Integer]]"`
 		Reliability_level             string
 		Resource_group_name           string
-		Reverse_proxy_certificate     *[]map[string]string `puppet:"type => Optional[Array[Struct[thumbprint=>String,Optional[thumbprint_secondary]=>String,x509_store_name=>String]]]"`
+		Reverse_proxy_certificate     *map[string]string `puppet:"type => Optional[Struct[thumbprint=>String,Optional[thumbprint_secondary]=>String,x509_store_name=>String]]"`
 		Tags                          *map[string]string
 		Upgrade_mode                  string
 		Vm_image                      string
@@ -1886,7 +1886,7 @@ type (
 	Servicebus_subscription_rule struct {
 		Servicebus_subscription_rule_id *string `lyra:"tf-gen.ignore"`
 		Action                          *string
-		Correlation_filter              *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[content_type]=>String,Optional[correlation_id]=>String,Optional[label]=>String,Optional[message_id]=>String,Optional[reply_to]=>String,Optional[reply_to_session_id]=>String,Optional[session_id]=>String,Optional[to]=>String]]]"`
+		Correlation_filter              *map[string]string `puppet:"type => Optional[Struct[Optional[content_type]=>String,Optional[correlation_id]=>String,Optional[label]=>String,Optional[message_id]=>String,Optional[reply_to]=>String,Optional[reply_to_session_id]=>String,Optional[session_id]=>String,Optional[to]=>String]]"`
 		Filter_type                     string
 		Name                            string
 		Namespace_name                  string
@@ -1935,7 +1935,7 @@ type (
 		Description           *string
 		Eula                  *string
 		Gallery_name          string
-		Identifier            []map[string]string `puppet:"type => Array[Struct[offer=>String,publisher=>String,sku=>String]]"`
+		Identifier            *map[string]string `puppet:"type => Optional[Struct[offer=>String,publisher=>String,sku=>String]]"`
 		Location              string
 		Name                  string
 		Os_type               string
@@ -1977,7 +1977,7 @@ type (
 		Public_port         *int64
 		Resource_group_name string
 		Server_port         *int64
-		Sku                 []map[string]interface{} `puppet:"type => Array[Struct[capacity=>Integer,name=>String]]"`
+		Sku                 *map[string]interface{} `puppet:"type => Optional[Struct[capacity=>Integer,name=>String]]"`
 		Tags                *map[string]string
 	}
 
@@ -1985,7 +1985,7 @@ type (
 		Snapshot_id         *string `lyra:"tf-gen.ignore"`
 		Create_option       string
 		Disk_size_gb        *int64
-		Encryption_settings *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[disk_encryption_key]=>Array[Struct[secret_url=>String,source_vault_id=>String]],enabled=>Boolean,Optional[key_encryption_key]=>Array[Struct[key_url=>String,source_vault_id=>String]]]]]"`
+		Encryption_settings *map[string]interface{} `puppet:"type => Optional[Struct[Optional[disk_encryption_key]=>Struct[secret_url=>String,source_vault_id=>String],enabled=>Boolean,Optional[key_encryption_key]=>Struct[key_url=>String,source_vault_id=>String]]]"`
 		Location            string
 		Name                string
 		Resource_group_name string
@@ -2013,7 +2013,7 @@ type (
 		Edition                          *string
 		Elastic_pool_name                *string
 		Encryption                       *string
-		Import                           *[]map[string]string `puppet:"type => Optional[Array[Struct[administrator_login=>String,administrator_login_password=>String,authentication_type=>String,Optional[operation_mode]=>String,storage_key=>String,storage_key_type=>String,storage_uri=>String]]]"`
+		Import                           *map[string]string `puppet:"type => Optional[Struct[administrator_login=>String,administrator_login_password=>String,authentication_type=>String,Optional[operation_mode]=>String,storage_key=>String,storage_key_type=>String,storage_uri=>String]]"`
 		Location                         string
 		Max_size_bytes                   *string
 		Name                             string
@@ -2025,7 +2025,7 @@ type (
 		Source_database_deletion_date    *string
 		Source_database_id               *string
 		Tags                             *map[string]string
-		Threat_detection_policy          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[disabled_alerts]=>Array[String],Optional[email_account_admins]=>String,Optional[email_addresses]=>Array[String],Optional[retention_days]=>Integer,Optional[state]=>String,Optional[storage_account_access_key]=>String,Optional[storage_endpoint]=>String,Optional[use_server_default]=>String]]]"`
+		Threat_detection_policy          *map[string]interface{} `puppet:"type => Optional[Struct[Optional[disabled_alerts]=>Array[String],Optional[email_account_admins]=>String,Optional[email_addresses]=>Array[String],Optional[retention_days]=>Integer,Optional[state]=>String,Optional[storage_account_access_key]=>String,Optional[storage_endpoint]=>String,Optional[use_server_default]=>String]]"`
 	}
 
 	Sql_elasticpool struct {
@@ -2081,14 +2081,14 @@ type (
 		Account_replication_type         string
 		Account_tier                     string
 		Account_type                     *string
-		Custom_domain                    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[name=>String,Optional[use_subdomain]=>Boolean]]]"`
-		Enable_blob_encryption           bool                      `puppet:"value=>true"`
-		Enable_file_encryption           bool                      `puppet:"value=>true"`
+		Custom_domain                    *map[string]interface{} `puppet:"type => Optional[Struct[name=>String,Optional[use_subdomain]=>Boolean]]"`
+		Enable_blob_encryption           bool                    `puppet:"value=>true"`
+		Enable_file_encryption           bool                    `puppet:"value=>true"`
 		Enable_https_traffic_only        *bool
-		Identity                         *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[principal_id]=>String,Optional[tenant_id]=>String,type=>String]]]"`
+		Identity                         *map[string]string `puppet:"type => Optional[Struct[Optional[principal_id]=>String,Optional[tenant_id]=>String,type=>String]]"`
 		Location                         string
 		Name                             string
-		Network_rules                    *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[Optional[bypass]=>Array[String],Optional[ip_rules]=>Array[String],Optional[virtual_network_subnet_ids]=>Array[String]]]]"`
+		Network_rules                    *map[string][]interface{} `puppet:"type => Optional[Struct[Optional[bypass]=>Array[String],Optional[ip_rules]=>Array[String],Optional[virtual_network_subnet_ids]=>Array[String]]]"`
 		Primary_access_key               *string
 		Primary_blob_connection_string   *string
 		Primary_blob_endpoint            *string
@@ -2159,7 +2159,7 @@ type (
 	Subnet struct {
 		Subnet_id                 *string `lyra:"tf-gen.ignore"`
 		Address_prefix            string
-		Delegation                *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[name=>String,service_delegation=>Array[Struct[Optional[actions]=>Array[String],name=>String]]]]]"`
+		Delegation                *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[name=>String,service_delegation=>Struct[Optional[actions]=>Array[String],name=>String]]]]"`
 		Ip_configurations         *[]string
 		Name                      string
 		Network_security_group_id *string
@@ -2234,24 +2234,24 @@ type (
 	Virtual_machine struct {
 		Virtual_machine_id               *string `lyra:"tf-gen.ignore"`
 		Availability_set_id              *string
-		Boot_diagnostics                 *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[enabled=>Boolean,storage_uri=>String]]]"`
-		Delete_data_disks_on_termination bool                      `puppet:"value=>false"`
-		Delete_os_disk_on_termination    bool                      `puppet:"value=>false"`
-		Identity                         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[identity_ids]=>Array[String],Optional[principal_id]=>String,type=>String]]]"`
+		Boot_diagnostics                 *map[string]interface{} `puppet:"type => Optional[Struct[enabled=>Boolean,storage_uri=>String]]"`
+		Delete_data_disks_on_termination bool                    `puppet:"value=>false"`
+		Delete_os_disk_on_termination    bool                    `puppet:"value=>false"`
+		Identity                         *map[string]interface{} `puppet:"type => Optional[Struct[Optional[identity_ids]=>Array[String],Optional[principal_id]=>String,type=>String]]"`
 		License_type                     *string
 		Location                         string
 		Name                             string
 		Network_interface_ids            []string
-		Os_profile                       *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[admin_password]=>String,admin_username=>String,computer_name=>String,Optional[custom_data]=>String]]]"`
-		Os_profile_linux_config          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[disable_password_authentication=>Boolean,Optional[ssh_keys]=>Array[Struct[key_data=>String,path=>String]]]]]"`
+		Os_profile                       *map[string]string        `puppet:"type => Optional[Struct[Optional[admin_password]=>String,admin_username=>String,computer_name=>String,Optional[custom_data]=>String]]"`
+		Os_profile_linux_config          *map[string]interface{}   `puppet:"type => Optional[Struct[disable_password_authentication=>Boolean,Optional[ssh_keys]=>Array[Struct[key_data=>String,path=>String]]]]"`
 		Os_profile_secrets               *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[source_vault_id=>String,Optional[vault_certificates]=>Array[Struct[Optional[certificate_store]=>String,certificate_url=>String]]]]]"`
-		Os_profile_windows_config        *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[additional_unattend_config]=>Array[Struct[component=>String,content=>String,pass=>String,setting_name=>String]],Optional[enable_automatic_upgrades]=>Boolean,Optional[provision_vm_agent]=>Boolean,Optional[timezone]=>String,Optional[winrm]=>Array[Struct[Optional[certificate_url]=>String,protocol=>String]]]]]"`
-		Plan                             *[]map[string]string      `puppet:"type => Optional[Array[Struct[name=>String,product=>String,publisher=>String]]]"`
+		Os_profile_windows_config        *map[string]interface{}   `puppet:"type => Optional[Struct[Optional[additional_unattend_config]=>Array[Struct[component=>String,content=>String,pass=>String,setting_name=>String]],Optional[enable_automatic_upgrades]=>Boolean,Optional[provision_vm_agent]=>Boolean,Optional[timezone]=>String,Optional[winrm]=>Array[Struct[Optional[certificate_url]=>String,protocol=>String]]]]"`
+		Plan                             *map[string]string        `puppet:"type => Optional[Struct[name=>String,product=>String,publisher=>String]]"`
 		Primary_network_interface_id     *string
 		Resource_group_name              string
 		Storage_data_disk                *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[caching]=>String,create_option=>String,Optional[disk_size_gb]=>Integer,lun=>Integer,Optional[managed_disk_id]=>String,Optional[managed_disk_type]=>String,name=>String,Optional[vhd_uri]=>String,Optional[write_accelerator_enabled]=>Boolean]]]"`
-		Storage_image_reference          *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[id]=>String,Optional[offer]=>String,Optional[publisher]=>String,Optional[sku]=>String,Optional[version]=>String]]]"`
-		Storage_os_disk                  []map[string]interface{}  `puppet:"type => Array[Struct[Optional[caching]=>String,create_option=>String,Optional[disk_size_gb]=>Integer,Optional[image_uri]=>String,Optional[managed_disk_id]=>String,Optional[managed_disk_type]=>String,name=>String,Optional[os_type]=>String,Optional[vhd_uri]=>String,Optional[write_accelerator_enabled]=>Boolean]]"`
+		Storage_image_reference          *map[string]string        `puppet:"type => Optional[Struct[Optional[id]=>String,Optional[offer]=>String,Optional[publisher]=>String,Optional[sku]=>String,Optional[version]=>String]]"`
+		Storage_os_disk                  *map[string]interface{}   `puppet:"type => Optional[Struct[Optional[caching]=>String,create_option=>String,Optional[disk_size_gb]=>Integer,Optional[image_uri]=>String,Optional[managed_disk_id]=>String,Optional[managed_disk_type]=>String,name=>String,Optional[os_type]=>String,Optional[vhd_uri]=>String,Optional[write_accelerator_enabled]=>Boolean]]"`
 		Tags                             *map[string]string
 		Vm_size                          string
 		Zones                            *[]string
@@ -2283,31 +2283,31 @@ type (
 	}
 
 	Virtual_machine_scale_set struct {
-		Virtual_machine_scale_set_id    *string                   `lyra:"tf-gen.ignore"`
-		Automatic_os_upgrade            bool                      `puppet:"value=>false"`
-		Boot_diagnostics                *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[enabled]=>Boolean,storage_uri=>String]]]"`
+		Virtual_machine_scale_set_id    *string                 `lyra:"tf-gen.ignore"`
+		Automatic_os_upgrade            bool                    `puppet:"value=>false"`
+		Boot_diagnostics                *map[string]interface{} `puppet:"type => Optional[Struct[Optional[enabled]=>Boolean,storage_uri=>String]]"`
 		Eviction_policy                 *string
 		Extension                       *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[auto_upgrade_minor_version]=>Boolean,name=>String,Optional[protected_settings]=>String,publisher=>String,Optional[settings]=>String,type=>String,type_handler_version=>String]]]"`
 		Health_probe_id                 *string
-		Identity                        *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[identity_ids]=>Array[String],Optional[principal_id]=>String,type=>String]]]"`
+		Identity                        *map[string]interface{} `puppet:"type => Optional[Struct[Optional[identity_ids]=>Array[String],Optional[principal_id]=>String,type=>String]]"`
 		License_type                    *string
 		Location                        string
 		Name                            string
-		Network_profile                 []map[string]interface{}  `puppet:"type => Array[Struct[Optional[accelerated_networking]=>Boolean,Optional[dns_settings]=>Array[Struct[dns_servers=>Array[String]]],ip_configuration=>Array[Struct[Optional[application_gateway_backend_address_pool_ids]=>Array[String],Optional[application_security_group_ids]=>Array[String],Optional[load_balancer_backend_address_pool_ids]=>Array[String],Optional[load_balancer_inbound_nat_rules_ids]=>Array[String],name=>String,primary=>Boolean,Optional[public_ip_address_configuration]=>Array[Struct[domain_name_label=>String,idle_timeout=>Integer,name=>String]],subnet_id=>String]],Optional[ip_forwarding]=>Boolean,name=>String,Optional[network_security_group_id]=>String,primary=>Boolean]]"`
-		Os_profile                      []map[string]string       `puppet:"type => Array[Struct[Optional[admin_password]=>String,admin_username=>String,computer_name_prefix=>String,Optional[custom_data]=>String]]"`
-		Os_profile_linux_config         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[disable_password_authentication]=>Boolean,Optional[ssh_keys]=>Array[Struct[Optional[key_data]=>String,path=>String]]]]]"`
+		Network_profile                 []map[string]interface{}  `puppet:"type => Array[Struct[Optional[accelerated_networking]=>Boolean,Optional[dns_settings]=>Struct[dns_servers=>Array[String]],ip_configuration=>Array[Struct[Optional[application_gateway_backend_address_pool_ids]=>Array[String],Optional[application_security_group_ids]=>Array[String,0,20],Optional[load_balancer_backend_address_pool_ids]=>Array[String],Optional[load_balancer_inbound_nat_rules_ids]=>Array[String],name=>String,primary=>Boolean,Optional[public_ip_address_configuration]=>Struct[domain_name_label=>String,idle_timeout=>Integer,name=>String],subnet_id=>String]],Optional[ip_forwarding]=>Boolean,name=>String,Optional[network_security_group_id]=>String,primary=>Boolean]]"`
+		Os_profile                      *map[string]string        `puppet:"type => Optional[Struct[Optional[admin_password]=>String,admin_username=>String,computer_name_prefix=>String,Optional[custom_data]=>String]]"`
+		Os_profile_linux_config         *map[string]interface{}   `puppet:"type => Optional[Struct[Optional[disable_password_authentication]=>Boolean,Optional[ssh_keys]=>Array[Struct[Optional[key_data]=>String,path=>String]]]]"`
 		Os_profile_secrets              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[source_vault_id=>String,Optional[vault_certificates]=>Array[Struct[Optional[certificate_store]=>String,certificate_url=>String]]]]]"`
-		Os_profile_windows_config       *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[additional_unattend_config]=>Array[Struct[component=>String,content=>String,pass=>String,setting_name=>String]],Optional[enable_automatic_upgrades]=>Boolean,Optional[provision_vm_agent]=>Boolean,Optional[winrm]=>Array[Struct[Optional[certificate_url]=>String,protocol=>String]]]]]"`
+		Os_profile_windows_config       *map[string]interface{}   `puppet:"type => Optional[Struct[Optional[additional_unattend_config]=>Array[Struct[component=>String,content=>String,pass=>String,setting_name=>String]],Optional[enable_automatic_upgrades]=>Boolean,Optional[provision_vm_agent]=>Boolean,Optional[winrm]=>Array[Struct[Optional[certificate_url]=>String,protocol=>String]]]]"`
 		Overprovision                   bool                      `puppet:"value=>true"`
-		Plan                            *[]map[string]string      `puppet:"type => Optional[Array[Struct[name=>String,product=>String,publisher=>String]]]"`
+		Plan                            *map[string]string        `puppet:"type => Optional[Struct[name=>String,product=>String,publisher=>String]]"`
 		Priority                        *string
 		Resource_group_name             string
-		Rolling_upgrade_policy          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[max_batch_instance_percent]=>Integer,Optional[max_unhealthy_instance_percent]=>Integer,Optional[max_unhealthy_upgraded_instance_percent]=>Integer,Optional[pause_time_between_batches]=>String]]]"`
+		Rolling_upgrade_policy          *map[string]interface{}   `puppet:"type => Optional[Struct[Optional[max_batch_instance_percent]=>Integer,Optional[max_unhealthy_instance_percent]=>Integer,Optional[max_unhealthy_upgraded_instance_percent]=>Integer,Optional[pause_time_between_batches]=>String]]"`
 		Single_placement_group          bool                      `puppet:"value=>true"`
-		Sku                             []map[string]interface{}  `puppet:"type => Array[Struct[capacity=>Integer,name=>String,Optional[tier]=>String]]"`
+		Sku                             *map[string]interface{}   `puppet:"type => Optional[Struct[capacity=>Integer,name=>String,Optional[tier]=>String]]"`
 		Storage_profile_data_disk       *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[caching]=>String,create_option=>String,Optional[disk_size_gb]=>Integer,lun=>Integer,Optional[managed_disk_type]=>String]]]"`
-		Storage_profile_image_reference *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[id]=>String,Optional[offer]=>String,Optional[publisher]=>String,Optional[sku]=>String,Optional[version]=>String]]]"`
-		Storage_profile_os_disk         []map[string]interface{}  `puppet:"type => Array[Struct[Optional[caching]=>String,create_option=>String,Optional[image]=>String,Optional[managed_disk_type]=>String,Optional[name]=>String,Optional[os_type]=>String,Optional[vhd_containers]=>Array[String]]]"`
+		Storage_profile_image_reference *map[string]string        `puppet:"type => Optional[Struct[Optional[id]=>String,Optional[offer]=>String,Optional[publisher]=>String,Optional[sku]=>String,Optional[version]=>String]]"`
+		Storage_profile_os_disk         *map[string]interface{}   `puppet:"type => Optional[Struct[Optional[caching]=>String,create_option=>String,Optional[image]=>String,Optional[managed_disk_type]=>String,Optional[name]=>String,Optional[os_type]=>String,Optional[vhd_containers]=>Array[String]]]"`
 		Tags                            *map[string]string
 		Upgrade_policy_mode             string
 		Zones                           *[]string
@@ -2327,18 +2327,18 @@ type (
 	Virtual_network_gateway struct {
 		Virtual_network_gateway_id       *string `lyra:"tf-gen.ignore"`
 		Active_active                    *bool
-		Bgp_settings                     *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[asn]=>Integer,Optional[peer_weight]=>Integer,Optional[peering_address]=>String]]]"`
+		Bgp_settings                     *map[string]interface{} `puppet:"type => Optional[Struct[Optional[asn]=>Integer,Optional[peer_weight]=>Integer,Optional[peering_address]=>String]]"`
 		Default_local_network_gateway_id *string
 		Enable_bgp                       *bool
-		Ip_configuration                 []map[string]string `puppet:"type => Array[Struct[Optional[name]=>String,Optional[private_ip_address_allocation]=>String,Optional[public_ip_address_id]=>String,subnet_id=>String]]"`
+		Ip_configuration                 []map[string]string `puppet:"type => Array[Struct[Optional[name]=>String,Optional[private_ip_address_allocation]=>String,Optional[public_ip_address_id]=>String,subnet_id=>String],0,2]"`
 		Location                         string
 		Name                             string
 		Resource_group_name              string
 		Sku                              string
 		Tags                             *map[string]string
 		Type                             string
-		Vpn_client_configuration         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[address_space=>Array[String],Optional[radius_server_address]=>String,Optional[radius_server_secret]=>String,Optional[revoked_certificate]=>Array[Struct[name=>String,thumbprint=>String]],Optional[root_certificate]=>Array[Struct[name=>String,public_cert_data=>String]],Optional[vpn_client_protocols]=>Array[String]]]]"`
-		Vpn_type                         string                    `puppet:"value=>'RouteBased'"`
+		Vpn_client_configuration         *map[string]interface{} `puppet:"type => Optional[Struct[address_space=>Array[String],Optional[radius_server_address]=>String,Optional[radius_server_secret]=>String,Optional[revoked_certificate]=>Array[Struct[name=>String,thumbprint=>String]],Optional[root_certificate]=>Array[Struct[name=>String,public_cert_data=>String]],Optional[vpn_client_protocols]=>Array[String]]]"`
+		Vpn_type                         string                  `puppet:"value=>'RouteBased'"`
 	}
 
 	Virtual_network_gateway_connection struct {
@@ -2346,7 +2346,7 @@ type (
 		Authorization_key                     *string
 		Enable_bgp                            *bool
 		Express_route_circuit_id              *string
-		Ipsec_policy                          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[dh_group=>String,ike_encryption=>String,ike_integrity=>String,ipsec_encryption=>String,ipsec_integrity=>String,pfs_group=>String,Optional[sa_datasize]=>Integer,Optional[sa_lifetime]=>Integer]]]"`
+		Ipsec_policy                          *map[string]interface{} `puppet:"type => Optional[Struct[dh_group=>String,ike_encryption=>String,ike_integrity=>String,ipsec_encryption=>String,ipsec_integrity=>String,pfs_group=>String,Optional[sa_datasize]=>Integer,Optional[sa_lifetime]=>Integer]]"`
 		Local_network_gateway_id              *string
 		Location                              string
 		Name                                  string

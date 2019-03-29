@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"sort"
+	"strconv"
 	"strings"
 	"text/template"
 
@@ -122,28 +123,16 @@ func (g *generator) writeRequiredType(name string, s *schema.Schema, b, ab *byte
 	annotations := false
 	switch s.Type {
 	case schema.TypeList, schema.TypeSet:
-		/* Possible modification to get rid of redunant Array constructs. Speaking against it is that Terraform
-		   doesn't seem to be using MaxItems consistently for this purpose (makes it hard for the user to know
-		   when to use and not to use an Array) and it screws up marshal/unmarshal in a bad way, so left out for
-		   the time being.
 		if r, ok := s.Elem.(*schema.Resource); ok && s.MaxItems == 1 {
 			// Terraform wraps nested resources in a TypeSet or TypeList because they don't have any
 			// ValueType to represent the Object type. A s.MinItems here means that the entry is optional.
-			rq := (s.Computed || s.Optional) && s.MinItems == 0
-			if rq {
-				b.WriteByte('*')
-				ab.WriteString("Optional[")
-			}
 			g.writeAnonymousStruct(r, b, ab)
-			if rq {
-				ab.WriteByte(']')
-			}
 			return true
 		}
-		*/
 		b.WriteString("[]")
 		ab.WriteString("Array[")
 		annotations = g.writeElementType(name, s, b, ab)
+		minMax(s, ab)
 		ab.WriteByte(']')
 	case schema.TypeMap:
 		b.WriteString("map[string]")
@@ -188,6 +177,22 @@ func (g *generator) writePrimitive(s *schema.Schema, t schema.ValueType, b, ab *
 	}
 }
 
+func minMax(s *schema.Schema, ab *bytes.Buffer) {
+	if s.MinItems != 0 {
+		ab.WriteByte(',')
+		ab.WriteString(strconv.Itoa(s.MinItems))
+		if s.MaxItems != 0 {
+			ab.WriteByte(',')
+			ab.WriteString(strconv.Itoa(s.MaxItems))
+		}
+	} else {
+		if s.MaxItems != 0 {
+			ab.WriteString(`,0,`)
+			ab.WriteString(strconv.Itoa(s.MaxItems))
+		}
+	}
+}
+
 func (g *generator) writeElementType(name string, s *schema.Schema, b, ab *bytes.Buffer) bool {
 	annotations := false
 	switch el := s.Elem.(type) {
@@ -205,7 +210,9 @@ func (g *generator) writeElementType(name string, s *schema.Schema, b, ab *bytes
 		case schema.TypeList, schema.TypeSet:
 			// No nested element type available. Default to string
 			b.WriteString("[]string")
-			ab.WriteString("Array[String]")
+			ab.WriteString("Array[String")
+			minMax(s, ab)
+			ab.WriteByte(']')
 		case schema.TypeMap:
 			// No nested element type available. Default to string
 			b.WriteString("map[string]string")
@@ -219,13 +226,25 @@ func (g *generator) writeElementType(name string, s *schema.Schema, b, ab *bytes
 	return annotations
 }
 
-func (g *generator) writeType(name string, s *schema.Schema, b, ab *bytes.Buffer) bool {
-	// An attribute with a specified Default doesn't have to be optional since it's value will always be
-	// set to the default (by pcore as well as by terraform).
+func isPcoreOptional(s *schema.Schema) bool {
+	// An attribute with a specified Default doesn't have to be optional since its value will be
+	// set at all times, either specifically or to the default (by pcore as well as by terraform).
 	//
-	// An attribute with a DefaultFunc must be considered optional since the function may return different
-	// values at different times (environment settings etc. may affect what it returns).
+	// An attribute with a DefaultFunc must be considered optional since the function may return
+	// different values at different times (environment settings etc. may affect what it returns).
 	opt := s.Default == nil && (s.Computed || s.Optional || s.DefaultFunc != nil)
+
+	// Terraform wraps nested resources in a TypeSet or TypeList because they don't have any
+	// ValueType to represent the Object type. An s.MaxItems == 1 and s.MinItems == 0 for a
+	// Resource therefore means that the entry is optional.
+	if !opt && s.MaxItems == 1 && s.MinItems == 0 {
+		_, opt = s.Elem.(*schema.Resource)
+	}
+	return opt
+}
+
+func (g *generator) writeType(name string, s *schema.Schema, b, ab *bytes.Buffer) bool {
+	opt := isPcoreOptional(s)
 	if opt {
 		b.WriteByte('*')
 		ab.WriteString("Optional[")

@@ -19,9 +19,9 @@ type (
 		Enforce_admins                bool `puppet:"value=>false"`
 		Etag                          *string
 		Repository                    string
-		Required_pull_request_reviews *[]map[string]interface{}   `puppet:"type => Optional[Array[Struct[Optional[dismiss_stale_reviews]=>Boolean,Optional[dismissal_teams]=>Array[String],Optional[dismissal_users]=>Array[String],Optional[require_code_owner_reviews]=>Boolean]]]"`
-		Required_status_checks        *[]map[string]interface{}   `puppet:"type => Optional[Array[Struct[Optional[contexts]=>Array[String],Optional[strict]=>Boolean]]]"`
-		Restrictions                  *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[Optional[teams]=>Array[String],Optional[users]=>Array[String]]]]"`
+		Required_pull_request_reviews *map[string]interface{}   `puppet:"type => Optional[Struct[Optional[dismiss_stale_reviews]=>Boolean,Optional[dismissal_teams]=>Array[String],Optional[dismissal_users]=>Array[String],Optional[require_code_owner_reviews]=>Boolean]]"`
+		Required_status_checks        *map[string]interface{}   `puppet:"type => Optional[Struct[Optional[contexts]=>Array[String],Optional[strict]=>Boolean]]"`
+		Restrictions                  *map[string][]interface{} `puppet:"type => Optional[Struct[Optional[teams]=>Array[String],Optional[users]=>Array[String]]]"`
 	}
 
 	Issue_label struct {
@@ -50,9 +50,9 @@ type (
 	}
 
 	Organization_webhook struct {
-		Organization_webhook_id *string              `lyra:"tf-gen.ignore"`
-		Active                  bool                 `puppet:"value=>true"`
-		Configuration           *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[content_type]=>String,Optional[insecure_ssl]=>String,Optional[secret]=>String,url=>String]]]"`
+		Organization_webhook_id *string            `lyra:"tf-gen.ignore"`
+		Active                  bool               `puppet:"value=>true"`
+		Configuration           *map[string]string `puppet:"type => Optional[Struct[Optional[content_type]=>String,Optional[insecure_ssl]=>String,Optional[secret]=>String,url=>String]]"`
 		Etag                    *string
 		Events                  []string
 		Name                    string
@@ -120,9 +120,9 @@ type (
 	}
 
 	Repository_webhook struct {
-		Repository_webhook_id *string              `lyra:"tf-gen.ignore"`
-		Active                bool                 `puppet:"value=>true"`
-		Configuration         *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[content_type]=>String,Optional[insecure_ssl]=>String,Optional[secret]=>String,url=>String]]]"`
+		Repository_webhook_id *string            `lyra:"tf-gen.ignore"`
+		Active                bool               `puppet:"value=>true"`
+		Configuration         *map[string]string `puppet:"type => Optional[Struct[Optional[content_type]=>String,Optional[insecure_ssl]=>String,Optional[secret]=>String,url=>String]]"`
 		Etag                  *string
 		Events                []string
 		Name                  string

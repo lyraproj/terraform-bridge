@@ -19,7 +19,7 @@ type (
 		Code_bucket               *string
 		Default_bucket            *string
 		Default_hostname          *string
-		Feature_settings          *[]map[string]bool `puppet:"type => Optional[Array[Struct[Optional[split_health_checks]=>Boolean]]]"`
+		Feature_settings          *map[string]bool `puppet:"type => Optional[Struct[Optional[split_health_checks]=>Boolean]]"`
 		Gcr_domain                *string
 		Location_id               string
 		Name                      *string
@@ -30,7 +30,7 @@ type (
 
 	Bigquery_dataset struct {
 		Bigquery_dataset_id         *string                   `lyra:"tf-gen.ignore"`
-		Access                      *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[domain]=>String,Optional[group_by_email]=>String,Optional[role]=>String,Optional[special_group]=>String,Optional[user_by_email]=>String,Optional[view]=>Array[Struct[dataset_id=>String,project_id=>String,table_id=>String]]]]]"`
+		Access                      *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[domain]=>String,Optional[group_by_email]=>String,Optional[role]=>String,Optional[special_group]=>String,Optional[user_by_email]=>String,Optional[view]=>Struct[dataset_id=>String,project_id=>String,table_id=>String]]]]"`
 		Creation_time               *int64
 		Dataset_id                  string
 		Default_table_expiration_ms *int64
@@ -62,14 +62,14 @@ type (
 		Schema              *string
 		Self_link           *string
 		Table_id            string
-		Time_partitioning   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[expiration_ms]=>Integer,Optional[field]=>String,type=>String]]]"`
+		Time_partitioning   *map[string]interface{} `puppet:"type => Optional[Struct[Optional[expiration_ms]=>Integer,Optional[field]=>String,type=>String]]"`
 		Type                *string
-		View                *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[query=>String,Optional[use_legacy_sql]=>Boolean]]]"`
+		View                *map[string]interface{} `puppet:"type => Optional[Struct[query=>String,Optional[use_legacy_sql]=>Boolean]]"`
 	}
 
 	Bigtable_instance struct {
-		Bigtable_instance_id *string                   `lyra:"tf-gen.ignore"`
-		Cluster              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[cluster_id]=>String,Optional[num_nodes]=>Integer,Optional[storage_type]=>String,Optional[zone]=>String]]]"`
+		Bigtable_instance_id *string                 `lyra:"tf-gen.ignore"`
+		Cluster              *map[string]interface{} `puppet:"type => Optional[Struct[Optional[cluster_id]=>String,Optional[num_nodes]=>Integer,Optional[storage_type]=>String,Optional[zone]=>String]]"`
 		Cluster_id           *string
 		Display_name         *string
 		Instance_type        string `puppet:"value=>'PRODUCTION'"`
@@ -112,8 +112,8 @@ type (
 	}
 
 	Binary_authorization_attestor struct {
-		Binary_authorization_attestor_id *string                  `lyra:"tf-gen.ignore"`
-		Attestation_authority_note       []map[string]interface{} `puppet:"type => Array[Struct[Optional[delegation_service_account_email]=>String,note_reference=>String,Optional[public_keys]=>Array[Struct[ascii_armored_pgp_public_key=>String,Optional[comment]=>String,Optional[id]=>String]]]]"`
+		Binary_authorization_attestor_id *string                 `lyra:"tf-gen.ignore"`
+		Attestation_authority_note       *map[string]interface{} `puppet:"type => Optional[Struct[Optional[delegation_service_account_email]=>String,note_reference=>String,Optional[public_keys]=>Array[Struct[ascii_armored_pgp_public_key=>String,Optional[comment]=>String,Optional[id]=>String]]]]"`
 		Description                      *string
 		Name                             string
 		Project                          *string
@@ -123,19 +123,19 @@ type (
 		Binary_authorization_policy_id *string                   `lyra:"tf-gen.ignore"`
 		Admission_whitelist_patterns   *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[name_pattern]=>String]]]"`
 		Cluster_admission_rules        *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[cluster=>String,Optional[enforcement_mode]=>String,Optional[evaluation_mode]=>String,Optional[require_attestations_by]=>Array[String]]]]"`
-		Default_admission_rule         []map[string]interface{}  `puppet:"type => Array[Struct[enforcement_mode=>String,evaluation_mode=>String,Optional[require_attestations_by]=>Array[String]]]"`
+		Default_admission_rule         *map[string]interface{}   `puppet:"type => Optional[Struct[enforcement_mode=>String,evaluation_mode=>String,Optional[require_attestations_by]=>Array[String]]]"`
 		Description                    *string
 		Project                        *string
 	}
 
 	Cloudbuild_trigger struct {
-		Cloudbuild_trigger_id *string                     `lyra:"tf-gen.ignore"`
-		Build                 *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[Optional[images]=>Array[String],Optional[step]=>Array[Struct[Optional[args]=>String,Optional[name]=>String]],Optional[tags]=>Array[String]]]]"`
+		Cloudbuild_trigger_id *string                   `lyra:"tf-gen.ignore"`
+		Build                 *map[string][]interface{} `puppet:"type => Optional[Struct[Optional[images]=>Array[String],Optional[step]=>Array[Struct[Optional[args]=>String,Optional[name]=>String]],Optional[tags]=>Array[String]]]"`
 		Description           *string
 		Filename              *string
 		Project               *string
 		Substitutions         *map[string]string
-		Trigger_template      *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[branch_name]=>String,Optional[commit_sha]=>String,Optional[dir]=>String,Optional[project]=>String,Optional[repo_name]=>String,Optional[tag_name]=>String]]]"`
+		Trigger_template      *map[string]string `puppet:"type => Optional[Struct[Optional[branch_name]=>String,Optional[commit_sha]=>String,Optional[dir]=>String,Optional[project]=>String,Optional[repo_name]=>String,Optional[tag_name]=>String]]"`
 	}
 
 	Cloudfunctions_function struct {
@@ -144,7 +144,7 @@ type (
 		Description                *string
 		Entry_point                *string
 		Environment_variables      *map[string]string
-		Event_trigger              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[event_type=>String,Optional[failure_policy]=>Array[Struct[retry=>Boolean]],resource=>String]]]"`
+		Event_trigger              *map[string]interface{} `puppet:"type => Optional[Struct[event_type=>String,Optional[failure_policy]=>Struct[retry=>Boolean],resource=>String]]"`
 		Https_trigger_url          *string
 		Labels                     *map[string]string
 		Name                       string
@@ -162,7 +162,7 @@ type (
 
 	Cloudiot_registry struct {
 		Cloudiot_registry_id      *string                              `lyra:"tf-gen.ignore"`
-		Credentials               *[]map[string]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[public_key_certificate]=>Hash[String,Struct[certificate=>String,format=>String]]]]]"`
+		Credentials               *[]map[string]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[public_key_certificate]=>Hash[String,Struct[certificate=>String,format=>String]]],0,10]]"`
 		Event_notification_config *map[string]map[string]string        `puppet:"type => Optional[Hash[String,Struct[pubsub_topic_name=>String]]]"`
 		Http_config               *map[string]map[string]string        `puppet:"type => Optional[Hash[String,Struct[http_enabled_state=>String]]]"`
 		Mqtt_config               *map[string]map[string]string        `puppet:"type => Optional[Hash[String,Struct[mqtt_enabled_state=>String]]]"`
@@ -173,8 +173,8 @@ type (
 	}
 
 	Composer_environment struct {
-		Composer_environment_id *string                   `lyra:"tf-gen.ignore"`
-		Config                  *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[airflow_uri]=>String,Optional[dag_gcs_prefix]=>String,Optional[gke_cluster]=>String,Optional[node_config]=>Array[Struct[Optional[disk_size_gb]=>Integer,Optional[machine_type]=>String,Optional[network]=>String,Optional[oauth_scopes]=>Array[String],Optional[service_account]=>String,Optional[subnetwork]=>String,Optional[tags]=>Array[String],Optional[zone]=>String]],Optional[node_count]=>Integer,Optional[software_config]=>Array[Struct[Optional[airflow_config_overrides]=>Hash[String,String],Optional[env_variables]=>Hash[String,String],Optional[image_version]=>String,Optional[pypi_packages]=>Hash[String,String]]]]]]"`
+		Composer_environment_id *string                 `lyra:"tf-gen.ignore"`
+		Config                  *map[string]interface{} `puppet:"type => Optional[Struct[Optional[airflow_uri]=>String,Optional[dag_gcs_prefix]=>String,Optional[gke_cluster]=>String,Optional[node_config]=>Struct[Optional[disk_size_gb]=>Integer,Optional[machine_type]=>String,Optional[network]=>String,Optional[oauth_scopes]=>Array[String],Optional[service_account]=>String,Optional[subnetwork]=>String,Optional[tags]=>Array[String],Optional[zone]=>String],Optional[node_count]=>Integer,Optional[software_config]=>Struct[Optional[airflow_config_overrides]=>Hash[String,String],Optional[env_variables]=>Hash[String,String],Optional[image_version]=>String,Optional[pypi_packages]=>Hash[String,String]]]]"`
 		Labels                  *map[string]string
 		Name                    string
 		Project                 *string
@@ -209,8 +209,8 @@ type (
 	}
 
 	Compute_autoscaler struct {
-		Compute_autoscaler_id *string                  `lyra:"tf-gen.ignore"`
-		Autoscaling_policy    []map[string]interface{} `puppet:"type => Array[Struct[Optional[cooldown_period]=>Integer,Optional[cpu_utilization]=>Array[Struct[target=>Float]],Optional[load_balancing_utilization]=>Array[Struct[target=>Float]],max_replicas=>Integer,Optional[metric]=>Array[Struct[name=>String,target=>Float,type=>String]],min_replicas=>Integer]]"`
+		Compute_autoscaler_id *string                 `lyra:"tf-gen.ignore"`
+		Autoscaling_policy    *map[string]interface{} `puppet:"type => Optional[Struct[Optional[cooldown_period]=>Integer,Optional[cpu_utilization]=>Struct[target=>Float],Optional[load_balancing_utilization]=>Struct[target=>Float],max_replicas=>Integer,Optional[metric]=>Array[Struct[name=>String,target=>Float,type=>String]],min_replicas=>Integer]]"`
 		Creation_timestamp    *string
 		Description           *string
 		Name                  string
@@ -232,16 +232,16 @@ type (
 	}
 
 	Compute_backend_service struct {
-		Compute_backend_service_id      *string                     `lyra:"tf-gen.ignore"`
-		Backend                         *[]map[string]interface{}   `puppet:"type => Optional[Array[Struct[Optional[balancing_mode]=>String,Optional[capacity_scaler]=>Float,Optional[description]=>String,Optional[group]=>String,Optional[max_connections]=>Integer,Optional[max_connections_per_instance]=>Integer,Optional[max_rate]=>Integer,Optional[max_rate_per_instance]=>Float,Optional[max_utilization]=>Float]]]"`
-		Cdn_policy                      *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[Optional[cache_key_policy]=>Array[Struct[Optional[include_host]=>Boolean,Optional[include_protocol]=>Boolean,Optional[include_query_string]=>Boolean,Optional[query_string_blacklist]=>Array[String],Optional[query_string_whitelist]=>Array[String]]]]]]"`
-		Connection_draining_timeout_sec int64                       `puppet:"value=>300"`
+		Compute_backend_service_id      *string                   `lyra:"tf-gen.ignore"`
+		Backend                         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[balancing_mode]=>String,Optional[capacity_scaler]=>Float,Optional[description]=>String,Optional[group]=>String,Optional[max_connections]=>Integer,Optional[max_connections_per_instance]=>Integer,Optional[max_rate]=>Integer,Optional[max_rate_per_instance]=>Float,Optional[max_utilization]=>Float]]]"`
+		Cdn_policy                      *map[string][]interface{} `puppet:"type => Optional[Struct[Optional[cache_key_policy]=>Struct[Optional[include_host]=>Boolean,Optional[include_protocol]=>Boolean,Optional[include_query_string]=>Boolean,Optional[query_string_blacklist]=>Array[String],Optional[query_string_whitelist]=>Array[String]]]]"`
+		Connection_draining_timeout_sec int64                     `puppet:"value=>300"`
 		Custom_request_headers          *[]string
 		Description                     *string
 		Enable_cdn                      bool `puppet:"value=>false"`
 		Fingerprint                     *string
 		Health_checks                   []string
-		Iap                             *[]map[string]string `puppet:"type => Optional[Array[Struct[oauth2_client_id=>String,oauth2_client_secret=>String]]]"`
+		Iap                             *map[string]string `puppet:"type => Optional[Struct[oauth2_client_id=>String,oauth2_client_secret=>String]]"`
 		Name                            string
 		Port_name                       *string
 		Project                         *string
@@ -257,7 +257,7 @@ type (
 		Compute_disk_id                *string `lyra:"tf-gen.ignore"`
 		Creation_timestamp             *string
 		Description                    *string
-		Disk_encryption_key            *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[raw_key]=>String,Optional[sha256]=>String]]]"`
+		Disk_encryption_key            *map[string]string `puppet:"type => Optional[Struct[Optional[raw_key]=>String,Optional[sha256]=>String]]"`
 		Disk_encryption_key_raw        *string
 		Disk_encryption_key_sha256     *string
 		Image                          *string
@@ -270,9 +270,9 @@ type (
 		Self_link                      *string
 		Size                           *int64
 		Snapshot                       *string
-		Source_image_encryption_key    *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[raw_key]=>String,Optional[sha256]=>String]]]"`
+		Source_image_encryption_key    *map[string]string `puppet:"type => Optional[Struct[Optional[raw_key]=>String,Optional[sha256]=>String]]"`
 		Source_image_id                *string
-		Source_snapshot_encryption_key *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[raw_key]=>String,Optional[sha256]=>String]]]"`
+		Source_snapshot_encryption_key *map[string]string `puppet:"type => Optional[Struct[Optional[raw_key]=>String,Optional[sha256]=>String]]"`
 		Source_snapshot_id             *string
 		Type                           string `puppet:"value=>'pd-standard'"`
 		Users                          *[]string
@@ -364,15 +364,15 @@ type (
 		Check_interval_sec      int64   `puppet:"value=>5"`
 		Creation_timestamp      *string
 		Description             *string
-		Healthy_threshold       int64                     `puppet:"value=>2"`
-		Http_health_check       *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[host]=>String,Optional[port]=>Integer,Optional[proxy_header]=>String,Optional[request_path]=>String,Optional[response]=>String]]]"`
-		Https_health_check      *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[host]=>String,Optional[port]=>Integer,Optional[proxy_header]=>String,Optional[request_path]=>String,Optional[response]=>String]]]"`
+		Healthy_threshold       int64                   `puppet:"value=>2"`
+		Http_health_check       *map[string]interface{} `puppet:"type => Optional[Struct[Optional[host]=>String,Optional[port]=>Integer,Optional[proxy_header]=>String,Optional[request_path]=>String,Optional[response]=>String]]"`
+		Https_health_check      *map[string]interface{} `puppet:"type => Optional[Struct[Optional[host]=>String,Optional[port]=>Integer,Optional[proxy_header]=>String,Optional[request_path]=>String,Optional[response]=>String]]"`
 		Name                    string
 		Project                 *string
 		Self_link               *string
-		Ssl_health_check        *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[port]=>Integer,Optional[proxy_header]=>String,Optional[request]=>String,Optional[response]=>String]]]"`
-		Tcp_health_check        *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[port]=>Integer,Optional[proxy_header]=>String,Optional[request]=>String,Optional[response]=>String]]]"`
-		Timeout_sec             int64                     `puppet:"value=>5"`
+		Ssl_health_check        *map[string]interface{} `puppet:"type => Optional[Struct[Optional[port]=>Integer,Optional[proxy_header]=>String,Optional[request]=>String,Optional[response]=>String]]"`
+		Tcp_health_check        *map[string]interface{} `puppet:"type => Optional[Struct[Optional[port]=>Integer,Optional[proxy_header]=>String,Optional[request]=>String,Optional[response]=>String]]"`
+		Timeout_sec             int64                   `puppet:"value=>5"`
 		Type                    *string
 		Unhealthy_threshold     int64 `puppet:"value=>2"`
 	}
@@ -419,7 +419,7 @@ type (
 		Licenses          *[]string
 		Name              string
 		Project           *string
-		Raw_disk          *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[container_type]=>String,Optional[sha1]=>String,source=>String]]]"`
+		Raw_disk          *map[string]string `puppet:"type => Optional[Struct[Optional[container_type]=>String,Optional[sha1]=>String,source=>String]]"`
 		Self_link         *string
 		Source_disk       *string
 	}
@@ -427,9 +427,9 @@ type (
 	Compute_instance struct {
 		Compute_instance_id       *string `lyra:"tf-gen.ignore"`
 		Allow_stopping_for_update *bool
-		Attached_disk             *[]map[string]string     `puppet:"type => Optional[Array[Struct[Optional[device_name]=>String,Optional[disk_encryption_key_raw]=>String,Optional[disk_encryption_key_sha256]=>String,Optional[mode]=>String,source=>String]]]"`
-		Boot_disk                 []map[string]interface{} `puppet:"type => Array[Struct[Optional[auto_delete]=>Boolean,Optional[device_name]=>String,Optional[disk_encryption_key_raw]=>String,Optional[disk_encryption_key_sha256]=>String,Optional[initialize_params]=>Array[Struct[Optional[image]=>String,Optional[size]=>Integer,Optional[type]=>String]],Optional[source]=>String]]"`
-		Can_ip_forward            bool                     `puppet:"value=>false"`
+		Attached_disk             *[]map[string]string    `puppet:"type => Optional[Array[Struct[Optional[device_name]=>String,Optional[disk_encryption_key_raw]=>String,Optional[disk_encryption_key_sha256]=>String,Optional[mode]=>String,source=>String]]]"`
+		Boot_disk                 *map[string]interface{} `puppet:"type => Optional[Struct[Optional[auto_delete]=>Boolean,Optional[device_name]=>String,Optional[disk_encryption_key_raw]=>String,Optional[disk_encryption_key_sha256]=>String,Optional[initialize_params]=>Struct[Optional[image]=>String,Optional[size]=>Integer,Optional[type]=>String],Optional[source]=>String]]"`
+		Can_ip_forward            bool                    `puppet:"value=>false"`
 		Cpu_platform              *string
 		Create_timeout            int64 `puppet:"value=>4"`
 		Deletion_protection       bool  `puppet:"value=>false"`
@@ -448,10 +448,10 @@ type (
 		Network                   *[]map[string]string     `puppet:"type => Optional[Array[Struct[Optional[address]=>String,Optional[external_address]=>String,Optional[internal_address]=>String,Optional[name]=>String,source=>String]]]"`
 		Network_interface         []map[string]interface{} `puppet:"type => Array[Struct[Optional[access_config]=>Array[Struct[Optional[nat_ip]=>String,Optional[network_tier]=>String,Optional[public_ptr_domain_name]=>String]],Optional[alias_ip_range]=>Array[Struct[ip_cidr_range=>String,Optional[subnetwork_range_name]=>String]],Optional[name]=>String,Optional[network]=>String,Optional[network_ip]=>String,Optional[subnetwork]=>String,Optional[subnetwork_project]=>String]]"`
 		Project                   *string
-		Scheduling                *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[automatic_restart]=>Boolean,Optional[on_host_maintenance]=>String,Optional[preemptible]=>Boolean]]]"`
-		Scratch_disk              *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[interface]=>String]]]"`
+		Scheduling                *map[string]interface{} `puppet:"type => Optional[Struct[Optional[automatic_restart]=>Boolean,Optional[on_host_maintenance]=>String,Optional[preemptible]=>Boolean]]"`
+		Scratch_disk              *[]map[string]string    `puppet:"type => Optional[Array[Struct[Optional[interface]=>String]]]"`
 		Self_link                 *string
-		Service_account           *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[email]=>String,scopes=>Array[String]]]]"`
+		Service_account           *map[string]interface{} `puppet:"type => Optional[Struct[Optional[email]=>String,scopes=>Array[String]]]"`
 		Tags                      *[]string
 		Tags_fingerprint          *string
 		Zone                      *string
@@ -460,8 +460,8 @@ type (
 	Compute_instance_from_template struct {
 		Compute_instance_from_template_id *string `lyra:"tf-gen.ignore"`
 		Allow_stopping_for_update         *bool
-		Attached_disk                     *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[device_name]=>String,Optional[disk_encryption_key_raw]=>String,Optional[disk_encryption_key_sha256]=>String,Optional[mode]=>String,source=>String]]]"`
-		Boot_disk                         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[auto_delete]=>Boolean,Optional[device_name]=>String,Optional[disk_encryption_key_raw]=>String,Optional[disk_encryption_key_sha256]=>String,Optional[initialize_params]=>Array[Struct[Optional[image]=>String,Optional[size]=>Integer,Optional[type]=>String]],Optional[source]=>String]]]"`
+		Attached_disk                     *[]map[string]string    `puppet:"type => Optional[Array[Struct[Optional[device_name]=>String,Optional[disk_encryption_key_raw]=>String,Optional[disk_encryption_key_sha256]=>String,Optional[mode]=>String,source=>String]]]"`
+		Boot_disk                         *map[string]interface{} `puppet:"type => Optional[Struct[Optional[auto_delete]=>Boolean,Optional[device_name]=>String,Optional[disk_encryption_key_raw]=>String,Optional[disk_encryption_key_sha256]=>String,Optional[initialize_params]=>Struct[Optional[image]=>String,Optional[size]=>Integer,Optional[type]=>String],Optional[source]=>String]]"`
 		Can_ip_forward                    *bool
 		Cpu_platform                      *string
 		Deletion_protection               *bool
@@ -478,10 +478,10 @@ type (
 		Name                              string
 		Network_interface                 *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[access_config]=>Array[Struct[Optional[nat_ip]=>String,Optional[network_tier]=>String,Optional[public_ptr_domain_name]=>String]],Optional[alias_ip_range]=>Array[Struct[ip_cidr_range=>String,Optional[subnetwork_range_name]=>String]],Optional[name]=>String,Optional[network]=>String,Optional[network_ip]=>String,Optional[subnetwork]=>String,Optional[subnetwork_project]=>String]]]"`
 		Project                           *string
-		Scheduling                        *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[automatic_restart]=>Boolean,Optional[on_host_maintenance]=>String,Optional[preemptible]=>Boolean]]]"`
-		Scratch_disk                      *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[interface]=>String]]]"`
+		Scheduling                        *map[string]interface{} `puppet:"type => Optional[Struct[Optional[automatic_restart]=>Boolean,Optional[on_host_maintenance]=>String,Optional[preemptible]=>Boolean]]"`
+		Scratch_disk                      *[]map[string]string    `puppet:"type => Optional[Array[Struct[Optional[interface]=>String]]]"`
 		Self_link                         *string
-		Service_account                   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[email]=>String,scopes=>Array[String]]]]"`
+		Service_account                   *map[string]interface{} `puppet:"type => Optional[Struct[Optional[email]=>String,scopes=>Array[String]]]"`
 		Source_instance_template          string
 		Tags                              *[]string
 		Tags_fingerprint                  *string
@@ -502,8 +502,8 @@ type (
 	}
 
 	Compute_instance_group_manager struct {
-		Compute_instance_group_manager_id *string                   `lyra:"tf-gen.ignore"`
-		Auto_healing_policies             *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[health_check=>String,initial_delay_sec=>Integer]]]"`
+		Compute_instance_group_manager_id *string                 `lyra:"tf-gen.ignore"`
+		Auto_healing_policies             *map[string]interface{} `puppet:"type => Optional[Struct[health_check=>String,initial_delay_sec=>Integer]]"`
 		Base_instance_name                string
 		Description                       *string
 		Fingerprint                       *string
@@ -512,12 +512,12 @@ type (
 		Name                              string
 		Named_port                        *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[name=>String,port=>Integer]]]"`
 		Project                           *string
-		Rolling_update_policy             *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[max_surge_fixed]=>Integer,Optional[max_surge_percent]=>Integer,Optional[max_unavailable_fixed]=>Integer,Optional[max_unavailable_percent]=>Integer,Optional[min_ready_sec]=>Integer,minimal_action=>String,type=>String]]]"`
+		Rolling_update_policy             *map[string]interface{} `puppet:"type => Optional[Struct[Optional[max_surge_fixed]=>Integer,Optional[max_surge_percent]=>Integer,Optional[max_unavailable_fixed]=>Integer,Optional[max_unavailable_percent]=>Integer,Optional[min_ready_sec]=>Integer,minimal_action=>String,type=>String]]"`
 		Self_link                         *string
 		Target_pools                      *[]string
 		Target_size                       *int64
 		Update_strategy                   string                    `puppet:"value=>'REPLACE'"`
-		Version                           *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[instance_template=>String,name=>String,Optional[target_size]=>Array[Struct[Optional[fixed]=>Integer,Optional[percent]=>Integer]]]]]"`
+		Version                           *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[instance_template=>String,name=>String,Optional[target_size]=>Struct[Optional[fixed]=>Integer,Optional[percent]=>Integer]]]]"`
 		Wait_for_instances                bool                      `puppet:"value=>false"`
 		Zone                              *string
 	}
@@ -527,7 +527,7 @@ type (
 		Automatic_restart            *bool
 		Can_ip_forward               bool `puppet:"value=>false"`
 		Description                  *string
-		Disk                         []map[string]interface{}  `puppet:"type => Array[Struct[Optional[auto_delete]=>Boolean,Optional[boot]=>Boolean,Optional[device_name]=>String,Optional[disk_encryption_key]=>Array[Struct[Optional[kms_key_self_link]=>String]],Optional[disk_name]=>String,Optional[disk_size_gb]=>Integer,Optional[disk_type]=>String,Optional[interface]=>String,Optional[mode]=>String,Optional[source]=>String,Optional[source_image]=>String,Optional[type]=>String]]"`
+		Disk                         []map[string]interface{}  `puppet:"type => Array[Struct[Optional[auto_delete]=>Boolean,Optional[boot]=>Boolean,Optional[device_name]=>String,Optional[disk_encryption_key]=>Struct[Optional[kms_key_self_link]=>String],Optional[disk_name]=>String,Optional[disk_size_gb]=>Integer,Optional[disk_type]=>String,Optional[interface]=>String,Optional[mode]=>String,Optional[source]=>String,Optional[source_image]=>String,Optional[type]=>String]]"`
 		Guest_accelerator            *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[count=>Integer,type=>String]]]"`
 		Instance_description         *string
 		Labels                       *map[string]string
@@ -544,7 +544,7 @@ type (
 		Region                       *string
 		Scheduling                   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[automatic_restart]=>Boolean,Optional[on_host_maintenance]=>String,Optional[preemptible]=>Boolean]]]"`
 		Self_link                    *string
-		Service_account              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[email]=>String,scopes=>Array[String]]]]"`
+		Service_account              *map[string]interface{} `puppet:"type => Optional[Struct[Optional[email]=>String,scopes=>Array[String]]]"`
 		Tags                         *[]string
 		Tags_fingerprint             *string
 	}
@@ -558,7 +558,7 @@ type (
 		Google_reference_id                *string
 		Interconnect                       string
 		Name                               string
-		Private_interconnect_info          *[]map[string]int64 `puppet:"type => Optional[Array[Struct[Optional[tag8021q]=>Integer]]]"`
+		Private_interconnect_info          *map[string]int64 `puppet:"type => Optional[Struct[Optional[tag8021q]=>Integer]]"`
 		Project                            *string
 		Region                             *string
 		Router                             string
@@ -601,8 +601,8 @@ type (
 	}
 
 	Compute_region_autoscaler struct {
-		Compute_region_autoscaler_id *string                  `lyra:"tf-gen.ignore"`
-		Autoscaling_policy           []map[string]interface{} `puppet:"type => Array[Struct[Optional[cooldown_period]=>Integer,Optional[cpu_utilization]=>Array[Struct[target=>Float]],Optional[load_balancing_utilization]=>Array[Struct[target=>Float]],max_replicas=>Integer,Optional[metric]=>Array[Struct[name=>String,target=>Float,type=>String]],min_replicas=>Integer]]"`
+		Compute_region_autoscaler_id *string                 `lyra:"tf-gen.ignore"`
+		Autoscaling_policy           *map[string]interface{} `puppet:"type => Optional[Struct[Optional[cooldown_period]=>Integer,Optional[cpu_utilization]=>Struct[target=>Float],Optional[load_balancing_utilization]=>Struct[target=>Float],max_replicas=>Integer,Optional[metric]=>Array[Struct[name=>String,target=>Float,type=>String]],min_replicas=>Integer]]"`
 		Creation_timestamp           *string
 		Description                  *string
 		Name                         string
@@ -632,7 +632,7 @@ type (
 		Compute_region_disk_id         *string `lyra:"tf-gen.ignore"`
 		Creation_timestamp             *string
 		Description                    *string
-		Disk_encryption_key            *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[raw_key]=>String,Optional[sha256]=>String]]]"`
+		Disk_encryption_key            *map[string]string `puppet:"type => Optional[Struct[Optional[raw_key]=>String,Optional[sha256]=>String]]"`
 		Label_fingerprint              *string
 		Labels                         *map[string]string
 		Last_attach_timestamp          *string
@@ -644,15 +644,15 @@ type (
 		Self_link                      *string
 		Size                           *int64
 		Snapshot                       *string
-		Source_snapshot_encryption_key *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[raw_key]=>String,Optional[sha256]=>String]]]"`
+		Source_snapshot_encryption_key *map[string]string `puppet:"type => Optional[Struct[Optional[raw_key]=>String,Optional[sha256]=>String]]"`
 		Source_snapshot_id             *string
 		Type                           string `puppet:"value=>'pd-standard'"`
 		Users                          *[]string
 	}
 
 	Compute_region_instance_group_manager struct {
-		Compute_region_instance_group_manager_id *string                   `lyra:"tf-gen.ignore"`
-		Auto_healing_policies                    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[health_check=>String,initial_delay_sec=>Integer]]]"`
+		Compute_region_instance_group_manager_id *string                 `lyra:"tf-gen.ignore"`
+		Auto_healing_policies                    *map[string]interface{} `puppet:"type => Optional[Struct[health_check=>String,initial_delay_sec=>Integer]]"`
 		Base_instance_name                       string
 		Description                              *string
 		Distribution_policy_zones                *[]string
@@ -663,12 +663,12 @@ type (
 		Named_port                               *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[name=>String,port=>Integer]]]"`
 		Project                                  *string
 		Region                                   string
-		Rolling_update_policy                    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[max_surge_fixed]=>Integer,Optional[max_surge_percent]=>Integer,Optional[max_unavailable_fixed]=>Integer,Optional[max_unavailable_percent]=>Integer,Optional[min_ready_sec]=>Integer,minimal_action=>String,type=>String]]]"`
+		Rolling_update_policy                    *map[string]interface{} `puppet:"type => Optional[Struct[Optional[max_surge_fixed]=>Integer,Optional[max_surge_percent]=>Integer,Optional[max_unavailable_fixed]=>Integer,Optional[max_unavailable_percent]=>Integer,Optional[min_ready_sec]=>Integer,minimal_action=>String,type=>String]]"`
 		Self_link                                *string
 		Target_pools                             *[]string
 		Target_size                              *int64
 		Update_strategy                          string                    `puppet:"value=>'NONE'"`
-		Version                                  *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[instance_template=>String,name=>String,Optional[target_size]=>Array[Struct[Optional[fixed]=>Integer,Optional[percent]=>Integer]]]]]"`
+		Version                                  *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[instance_template=>String,name=>String,Optional[target_size]=>Struct[Optional[fixed]=>Integer,Optional[percent]=>Integer]]]]"`
 		Wait_for_instances                       bool                      `puppet:"value=>false"`
 	}
 
@@ -691,8 +691,8 @@ type (
 	}
 
 	Compute_router struct {
-		Compute_router_id  *string                   `lyra:"tf-gen.ignore"`
-		Bgp                *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[advertise_mode]=>String,Optional[advertised_groups]=>Array[String],Optional[advertised_ip_ranges]=>Array[Struct[Optional[description]=>String,Optional[range]=>String]],asn=>Integer]]]"`
+		Compute_router_id  *string                 `lyra:"tf-gen.ignore"`
+		Bgp                *map[string]interface{} `puppet:"type => Optional[Struct[Optional[advertise_mode]=>String,Optional[advertised_groups]=>Array[String],Optional[advertised_ip_ranges]=>Array[Struct[Optional[description]=>String,Optional[range]=>String]],asn=>Integer]]"`
 		Creation_timestamp *string
 		Description        *string
 		Name               string
@@ -748,7 +748,7 @@ type (
 		Fingerprint                *string
 		Name                       string
 		Project                    *string
-		Rule                       *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[action=>String,Optional[description]=>String,match=>Array[Struct[config=>Array[Struct[src_ip_ranges=>Array[String]]],versioned_expr=>String]],Optional[preview]=>Boolean,priority=>Integer]]]"`
+		Rule                       *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[action=>String,Optional[description]=>String,match=>Struct[config=>Struct[src_ip_ranges=>Array[String,1,5]],versioned_expr=>String],Optional[preview]=>Boolean,priority=>Integer]]]"`
 		Self_link                  *string
 	}
 
@@ -774,12 +774,12 @@ type (
 		Name                              string
 		Project                           *string
 		Self_link                         *string
-		Snapshot_encryption_key           *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[raw_key]=>String,Optional[sha256]=>String]]]"`
+		Snapshot_encryption_key           *map[string]string `puppet:"type => Optional[Struct[Optional[raw_key]=>String,Optional[sha256]=>String]]"`
 		Snapshot_encryption_key_raw       *string
 		Snapshot_encryption_key_sha256    *string
 		Snapshot_id                       *int64
 		Source_disk                       string
-		Source_disk_encryption_key        *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[raw_key]=>String]]]"`
+		Source_disk_encryption_key        *map[string]string `puppet:"type => Optional[Struct[Optional[raw_key]=>String]]"`
 		Source_disk_encryption_key_raw    *string
 		Source_disk_encryption_key_sha256 *string
 		Source_disk_link                  *string
@@ -972,8 +972,8 @@ type (
 	}
 
 	Container_analysis_note struct {
-		Container_analysis_note_id *string                    `lyra:"tf-gen.ignore"`
-		Attestation_authority      []map[string][]interface{} `puppet:"type => Array[Struct[hint=>Array[Struct[human_readable_name=>String]]]]"`
+		Container_analysis_note_id *string                   `lyra:"tf-gen.ignore"`
+		Attestation_authority      *map[string][]interface{} `puppet:"type => Optional[Struct[hint=>Struct[human_readable_name=>String]]]"`
 		Name                       string
 		Project                    *string
 	}
@@ -981,8 +981,8 @@ type (
 	Container_cluster struct {
 		Container_cluster_id              *string `lyra:"tf-gen.ignore"`
 		Additional_zones                  *[]string
-		Addons_config                     *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[Optional[horizontal_pod_autoscaling]=>Array[Struct[Optional[disabled]=>Boolean]],Optional[http_load_balancing]=>Array[Struct[Optional[disabled]=>Boolean]],Optional[kubernetes_dashboard]=>Array[Struct[Optional[disabled]=>Boolean]],Optional[network_policy_config]=>Array[Struct[Optional[disabled]=>Boolean]]]]]"`
-		Cluster_autoscaling               *[]map[string]interface{}   `puppet:"type => Optional[Array[Struct[enabled=>Boolean,Optional[resource_limits]=>Array[Struct[Optional[maximum]=>Integer,Optional[minimum]=>Integer,resource_type=>String]]]]]"`
+		Addons_config                     *map[string][]interface{} `puppet:"type => Optional[Struct[Optional[horizontal_pod_autoscaling]=>Struct[Optional[disabled]=>Boolean],Optional[http_load_balancing]=>Struct[Optional[disabled]=>Boolean],Optional[kubernetes_dashboard]=>Struct[Optional[disabled]=>Boolean],Optional[network_policy_config]=>Struct[Optional[disabled]=>Boolean]]]"`
+		Cluster_autoscaling               *map[string]interface{}   `puppet:"type => Optional[Struct[enabled=>Boolean,Optional[resource_limits]=>Array[Struct[Optional[maximum]=>Integer,Optional[minimum]=>Integer,resource_type=>String]]]]"`
 		Cluster_ipv4_cidr                 *string
 		Description                       *string
 		Enable_binary_authorization       bool `puppet:"value=>false"`
@@ -992,24 +992,24 @@ type (
 		Endpoint                          *string
 		Initial_node_count                *int64
 		Instance_group_urls               *[]string
-		Ip_allocation_policy              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[cluster_ipv4_cidr_block]=>String,Optional[cluster_secondary_range_name]=>String,Optional[create_subnetwork]=>Boolean,Optional[services_ipv4_cidr_block]=>String,Optional[services_secondary_range_name]=>String,Optional[subnetwork_name]=>String]]]"`
+		Ip_allocation_policy              *map[string]interface{} `puppet:"type => Optional[Struct[Optional[cluster_ipv4_cidr_block]=>String,Optional[cluster_secondary_range_name]=>String,Optional[create_subnetwork]=>Boolean,Optional[services_ipv4_cidr_block]=>String,Optional[services_secondary_range_name]=>String,Optional[subnetwork_name]=>String]]"`
 		Logging_service                   *string
-		Maintenance_policy                *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[daily_maintenance_window=>Array[Struct[Optional[duration]=>String,start_time=>String]]]]]"`
-		Master_auth                       *[]map[string]interface{}   `puppet:"type => Optional[Array[Struct[Optional[client_certificate]=>String,Optional[client_certificate_config]=>Array[Struct[issue_client_certificate=>Boolean]],Optional[client_key]=>String,Optional[cluster_ca_certificate]=>String,password=>String,username=>String]]]"`
-		Master_authorized_networks_config *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[Optional[cidr_blocks]=>Array[Struct[cidr_block=>String,Optional[display_name]=>String]]]]]"`
+		Maintenance_policy                *map[string][]interface{} `puppet:"type => Optional[Struct[daily_maintenance_window=>Struct[Optional[duration]=>String,start_time=>String]]]"`
+		Master_auth                       *map[string]interface{}   `puppet:"type => Optional[Struct[Optional[client_certificate]=>String,Optional[client_certificate_config]=>Struct[issue_client_certificate=>Boolean],Optional[client_key]=>String,Optional[cluster_ca_certificate]=>String,password=>String,username=>String]]"`
+		Master_authorized_networks_config *map[string][]interface{} `puppet:"type => Optional[Struct[Optional[cidr_blocks]=>Array[Struct[cidr_block=>String,Optional[display_name]=>String],0,20]]]"`
 		Master_ipv4_cidr_block            *string
 		Master_version                    *string
 		Min_master_version                *string
 		Monitoring_service                *string
 		Name                              string
 		Network                           string                    `puppet:"value=>'default'"`
-		Network_policy                    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[enabled]=>Boolean,Optional[provider]=>String]]]"`
-		Node_config                       *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[disk_size_gb]=>Integer,Optional[disk_type]=>String,Optional[guest_accelerator]=>Array[Struct[count=>Integer,type=>String]],Optional[image_type]=>String,Optional[labels]=>Hash[String,String],Optional[local_ssd_count]=>Integer,Optional[machine_type]=>String,Optional[metadata]=>Hash[String,String],Optional[min_cpu_platform]=>String,Optional[oauth_scopes]=>Array[String],Optional[preemptible]=>Boolean,Optional[service_account]=>String,Optional[tags]=>Array[String]]]]"`
-		Node_pool                         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[autoscaling]=>Array[Struct[max_node_count=>Integer,min_node_count=>Integer]],Optional[initial_node_count]=>Integer,Optional[instance_group_urls]=>Array[String],Optional[management]=>Array[Struct[Optional[auto_repair]=>Boolean,Optional[auto_upgrade]=>Boolean]],Optional[name]=>String,Optional[node_config]=>Array[Struct[Optional[disk_size_gb]=>Integer,Optional[disk_type]=>String,Optional[guest_accelerator]=>Array[Struct[count=>Integer,type=>String]],Optional[image_type]=>String,Optional[labels]=>Hash[String,String],Optional[local_ssd_count]=>Integer,Optional[machine_type]=>String,Optional[metadata]=>Hash[String,String],Optional[min_cpu_platform]=>String,Optional[oauth_scopes]=>Array[String],Optional[preemptible]=>Boolean,Optional[service_account]=>String,Optional[tags]=>Array[String]]],Optional[node_count]=>Integer,Optional[version]=>String]]]"`
+		Network_policy                    *map[string]interface{}   `puppet:"type => Optional[Struct[Optional[enabled]=>Boolean,Optional[provider]=>String]]"`
+		Node_config                       *map[string]interface{}   `puppet:"type => Optional[Struct[Optional[disk_size_gb]=>Integer,Optional[disk_type]=>String,Optional[guest_accelerator]=>Array[Struct[count=>Integer,type=>String]],Optional[image_type]=>String,Optional[labels]=>Hash[String,String],Optional[local_ssd_count]=>Integer,Optional[machine_type]=>String,Optional[metadata]=>Hash[String,String],Optional[min_cpu_platform]=>String,Optional[oauth_scopes]=>Array[String],Optional[preemptible]=>Boolean,Optional[service_account]=>String,Optional[tags]=>Array[String]]]"`
+		Node_pool                         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[autoscaling]=>Struct[max_node_count=>Integer,min_node_count=>Integer],Optional[initial_node_count]=>Integer,Optional[instance_group_urls]=>Array[String],Optional[management]=>Struct[Optional[auto_repair]=>Boolean,Optional[auto_upgrade]=>Boolean],Optional[name]=>String,Optional[node_config]=>Struct[Optional[disk_size_gb]=>Integer,Optional[disk_type]=>String,Optional[guest_accelerator]=>Array[Struct[count=>Integer,type=>String]],Optional[image_type]=>String,Optional[labels]=>Hash[String,String],Optional[local_ssd_count]=>Integer,Optional[machine_type]=>String,Optional[metadata]=>Hash[String,String],Optional[min_cpu_platform]=>String,Optional[oauth_scopes]=>Array[String],Optional[preemptible]=>Boolean,Optional[service_account]=>String,Optional[tags]=>Array[String]],Optional[node_count]=>Integer,Optional[version]=>String]]]"`
 		Node_version                      *string
-		Pod_security_policy_config        *[]map[string]bool `puppet:"type => Optional[Array[Struct[enabled=>Boolean]]]"`
+		Pod_security_policy_config        *map[string]bool `puppet:"type => Optional[Struct[enabled=>Boolean]]"`
 		Private_cluster                   *bool
-		Private_cluster_config            *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[enable_private_endpoint]=>Boolean,Optional[enable_private_nodes]=>Boolean,Optional[master_ipv4_cidr_block]=>String,Optional[private_endpoint]=>String,Optional[public_endpoint]=>String]]]"`
+		Private_cluster_config            *map[string]interface{} `puppet:"type => Optional[Struct[Optional[enable_private_endpoint]=>Boolean,Optional[enable_private_nodes]=>Boolean,Optional[master_ipv4_cidr_block]=>String,Optional[private_endpoint]=>String,Optional[public_endpoint]=>String]]"`
 		Project                           *string
 		Region                            *string
 		Remove_default_node_pool          *bool
@@ -1019,16 +1019,16 @@ type (
 	}
 
 	Container_node_pool struct {
-		Container_node_pool_id *string             `lyra:"tf-gen.ignore"`
-		Autoscaling            *[]map[string]int64 `puppet:"type => Optional[Array[Struct[max_node_count=>Integer,min_node_count=>Integer]]]"`
+		Container_node_pool_id *string           `lyra:"tf-gen.ignore"`
+		Autoscaling            *map[string]int64 `puppet:"type => Optional[Struct[max_node_count=>Integer,min_node_count=>Integer]]"`
 		Cluster                string
 		Initial_node_count     *int64
 		Instance_group_urls    *[]string
-		Management             *[]map[string]bool `puppet:"type => Optional[Array[Struct[Optional[auto_repair]=>Boolean,Optional[auto_upgrade]=>Boolean]]]"`
+		Management             *map[string]bool `puppet:"type => Optional[Struct[Optional[auto_repair]=>Boolean,Optional[auto_upgrade]=>Boolean]]"`
 		Max_pods_per_node      *int64
 		Name                   *string
 		Name_prefix            *string
-		Node_config            *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[disk_size_gb]=>Integer,Optional[disk_type]=>String,Optional[guest_accelerator]=>Array[Struct[count=>Integer,type=>String]],Optional[image_type]=>String,Optional[labels]=>Hash[String,String],Optional[local_ssd_count]=>Integer,Optional[machine_type]=>String,Optional[metadata]=>Hash[String,String],Optional[min_cpu_platform]=>String,Optional[oauth_scopes]=>Array[String],Optional[preemptible]=>Boolean,Optional[service_account]=>String,Optional[tags]=>Array[String]]]]"`
+		Node_config            *map[string]interface{} `puppet:"type => Optional[Struct[Optional[disk_size_gb]=>Integer,Optional[disk_type]=>String,Optional[guest_accelerator]=>Array[Struct[count=>Integer,type=>String]],Optional[image_type]=>String,Optional[labels]=>Hash[String,String],Optional[local_ssd_count]=>Integer,Optional[machine_type]=>String,Optional[metadata]=>Hash[String,String],Optional[min_cpu_platform]=>String,Optional[oauth_scopes]=>Array[String],Optional[preemptible]=>Boolean,Optional[service_account]=>String,Optional[tags]=>Array[String]]]"`
 		Node_count             *int64
 		Project                *string
 		Region                 *string
@@ -1051,8 +1051,8 @@ type (
 	}
 
 	Dataproc_cluster struct {
-		Dataproc_cluster_id *string                   `lyra:"tf-gen.ignore"`
-		Cluster_config      *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[bucket]=>String,Optional[gce_cluster_config]=>Array[Struct[Optional[internal_ip_only]=>Boolean,Optional[metadata]=>Hash[String,String],Optional[network]=>String,Optional[service_account]=>String,Optional[service_account_scopes]=>Array[String],Optional[subnetwork]=>String,Optional[tags]=>Array[String],Optional[zone]=>String]],Optional[initialization_action]=>Array[Struct[script=>String,Optional[timeout_sec]=>Integer]],Optional[master_config]=>Array[Struct[Optional[disk_config]=>Array[Struct[Optional[boot_disk_size_gb]=>Integer,Optional[boot_disk_type]=>String,Optional[num_local_ssds]=>Integer]],Optional[instance_names]=>Array[String],Optional[machine_type]=>String,Optional[num_instances]=>Integer]],Optional[preemptible_worker_config]=>Array[Struct[Optional[disk_config]=>Array[Struct[Optional[boot_disk_size_gb]=>Integer]],Optional[instance_names]=>Array[String],Optional[num_instances]=>Integer]],Optional[software_config]=>Array[Struct[Optional[image_version]=>String,Optional[override_properties]=>Hash[String,String],Optional[properties]=>Hash[String,String]]],Optional[staging_bucket]=>String,Optional[worker_config]=>Array[Struct[Optional[disk_config]=>Array[Struct[Optional[boot_disk_size_gb]=>Integer,Optional[boot_disk_type]=>String,Optional[num_local_ssds]=>Integer]],Optional[instance_names]=>Array[String],Optional[machine_type]=>String,Optional[num_instances]=>Integer]]]]]"`
+		Dataproc_cluster_id *string                 `lyra:"tf-gen.ignore"`
+		Cluster_config      *map[string]interface{} `puppet:"type => Optional[Struct[Optional[bucket]=>String,Optional[gce_cluster_config]=>Struct[Optional[internal_ip_only]=>Boolean,Optional[metadata]=>Hash[String,String],Optional[network]=>String,Optional[service_account]=>String,Optional[service_account_scopes]=>Array[String],Optional[subnetwork]=>String,Optional[tags]=>Array[String],Optional[zone]=>String],Optional[initialization_action]=>Array[Struct[script=>String,Optional[timeout_sec]=>Integer]],Optional[master_config]=>Struct[Optional[disk_config]=>Struct[Optional[boot_disk_size_gb]=>Integer,Optional[boot_disk_type]=>String,Optional[num_local_ssds]=>Integer],Optional[instance_names]=>Array[String],Optional[machine_type]=>String,Optional[num_instances]=>Integer],Optional[preemptible_worker_config]=>Struct[Optional[disk_config]=>Struct[Optional[boot_disk_size_gb]=>Integer],Optional[instance_names]=>Array[String],Optional[num_instances]=>Integer],Optional[software_config]=>Struct[Optional[image_version]=>String,Optional[override_properties]=>Hash[String,String],Optional[properties]=>Hash[String,String]],Optional[staging_bucket]=>String,Optional[worker_config]=>Struct[Optional[disk_config]=>Struct[Optional[boot_disk_size_gb]=>Integer,Optional[boot_disk_type]=>String,Optional[num_local_ssds]=>Integer],Optional[instance_names]=>Array[String],Optional[machine_type]=>String,Optional[num_instances]=>Integer]]]"`
 		Labels              *map[string]string
 		Name                string
 		Project             *string
@@ -1063,20 +1063,20 @@ type (
 		Dataproc_job_id            *string `lyra:"tf-gen.ignore"`
 		Driver_controls_files_uri  *string
 		Driver_output_resource_uri *string
-		Force_delete               bool                      `puppet:"value=>false"`
-		Hadoop_config              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[archive_uris]=>Array[String],Optional[args]=>Array[String],Optional[file_uris]=>Array[String],Optional[jar_file_uris]=>Array[String],Optional[logging_config]=>Array[Struct[Optional[driver_log_levels]=>Hash[String,String]]],Optional[main_class]=>String,Optional[main_jar_file_uri]=>String,Optional[properties]=>Hash[String,String]]]]"`
-		Hive_config                *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[continue_on_failure]=>Boolean,Optional[jar_file_uris]=>Array[String],Optional[properties]=>Hash[String,String],Optional[query_file_uri]=>String,Optional[query_list]=>Array[String],Optional[script_variables]=>Hash[String,String]]]]"`
+		Force_delete               bool                    `puppet:"value=>false"`
+		Hadoop_config              *map[string]interface{} `puppet:"type => Optional[Struct[Optional[archive_uris]=>Array[String],Optional[args]=>Array[String],Optional[file_uris]=>Array[String],Optional[jar_file_uris]=>Array[String],Optional[logging_config]=>Struct[Optional[driver_log_levels]=>Hash[String,String]],Optional[main_class]=>String,Optional[main_jar_file_uri]=>String,Optional[properties]=>Hash[String,String]]]"`
+		Hive_config                *map[string]interface{} `puppet:"type => Optional[Struct[Optional[continue_on_failure]=>Boolean,Optional[jar_file_uris]=>Array[String],Optional[properties]=>Hash[String,String],Optional[query_file_uri]=>String,Optional[query_list]=>Array[String],Optional[script_variables]=>Hash[String,String]]]"`
 		Labels                     *map[string]string
-		Pig_config                 *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[continue_on_failure]=>Boolean,Optional[jar_file_uris]=>Array[String],Optional[logging_config]=>Array[Struct[Optional[driver_log_levels]=>Hash[String,String]]],Optional[properties]=>Hash[String,String],Optional[query_file_uri]=>String,Optional[query_list]=>Array[String],Optional[script_variables]=>Hash[String,String]]]]"`
-		Placement                  []map[string]string       `puppet:"type => Array[Struct[cluster_name=>String,Optional[cluster_uuid]=>String]]"`
+		Pig_config                 *map[string]interface{} `puppet:"type => Optional[Struct[Optional[continue_on_failure]=>Boolean,Optional[jar_file_uris]=>Array[String],Optional[logging_config]=>Struct[Optional[driver_log_levels]=>Hash[String,String]],Optional[properties]=>Hash[String,String],Optional[query_file_uri]=>String,Optional[query_list]=>Array[String],Optional[script_variables]=>Hash[String,String]]]"`
+		Placement                  *map[string]string      `puppet:"type => Optional[Struct[cluster_name=>String,Optional[cluster_uuid]=>String]]"`
 		Project                    *string
-		Pyspark_config             *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[archive_uris]=>Array[String],Optional[args]=>Array[String],Optional[file_uris]=>Array[String],Optional[jar_file_uris]=>Array[String],Optional[logging_config]=>Array[Struct[Optional[driver_log_levels]=>Hash[String,String]]],main_python_file_uri=>String,Optional[properties]=>Hash[String,String],Optional[python_file_uris]=>Array[String]]]]"`
-		Reference                  *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[job_id]=>String]]]"`
-		Region                     string                    `puppet:"value=>'global'"`
-		Scheduling                 *[]map[string]int64       `puppet:"type => Optional[Array[Struct[Optional[max_failures_per_hour]=>Integer]]]"`
-		Spark_config               *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[archive_uris]=>Array[String],Optional[args]=>Array[String],Optional[file_uris]=>Array[String],Optional[jar_file_uris]=>Array[String],Optional[logging_config]=>Array[Struct[Optional[driver_log_levels]=>Hash[String,String]]],Optional[main_class]=>String,Optional[main_jar_file_uri]=>String,Optional[properties]=>Hash[String,String]]]]"`
-		Sparksql_config            *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[jar_file_uris]=>Array[String],Optional[logging_config]=>Array[Struct[Optional[driver_log_levels]=>Hash[String,String]]],Optional[properties]=>Hash[String,String],Optional[query_file_uri]=>String,Optional[query_list]=>Array[String],Optional[script_variables]=>Hash[String,String]]]]"`
-		Status                     *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[details]=>String,Optional[state]=>String,Optional[state_start_time]=>String,Optional[substate]=>String]]]"`
+		Pyspark_config             *map[string]interface{} `puppet:"type => Optional[Struct[Optional[archive_uris]=>Array[String],Optional[args]=>Array[String],Optional[file_uris]=>Array[String],Optional[jar_file_uris]=>Array[String],Optional[logging_config]=>Struct[Optional[driver_log_levels]=>Hash[String,String]],main_python_file_uri=>String,Optional[properties]=>Hash[String,String],Optional[python_file_uris]=>Array[String]]]"`
+		Reference                  *map[string]string      `puppet:"type => Optional[Struct[Optional[job_id]=>String]]"`
+		Region                     string                  `puppet:"value=>'global'"`
+		Scheduling                 *map[string]int64       `puppet:"type => Optional[Struct[Optional[max_failures_per_hour]=>Integer]]"`
+		Spark_config               *map[string]interface{} `puppet:"type => Optional[Struct[Optional[archive_uris]=>Array[String],Optional[args]=>Array[String],Optional[file_uris]=>Array[String],Optional[jar_file_uris]=>Array[String],Optional[logging_config]=>Struct[Optional[driver_log_levels]=>Hash[String,String]],Optional[main_class]=>String,Optional[main_jar_file_uri]=>String,Optional[properties]=>Hash[String,String]]]"`
+		Sparksql_config            *map[string]interface{} `puppet:"type => Optional[Struct[Optional[jar_file_uris]=>Array[String],Optional[logging_config]=>Struct[Optional[driver_log_levels]=>Hash[String,String]],Optional[properties]=>Hash[String,String],Optional[query_file_uri]=>String,Optional[query_list]=>Array[String],Optional[script_variables]=>Hash[String,String]]]"`
+		Status                     *map[string]string      `puppet:"type => Optional[Struct[Optional[details]=>String,Optional[state]=>String,Optional[state_start_time]=>String,Optional[substate]=>String]]"`
 	}
 
 	Dns_managed_zone struct {
@@ -1118,10 +1118,10 @@ type (
 		Create_time           *string
 		Description           *string
 		Etag                  *string
-		File_shares           []map[string]interface{} `puppet:"type => Array[Struct[capacity_gb=>Integer,name=>String]]"`
+		File_shares           *map[string]interface{} `puppet:"type => Optional[Struct[capacity_gb=>Integer,name=>String]]"`
 		Labels                *map[string]string
 		Name                  string
-		Networks              []map[string]interface{} `puppet:"type => Array[Struct[Optional[ip_addresses]=>Array[String],modes=>Array[String],network=>String,Optional[reserved_ip_range]=>String]]"`
+		Networks              []map[string]interface{} `puppet:"type => Array[Struct[Optional[ip_addresses]=>Array[String],modes=>Array[String],network=>String,Optional[reserved_ip_range]=>String],1]"`
 		Project               *string
 		Tier                  string
 		Zone                  string
@@ -1160,13 +1160,13 @@ type (
 	}
 
 	Folder_organization_policy struct {
-		Folder_organization_policy_id *string            `lyra:"tf-gen.ignore"`
-		Boolean_policy                *[]map[string]bool `puppet:"type => Optional[Array[Struct[enforced=>Boolean]]]"`
+		Folder_organization_policy_id *string          `lyra:"tf-gen.ignore"`
+		Boolean_policy                *map[string]bool `puppet:"type => Optional[Struct[enforced=>Boolean]]"`
 		Constraint                    string
 		Etag                          *string
 		Folder                        string
-		List_policy                   *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[allow]=>Array[Struct[Optional[all]=>Boolean,Optional[values]=>Array[String]]],Optional[deny]=>Array[Struct[Optional[all]=>Boolean,Optional[values]=>Array[String]]],Optional[suggested_value]=>String]]]"`
-		Restore_policy                *[]map[string]bool        `puppet:"type => Optional[Array[Struct['default'=>Boolean]]]"`
+		List_policy                   *map[string]interface{} `puppet:"type => Optional[Struct[Optional[allow]=>Struct[Optional[all]=>Boolean,Optional[values]=>Array[String]],Optional[deny]=>Struct[Optional[all]=>Boolean,Optional[values]=>Array[String]],Optional[suggested_value]=>String]]"`
+		Restore_policy                *map[string]bool        `puppet:"type => Optional[Struct['default'=>Boolean]]"`
 		Update_time                   *string
 		Version                       *int64
 	}
@@ -1304,8 +1304,8 @@ type (
 	Monitoring_alert_policy struct {
 		Monitoring_alert_policy_id *string `lyra:"tf-gen.ignore"`
 		Combiner                   string
-		Conditions                 []map[string]interface{} `puppet:"type => Array[Struct[Optional[condition_absent]=>Array[Struct[Optional[aggregations]=>Array[Struct[Optional[alignment_period]=>String,Optional[cross_series_reducer]=>String,Optional[group_by_fields]=>Array[String],Optional[per_series_aligner]=>String]],duration=>String,Optional[filter]=>String,Optional[trigger]=>Array[Struct[Optional[count]=>Integer,Optional[percent]=>Float]]]],Optional[condition_threshold]=>Array[Struct[Optional[aggregations]=>Array[Struct[Optional[alignment_period]=>String,Optional[cross_series_reducer]=>String,Optional[group_by_fields]=>Array[String],Optional[per_series_aligner]=>String]],comparison=>String,Optional[denominator_aggregations]=>Array[Struct[Optional[alignment_period]=>String,Optional[cross_series_reducer]=>String,Optional[group_by_fields]=>Array[String],Optional[per_series_aligner]=>String]],Optional[denominator_filter]=>String,duration=>String,Optional[filter]=>String,Optional[threshold_value]=>Float,Optional[trigger]=>Array[Struct[Optional[count]=>Integer,Optional[percent]=>Float]]]],display_name=>String,Optional[name]=>String]]"`
-		Creation_record            *[]map[string]string     `puppet:"type => Optional[Array[Struct[Optional[mutate_time]=>String,Optional[mutated_by]=>String]]]"`
+		Conditions                 []map[string]interface{} `puppet:"type => Array[Struct[Optional[condition_absent]=>Struct[Optional[aggregations]=>Array[Struct[Optional[alignment_period]=>String,Optional[cross_series_reducer]=>String,Optional[group_by_fields]=>Array[String],Optional[per_series_aligner]=>String]],duration=>String,Optional[filter]=>String,Optional[trigger]=>Struct[Optional[count]=>Integer,Optional[percent]=>Float]],Optional[condition_threshold]=>Struct[Optional[aggregations]=>Array[Struct[Optional[alignment_period]=>String,Optional[cross_series_reducer]=>String,Optional[group_by_fields]=>Array[String],Optional[per_series_aligner]=>String]],comparison=>String,Optional[denominator_aggregations]=>Array[Struct[Optional[alignment_period]=>String,Optional[cross_series_reducer]=>String,Optional[group_by_fields]=>Array[String],Optional[per_series_aligner]=>String]],Optional[denominator_filter]=>String,duration=>String,Optional[filter]=>String,Optional[threshold_value]=>Float,Optional[trigger]=>Struct[Optional[count]=>Integer,Optional[percent]=>Float]],display_name=>String,Optional[name]=>String]]"`
+		Creation_record            *map[string]string       `puppet:"type => Optional[Struct[Optional[mutate_time]=>String,Optional[mutated_by]=>String]]"`
 		Display_name               string
 		Enabled                    bool
 		Labels                     *[]string
@@ -1341,16 +1341,16 @@ type (
 		Monitoring_uptime_check_config_id *string              `lyra:"tf-gen.ignore"`
 		Content_matchers                  *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[content]=>String]]]"`
 		Display_name                      string
-		Http_check                        *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[auth_info]=>Array[Struct[Optional[password]=>String,Optional[username]=>String]],Optional[headers]=>Hash[String,String],Optional[mask_headers]=>Boolean,Optional[path]=>String,Optional[port]=>Integer,Optional[use_ssl]=>Boolean]]]"`
-		Internal_checkers                 *[]map[string]string      `puppet:"type => Optional[Array[Struct[Optional[display_name]=>String,Optional[gcp_zone]=>String,Optional[name]=>String,Optional[network]=>String,Optional[peer_project_id]=>String]]]"`
+		Http_check                        *map[string]interface{} `puppet:"type => Optional[Struct[Optional[auth_info]=>Struct[Optional[password]=>String,Optional[username]=>String],Optional[headers]=>Hash[String,String],Optional[mask_headers]=>Boolean,Optional[path]=>String,Optional[port]=>Integer,Optional[use_ssl]=>Boolean]]"`
+		Internal_checkers                 *[]map[string]string    `puppet:"type => Optional[Array[Struct[Optional[display_name]=>String,Optional[gcp_zone]=>String,Optional[name]=>String,Optional[network]=>String,Optional[peer_project_id]=>String]]]"`
 		Is_internal                       *bool
-		Monitored_resource                *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[labels=>Hash[String,String],type=>String]]]"`
+		Monitored_resource                *map[string]interface{} `puppet:"type => Optional[Struct[labels=>Hash[String,String],type=>String]]"`
 		Name                              *string
 		Period                            string `puppet:"value=>'300s'"`
 		Project                           *string
-		Resource_group                    *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[group_id]=>String,Optional[resource_type]=>String]]]"`
+		Resource_group                    *map[string]string `puppet:"type => Optional[Struct[Optional[group_id]=>String,Optional[resource_type]=>String]]"`
 		Selected_regions                  *[]string
-		Tcp_check                         *[]map[string]int64 `puppet:"type => Optional[Array[Struct[port=>Integer]]]"`
+		Tcp_check                         *map[string]int64 `puppet:"type => Optional[Struct[port=>Integer]]"`
 		Timeout                           string
 	}
 
@@ -1389,21 +1389,21 @@ type (
 	}
 
 	Organization_policy struct {
-		Organization_policy_id *string            `lyra:"tf-gen.ignore"`
-		Boolean_policy         *[]map[string]bool `puppet:"type => Optional[Array[Struct[enforced=>Boolean]]]"`
+		Organization_policy_id *string          `lyra:"tf-gen.ignore"`
+		Boolean_policy         *map[string]bool `puppet:"type => Optional[Struct[enforced=>Boolean]]"`
 		Constraint             string
 		Etag                   *string
-		List_policy            *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[allow]=>Array[Struct[Optional[all]=>Boolean,Optional[values]=>Array[String]]],Optional[deny]=>Array[Struct[Optional[all]=>Boolean,Optional[values]=>Array[String]]],Optional[suggested_value]=>String]]]"`
+		List_policy            *map[string]interface{} `puppet:"type => Optional[Struct[Optional[allow]=>Struct[Optional[all]=>Boolean,Optional[values]=>Array[String]],Optional[deny]=>Struct[Optional[all]=>Boolean,Optional[values]=>Array[String]],Optional[suggested_value]=>String]]"`
 		Org_id                 string
-		Restore_policy         *[]map[string]bool `puppet:"type => Optional[Array[Struct['default'=>Boolean]]]"`
+		Restore_policy         *map[string]bool `puppet:"type => Optional[Struct['default'=>Boolean]]"`
 		Update_time            *string
 		Version                *int64
 	}
 
 	Project struct {
-		Project_lyra_id     *string                   `lyra:"tf-gen.ignore"`
-		App_engine          *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[auth_domain]=>String,Optional[code_bucket]=>String,Optional[default_bucket]=>String,Optional[default_hostname]=>String,Optional[feature_settings]=>Array[Struct[Optional[split_health_checks]=>Boolean]],Optional[gcr_domain]=>String,Optional[location_id]=>String,Optional[name]=>String,Optional[serving_status]=>String,Optional[url_dispatch_rule]=>Array[Struct[Optional[domain]=>String,Optional[path]=>String,Optional[service]=>String]]]]]"`
-		Auto_create_network bool                      `puppet:"value=>true"`
+		Project_lyra_id     *string                 `lyra:"tf-gen.ignore"`
+		App_engine          *map[string]interface{} `puppet:"type => Optional[Struct[Optional[auth_domain]=>String,Optional[code_bucket]=>String,Optional[default_bucket]=>String,Optional[default_hostname]=>String,Optional[feature_settings]=>Struct[Optional[split_health_checks]=>Boolean],Optional[gcr_domain]=>String,Optional[location_id]=>String,Optional[name]=>String,Optional[serving_status]=>String,Optional[url_dispatch_rule]=>Array[Struct[Optional[domain]=>String,Optional[path]=>String,Optional[service]=>String]]]]"`
+		Auto_create_network bool                    `puppet:"value=>true"`
 		Billing_account     *string
 		Folder_id           *string
 		Labels              *map[string]string
@@ -1454,13 +1454,13 @@ type (
 	}
 
 	Project_organization_policy struct {
-		Project_organization_policy_id *string            `lyra:"tf-gen.ignore"`
-		Boolean_policy                 *[]map[string]bool `puppet:"type => Optional[Array[Struct[enforced=>Boolean]]]"`
+		Project_organization_policy_id *string          `lyra:"tf-gen.ignore"`
+		Boolean_policy                 *map[string]bool `puppet:"type => Optional[Struct[enforced=>Boolean]]"`
 		Constraint                     string
 		Etag                           *string
-		List_policy                    *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[allow]=>Array[Struct[Optional[all]=>Boolean,Optional[values]=>Array[String]]],Optional[deny]=>Array[Struct[Optional[all]=>Boolean,Optional[values]=>Array[String]]],Optional[suggested_value]=>String]]]"`
+		List_policy                    *map[string]interface{} `puppet:"type => Optional[Struct[Optional[allow]=>Struct[Optional[all]=>Boolean,Optional[values]=>Array[String]],Optional[deny]=>Struct[Optional[all]=>Boolean,Optional[values]=>Array[String]],Optional[suggested_value]=>String]]"`
 		Project                        string
-		Restore_policy                 *[]map[string]bool `puppet:"type => Optional[Array[Struct['default'=>Boolean]]]"`
+		Restore_policy                 *map[string]bool `puppet:"type => Optional[Struct['default'=>Boolean]]"`
 		Update_time                    *string
 		Version                        *int64
 	}
@@ -1492,7 +1492,7 @@ type (
 		Name                   string
 		Path                   *string
 		Project                *string
-		Push_config            *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[attributes]=>Hash[String,String],push_endpoint=>String]]]"`
+		Push_config            *map[string]interface{} `puppet:"type => Optional[Struct[Optional[attributes]=>Hash[String,String],push_endpoint=>String]]"`
 		Topic                  string
 	}
 
@@ -1755,11 +1755,11 @@ type (
 		Name                          *string
 		Project                       *string
 		Region                        *string
-		Replica_configuration         *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[ca_certificate]=>String,Optional[client_certificate]=>String,Optional[client_key]=>String,Optional[connect_retry_interval]=>Integer,Optional[dump_file_path]=>String,Optional[failover_target]=>Boolean,Optional[master_heartbeat_period]=>Integer,Optional[password]=>String,Optional[ssl_cipher]=>String,Optional[username]=>String,Optional[verify_server_certificate]=>Boolean]]]"`
+		Replica_configuration         *map[string]interface{} `puppet:"type => Optional[Struct[Optional[ca_certificate]=>String,Optional[client_certificate]=>String,Optional[client_key]=>String,Optional[connect_retry_interval]=>Integer,Optional[dump_file_path]=>String,Optional[failover_target]=>Boolean,Optional[master_heartbeat_period]=>Integer,Optional[password]=>String,Optional[ssl_cipher]=>String,Optional[username]=>String,Optional[verify_server_certificate]=>Boolean]]"`
 		Self_link                     *string
-		Server_ca_cert                *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[cert]=>String,Optional[common_name]=>String,Optional[create_time]=>String,Optional[expiration_time]=>String,Optional[sha1_fingerprint]=>String]]]"`
+		Server_ca_cert                *map[string]string `puppet:"type => Optional[Struct[Optional[cert]=>String,Optional[common_name]=>String,Optional[create_time]=>String,Optional[expiration_time]=>String,Optional[sha1_fingerprint]=>String]]"`
 		Service_account_email_address *string
-		Settings                      []map[string]interface{} `puppet:"type => Array[Struct[Optional[activation_policy]=>String,Optional[authorized_gae_applications]=>Array[String],Optional[availability_type]=>String,Optional[backup_configuration]=>Array[Struct[Optional[binary_log_enabled]=>Boolean,Optional[enabled]=>Boolean,Optional[start_time]=>String]],Optional[crash_safe_replication]=>Boolean,Optional[database_flags]=>Array[Struct[Optional[name]=>String,Optional[value]=>String]],Optional[disk_autoresize]=>Boolean,Optional[disk_size]=>Integer,Optional[disk_type]=>String,Optional[ip_configuration]=>Array[Struct[Optional[authorized_networks]=>Array[Struct[Optional[expiration_time]=>String,Optional[name]=>String,Optional[value]=>String]],Optional[ipv4_enabled]=>Boolean,Optional[private_network]=>String,Optional[require_ssl]=>Boolean]],Optional[location_preference]=>Array[Struct[Optional[follow_gae_application]=>String,Optional[zone]=>String]],Optional[maintenance_window]=>Array[Struct[Optional[day]=>Integer,Optional[hour]=>Integer,Optional[update_track]=>String]],Optional[pricing_plan]=>String,Optional[replication_type]=>String,tier=>String,Optional[user_labels]=>Hash[String,String],Optional[version]=>Integer]]"`
+		Settings                      *map[string]interface{} `puppet:"type => Optional[Struct[Optional[activation_policy]=>String,Optional[authorized_gae_applications]=>Array[String],Optional[availability_type]=>String,Optional[backup_configuration]=>Struct[Optional[binary_log_enabled]=>Boolean,Optional[enabled]=>Boolean,Optional[start_time]=>String],Optional[crash_safe_replication]=>Boolean,Optional[database_flags]=>Array[Struct[Optional[name]=>String,Optional[value]=>String]],Optional[disk_autoresize]=>Boolean,Optional[disk_size]=>Integer,Optional[disk_type]=>String,Optional[ip_configuration]=>Struct[Optional[authorized_networks]=>Array[Struct[Optional[expiration_time]=>String,Optional[name]=>String,Optional[value]=>String]],Optional[ipv4_enabled]=>Boolean,Optional[private_network]=>String,Optional[require_ssl]=>Boolean],Optional[location_preference]=>Struct[Optional[follow_gae_application]=>String,Optional[zone]=>String],Optional[maintenance_window]=>Struct[Optional[day]=>Integer,Optional[hour]=>Integer,Optional[update_track]=>String],Optional[pricing_plan]=>String,Optional[replication_type]=>String,tier=>String,Optional[user_labels]=>Hash[String,String],Optional[version]=>Integer]]"`
 	}
 
 	Sql_ssl_cert struct {
@@ -1787,19 +1787,19 @@ type (
 	Storage_bucket struct {
 		Storage_bucket_id *string                   `lyra:"tf-gen.ignore"`
 		Cors              *[]map[string]interface{} `puppet:"type => Optional[Array[Struct[Optional[max_age_seconds]=>Integer,Optional[method]=>Array[String],Optional[origin]=>Array[String],Optional[response_header]=>Array[String]]]]"`
-		Encryption        *[]map[string]string      `puppet:"type => Optional[Array[Struct[default_kms_key_name=>String]]]"`
+		Encryption        *map[string]string        `puppet:"type => Optional[Struct[default_kms_key_name=>String]]"`
 		Force_destroy     bool                      `puppet:"value=>false"`
 		Labels            *map[string]string
-		Lifecycle_rule    *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[action=>Array[Struct[Optional[storage_class]=>String,type=>String]],condition=>Array[Struct[Optional[age]=>Integer,Optional[created_before]=>String,Optional[is_live]=>Boolean,Optional[matches_storage_class]=>Array[String],Optional[num_newer_versions]=>Integer]]]]]"`
+		Lifecycle_rule    *[]map[string][]interface{} `puppet:"type => Optional[Array[Struct[action=>Struct[Optional[storage_class]=>String,type=>String],condition=>Struct[Optional[age]=>Integer,Optional[created_before]=>String,Optional[is_live]=>Boolean,Optional[matches_storage_class]=>Array[String,1],Optional[num_newer_versions]=>Integer]],0,100]]"`
 		Location          string                      `puppet:"value=>'US'"`
-		Logging           *[]map[string]string        `puppet:"type => Optional[Array[Struct[log_bucket=>String,Optional[log_object_prefix]=>String]]]"`
+		Logging           *map[string]string          `puppet:"type => Optional[Struct[log_bucket=>String,Optional[log_object_prefix]=>String]]"`
 		Name              string
 		Predefined_acl    *string
 		Project           *string
 		Self_link         *string
 		Storage_class     string `puppet:"value=>'STANDARD'"`
 		Url               *string
-		Versioning        *[]map[string]bool   `puppet:"type => Optional[Array[Struct[Optional[enabled]=>Boolean]]]"`
+		Versioning        *map[string]bool     `puppet:"type => Optional[Struct[Optional[enabled]=>Boolean]]"`
 		Website           *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[main_page_suffix]=>String,Optional[not_found_page]=>String]]]"`
 	}
 
@@ -1861,7 +1861,7 @@ type (
 		Entity_id                                *string
 		Generation                               *int64
 		Object                                   *string
-		Project_team                             *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[project_number]=>String,Optional[team]=>String]]]"`
+		Project_team                             *map[string]string `puppet:"type => Optional[Struct[Optional[project_number]=>String,Optional[team]=>String]]"`
 		Role                                     string
 	}
 
@@ -1891,7 +1891,7 @@ type (
 		Entity_id                        *string
 		Generation                       *int64
 		Object                           string
-		Project_team                     *[]map[string]string `puppet:"type => Optional[Array[Struct[Optional[project_number]=>String,Optional[team]=>String]]]"`
+		Project_team                     *map[string]string `puppet:"type => Optional[Struct[Optional[project_number]=>String,Optional[team]=>String]]"`
 		Role                             string
 	}
 

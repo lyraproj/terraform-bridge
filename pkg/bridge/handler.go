@@ -1,6 +1,7 @@
 package bridge
 
 import (
+	"fmt"
 	"strings"
 	"sync"
 
@@ -39,6 +40,13 @@ func configureProvider(p *schema.Provider) {
 	})
 }
 
+func (h *GenericTFHandler) resource() *schema.Resource {
+	if r, ok := h.provider.ResourcesMap[h.nativeType]; ok {
+		return r
+	}
+	panic(fmt.Errorf("unknown resource type: %s", h.nativeType))
+}
+
 // Create ...
 func (h *GenericTFHandler) Create(desired px.PuppetObject) (px.PuppetObject, string, error) {
 	c := px.CurrentContext()
@@ -48,7 +56,7 @@ func (h *GenericTFHandler) Create(desired px.PuppetObject) (px.PuppetObject, str
 	}
 	configureProvider(h.provider)
 	rc := &terraform.ResourceConfig{
-		Config: TerraformMarshal(c, desired),
+		Config: TerraformMarshal(c, desired, h.resource().Schema),
 	}
 	id, err := Create(h.provider, h.nativeType, rc)
 	if err != nil {
@@ -71,7 +79,7 @@ func (h *GenericTFHandler) Update(externalID string, desired px.PuppetObject) (p
 	}
 	configureProvider(h.provider)
 	rc := &terraform.ResourceConfig{
-		Config: TerraformMarshal(c, desired),
+		Config: TerraformMarshal(c, desired, h.resource().Schema),
 	}
 	actual, err := Update(h.provider, h.nativeType, externalID, rc)
 	if err != nil {
