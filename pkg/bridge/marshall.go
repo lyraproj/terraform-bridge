@@ -3,7 +3,6 @@ package bridge
 import (
 	"bytes"
 	"fmt"
-	"strings"
 	"time"
 
 	"github.com/hashicorp/go-hclog"
@@ -21,27 +20,18 @@ func TerraformMarshal(c px.Context, s px.PuppetObject, ts map[string]*schema.Sch
 	m := make(map[string]interface{}, len(attrs))
 
 	for _, a := range attrs {
-		tags := a.Tags(c)
-		if tags != nil && tags.Tag(`lyra`) == ignoreTag {
-			continue
-		}
-
-		pv := a.Get(s)
-		if pv.Equals(px.Undef, nil) {
-			continue
-		}
-
-		// Add the field value to the map
-		dn := strings.ToLower(a.Name())
-		marshaledValue := marshal(c, pv, ts[dn])
-		if marshaledValue != nil {
-			m[dn] = marshaledValue
+		n := a.Name()
+		if as, ok := ts[n]; ok {
+			pv := a.Get(s)
+			if !pv.Equals(px.Undef, nil) {
+				if mv := marshal(c, pv, as); mv != nil {
+					m[n] = mv
+				}
+			}
 		}
 	}
 	return m
 }
-
-var noSchemas = map[string]*schema.Schema{}
 
 func marshal(c px.Context, v px.Value, ts *schema.Schema) interface{} {
 	if v.Equals(px.Undef, nil) {
@@ -49,17 +39,11 @@ func marshal(c px.Context, v px.Value, ts *schema.Schema) interface{} {
 	}
 	switch v := v.(type) {
 	case px.PuppetObject:
-		if ts != nil {
-			switch ts.Type {
-			case schema.TypeList, schema.TypeSet:
-				schemas := noSchemas
-				if rs, ok := ts.Elem.(*schema.Resource); ok {
-					schemas = rs.Schema
-				}
-				return []map[string]interface{}{TerraformMarshal(c, v, schemas)}
+		if ts.Type == schema.TypeList || ts.Type == schema.TypeSet {
+			if rs, ok := ts.Elem.(*schema.Resource); ok {
+				return []map[string]interface{}{TerraformMarshal(c, v, rs.Schema)}
 			}
 		}
-		return TerraformMarshal(c, v, noSchemas)
 	case px.StringValue:
 		return v.String()
 	case px.Integer:
@@ -73,31 +57,58 @@ func marshal(c px.Context, v px.Value, ts *schema.Schema) interface{} {
 	case *types.Regexp:
 		return v.PatternString()
 	case px.OrderedMap:
-		var es *schema.Schema
-		nested := map[string]interface{}{}
-		if ts != nil && ts.Type == schema.TypeMap {
-			if s, ok := ts.Elem.(*schema.Schema); ok {
-				es = s
+		if ts.Type == schema.TypeMap {
+			switch el := ts.Elem.(type) {
+			case *schema.Schema:
+				nested := make(map[string]interface{}, v.Len())
+				v.EachPair(func(k, v px.Value) {
+					nested[k.String()] = marshal(c, v, el)
+				})
+				return nested
+			case schema.ValueType:
+				s := &schema.Schema{Type: el}
+				nested := make(map[string]interface{}, v.Len())
+				v.EachPair(func(k, v px.Value) {
+					nested[k.String()] = marshal(c, v, s)
+				})
+				return nested
+			case nil:
+				s := &schema.Schema{Type: schema.TypeString}
+				nested := make(map[string]interface{}, v.Len())
+				v.EachPair(func(k, v px.Value) {
+					nested[k.String()] = marshal(c, v, s)
+				})
+				return nested
 			}
 		}
-		v.EachPair(func(k, v px.Value) {
-			nested[k.String()] = marshal(c, v, es)
-		})
-		return nested
 	case px.List:
-		var es *schema.Schema
 		slice := make([]interface{}, v.Len())
-		if ts != nil && (ts.Type == schema.TypeList || ts.Type == schema.TypeSet) {
-			if s, ok := ts.Elem.(*schema.Schema); ok {
-				es = s
+		if ts.Type == schema.TypeList || ts.Type == schema.TypeSet {
+			switch el := ts.Elem.(type) {
+			case *schema.Resource:
+				v.EachWithIndex(func(e px.Value, i int) {
+					if po, ok := e.(px.PuppetObject); ok {
+						slice[i] = TerraformMarshal(c, po, el.Schema)
+					} else {
+						panic(fmt.Errorf("TerraformMarshal: type mismatch: pcore = %s, schema = %s", po.PType(), fmt.Sprintf(`%v`, el)))
+					}
+				})
+				return slice
+			case *schema.Schema:
+				v.EachWithIndex(func(e px.Value, i int) { slice[i] = marshal(c, e, el) })
+				return slice
+			case schema.ValueType:
+				s := &schema.Schema{Type: el}
+				v.EachWithIndex(func(e px.Value, i int) { slice[i] = marshal(c, e, s) })
+				return slice
+			case nil:
+				s := &schema.Schema{Type: schema.TypeString}
+				v.EachWithIndex(func(e px.Value, i int) { slice[i] = marshal(c, e, s) })
+				return slice
 			}
 		}
-		v.EachWithIndex(func(e px.Value, i int) { slice[i] = marshal(c, e, es) })
-		return slice
-	default:
-		hclog.Default().Error(fmt.Sprintf("TerraformMarshal: Skipping unsupported pcore type: %s", v.PType()))
-		return nil
 	}
+	panic(fmt.Errorf("TerraformMarshal: type mismatch: pcore = %s, schema = %s", v.PType(), ts.GoString()))
 }
 
 // TerraformUnMarshal converts a Terraform representation into a PuppetObject
@@ -124,7 +135,7 @@ func TerraformUnMarshal(c px.Context, extIdName, extId string, s map[string]inte
 	ie = append(ie, types.WrapHashEntry2(extIdName, types.WrapString(extId)))
 	for _, a := range attrs {
 		if v, ok := h.Get4(a.Name()); ok {
-			ie = append(ie, types.WrapHashEntry2(a.Name(), types.CoerceTo(c, a.Label(), false, a.Type(), v)))
+			ie = append(ie, types.WrapHashEntry2(a.Name(), types.CoerceTo(c, a.Label(), a.Type(), v)))
 		}
 	}
 	return px.New(c, t, types.WrapHash(ie)).(px.PuppetObject)

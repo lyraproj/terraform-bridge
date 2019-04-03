@@ -7,6 +7,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/hashicorp/terraform/helper/schema"
+
 	"github.com/davecgh/go-spew/spew"
 	"github.com/lyraproj/pcore/pcore"
 	"github.com/lyraproj/pcore/px"
@@ -15,6 +17,7 @@ import (
 
 var original interface{}
 var expected map[string]interface{}
+var tfSchema map[string]*schema.Schema
 
 type Kennel struct {
 	Height *int
@@ -39,7 +42,7 @@ type Llama struct {
 }
 
 type Person struct {
-	PersonID   string `lyra:"ignore"`
+	PersonID   string
 	FirstName  string
 	LastName   *string
 	Cool       bool
@@ -108,41 +111,41 @@ func init() {
 			},
 		},
 		PetCats: []Cat{
-			Cat{
+			{
 				Tail:   15,
 				Colour: &brownish,
 			},
-			Cat{
+			{
 				Tail:   16,
 				Colour: &brown,
 			},
 		},
 		PetMoggies: &[]Cat{
-			Cat{
+			{
 				Tail:   17,
 				Colour: &browny,
 			},
-			Cat{
+			{
 				Tail:   18,
 				Colour: &brownish,
 			},
 		},
 		PetFelines: []*Cat{
-			&Cat{
+			{
 				Tail:   27,
 				Colour: &browny,
 			},
-			&Cat{
+			{
 				Tail:   28,
 				Colour: &brownish,
 			},
 		},
 		PetKitties: &[]*Cat{
-			&Cat{
+			{
 				Tail:   19,
 				Colour: &brown,
 			},
-			&Cat{
+			{
 				Tail:   20,
 				Colour: &browny,
 			},
@@ -156,8 +159,8 @@ func init() {
 		// PItemList: &[]Item{Item{"aa"}, Item{"bb"}, Item{"cc"}},
 	}
 	expected = map[string]interface{}{
-		"firstname": "John",
-		"lastname":  "Smith",
+		"firstName": "John",
+		"lastName":  "Smith",
 		"age":       23,
 		"cool":      false,
 		"cooler":    true,
@@ -166,67 +169,201 @@ func init() {
 		"down":      5.678,
 		"when":      "2019-03-22T10:53:20Z",
 		"match":     ".*blue.*",
-		"petdog": map[string]interface{}{
+		"petDog": []map[string]interface{}{{
 			"colour": "red",
 			"size":   12,
-			"home": map[string]interface{}{
+			"home": []map[string]interface{}{{
 				"height": 3,
 				"width":  4,
-			},
-		},
-		"petdoggy": map[string]interface{}{
+			}},
+		}},
+		"petDoggy": []map[string]interface{}{{
 			"colour": "yellow",
 			"size":   23,
-			"home": map[string]interface{}{
+			"home": []map[string]interface{}{{
 				"height": 4,
 				"width":  3,
-			},
-		},
-		"petcats": []interface{}{
-			map[string]interface{}{
+			}},
+		}},
+		"petCats": []map[string]interface{}{
+			{
 				"tail":   15,
 				"colour": "brownish",
 			},
-			map[string]interface{}{
+			{
 				"tail":   16,
 				"colour": "brown",
 			},
 		},
-		"petmoggies": []interface{}{
-			map[string]interface{}{
+		"petMoggies": []map[string]interface{}{
+			{
 				"tail":   17,
 				"colour": "browny",
 			},
-			map[string]interface{}{
+			{
 				"tail":   18,
 				"colour": "brownish",
 			},
 		},
-		"petfelines": []interface{}{
-			map[string]interface{}{
+		"petFelines": []map[string]interface{}{
+			{
 				"tail":   27,
 				"colour": "browny",
 			},
-			map[string]interface{}{
+			{
 				"tail":   28,
 				"colour": "brownish",
 			},
 		},
-		"petkitties": []interface{}{
-			map[string]interface{}{
+		"petKitties": []map[string]interface{}{
+			{
 				"tail":   19,
 				"colour": "brown",
 			},
-			map[string]interface{}{
+			{
 				"tail":   20,
 				"colour": "browny",
 			},
 		},
 		"tags":   map[string]interface{}{"foo": "bar", "moo": "baa"},
-		"ptags":  map[string]interface{}{"foo2": "bar2", "moo2": "baa2"},
+		"pTags":  map[string]interface{}{"foo2": "bar2", "moo2": "baa2"},
 		"list":   []interface{}{"aa", "bb", "cc"},
-		"plist":  []interface{}{"aa", "bb", "cc"},
-		"pplist": []interface{}{"Smith", "", "brownish"},
+		"pList":  []interface{}{"aa", "bb", "cc"},
+		"pPList": []interface{}{"Smith", "", "brownish"},
+	}
+
+	_string := &schema.Schema{
+		Type:     schema.TypeString,
+		Required: true,
+	}
+	_string_opt := &schema.Schema{
+		Type:     schema.TypeString,
+		Optional: true,
+	}
+	_int := &schema.Schema{
+		Type:     schema.TypeInt,
+		Required: true,
+	}
+	_int_opt := &schema.Schema{
+		Type:     schema.TypeInt,
+		Optional: true,
+	}
+	_float := &schema.Schema{
+		Type:     schema.TypeFloat,
+		Required: true,
+	}
+	_float_opt := &schema.Schema{
+		Type:     schema.TypeFloat,
+		Optional: true,
+	}
+	_bool := &schema.Schema{
+		Type:     schema.TypeBool,
+		Required: true,
+	}
+
+	_bool_opt := &schema.Schema{
+		Type:     schema.TypeBool,
+		Optional: true}
+
+	_kennel := &schema.Resource{
+		Schema: map[string]*schema.Schema{
+			"height": _int_opt,
+			"width":  _int_opt,
+			"depth":  _int_opt,
+		}}
+
+	_dog := &schema.Resource{
+		Schema: map[string]*schema.Schema{
+			"colour": _string,
+			"size":   _int,
+			"home": &schema.Schema{
+				Type:     schema.TypeList,
+				MinItems: 1,
+				MaxItems: 1,
+				Elem:     _kennel,
+			}}}
+
+	_cat := &schema.Resource{
+		Schema: map[string]*schema.Schema{
+			"tail":   _int,
+			"colour": _string,
+			"shape":  _string,
+		}}
+
+	_llama := &schema.Resource{
+		Schema: map[string]*schema.Schema{
+			"location": _string,
+		}}
+
+	tfSchema = map[string]*schema.Schema{
+		"firstName": _string,
+		"lastName":  _string_opt,
+		"cool":      _bool,
+		"cooler":    _bool,
+		"uncool":    _bool_opt,
+		"up":        _float,
+		"down":      _float_opt,
+		"when":      _string,
+		"match":     _string_opt,
+		"age":       _int,
+		"petDog": &schema.Schema{
+			Type:     schema.TypeList,
+			MinItems: 1,
+			MaxItems: 1,
+			Elem:     _dog},
+		"petDoggy": &schema.Schema{
+			Type:     schema.TypeList,
+			MinItems: 0,
+			MaxItems: 1,
+			Elem:     _dog},
+		"noDog": &schema.Schema{
+			Type:     schema.TypeList,
+			MinItems: 0,
+			MaxItems: 1,
+			Elem:     _dog},
+		"petCats": &schema.Schema{
+			Type:     schema.TypeList,
+			Required: true,
+			Elem:     _cat},
+		"petMoggies": &schema.Schema{
+			Optional: true,
+			Type:     schema.TypeList,
+			Elem:     _cat},
+		"petFelines": &schema.Schema{
+			Required: true,
+			MinItems: 0,
+			Type:     schema.TypeList,
+			Elem:     _cat},
+		"petKitties": &schema.Schema{
+			Optional: true,
+			MinItems: 0,
+			Type:     schema.TypeList,
+			Elem:     _cat},
+		"petLlama": &schema.Schema{
+			MinItems: 0,
+			MaxItems: 1,
+			Type:     schema.TypeList,
+			Elem:     _llama},
+		"tags": &schema.Schema{
+			Type:     schema.TypeMap,
+			Required: true,
+			Elem:     schema.TypeString},
+		"pTags": &schema.Schema{
+			Type:     schema.TypeMap,
+			Optional: true,
+			Elem:     schema.TypeString},
+		"list": &schema.Schema{
+			Type:     schema.TypeList,
+			Required: true,
+			Elem:     schema.TypeString},
+		"pList": &schema.Schema{
+			Type:     schema.TypeList,
+			Optional: true,
+			Elem:     schema.TypeString},
+		"pPList": &schema.Schema{
+			Type:     schema.TypeList,
+			Optional: true,
+			Elem:     schema.TypeString},
 	}
 }
 
@@ -243,7 +380,7 @@ func registerTypes(c px.Context) px.ObjectType {
 func TestTerraformMarshal(t *testing.T) {
 	pcore.Do(func(c px.Context) {
 		registerTypes(c)
-		actual := TerraformMarshal(c, px.Wrap(c, original).(px.PuppetObject))
+		actual := TerraformMarshal(c, px.Wrap(c, original).(px.PuppetObject), tfSchema)
 
 		s1 := bytes.NewBufferString(``)
 		px.Wrap(c, expected).ToString(s1, px.Pretty, nil)
