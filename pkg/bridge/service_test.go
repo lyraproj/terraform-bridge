@@ -18,7 +18,7 @@ import (
 
 func TestCreateService_metadata(t *testing.T) {
 	pcore.Do(func(c px.Context) {
-		s := bridge.CreateService(c, github.Provider().(*schema.Provider), "TerraformGithub", "github",
+		s := bridge.CreateService(c, github.Provider().(*schema.Provider), "Github",
 			&terraform.ResourceConfig{
 				Config: map[string]interface{}{},
 			})
@@ -35,7 +35,7 @@ func TestCreateService_metadata(t *testing.T) {
 
 func TestCreateService_typeset(t *testing.T) {
 	pcore.Do(func(c px.Context) {
-		s := bridge.CreateService(c, github.Provider().(*schema.Provider), "TerraformGithub", "github",
+		s := bridge.CreateService(c, github.Provider().(*schema.Provider), "Github",
 			&terraform.ResourceConfig{
 				Config: map[string]interface{}{},
 			})
