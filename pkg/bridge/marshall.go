@@ -1,267 +1,195 @@
 package bridge
 
 import (
+	"bytes"
 	"fmt"
-	"log"
-	"reflect"
-	"strconv"
-	"strings"
+	"time"
 
-	"github.com/davecgh/go-spew/spew"
+	"github.com/hashicorp/go-hclog"
+	"github.com/hashicorp/terraform/helper/schema"
+
+	"github.com/lyraproj/pcore/px"
+	"github.com/lyraproj/pcore/types"
 )
 
-// Based on http://lpar.ath0.com/2016/04/20/reflection-go-modifying-struct-values
+// TerraformMarshal converts a PuppetObject into its Terraform representation
+func TerraformMarshal(c px.Context, s px.PuppetObject, ts map[string]*schema.Schema) map[string]interface{} {
+	t := s.PType().(px.ObjectType)
 
-// TerraformMarshal converts a concrete resource struct into its Terraform representation
-func TerraformMarshal(s interface{}) map[string]interface{} {
+	attrs := t.AttributesInfo().Attributes()
+	m := make(map[string]interface{}, len(attrs))
 
-	// log.Printf("TerraformMarshal: %s", spew.Sdump(s))
-
-	// Get the type and value of the argument we were passed.
-	typ := reflect.TypeOf(s)
-	val := reflect.ValueOf(s)
-
-	// If we were passed a pointer, dereference to get the type and value
-	// pointed at.
-	if typ.Kind() == reflect.Ptr {
-		typ = typ.Elem()
-		val = val.Elem()
-	}
-
-	// The number of fields in the struct is determined by the type of struct
-	// it is. Loop through them.
-	m := map[string]interface{}{}
-	for i := 0; i < typ.NumField(); i++ {
-
-		// Get the type of the field from the type of the struct. For a struct,
-		// you always get a StructField.
-		sfld := typ.Field(i)
-
-		// Ignore fields with lyra:"ignore" metadata
-		tagValue, ok := sfld.Tag.Lookup("lyra")
-		if ok && tagValue == "ignore" {
-			continue
-		}
-
-		// Get the type of the StructField, which is the type actually stored
-		// in that field of the struct.
-		tfld := sfld.Type
-
-		// Get the Kind of that type, which will be the underlying base type
-		// used to define the type in question.
-		kind := tfld.Kind()
-
-		// Get the value of the field from the value of the struct.
-		vfld := val.Field(i)
-
-		// Ignore this field if it a nil pointer
-		if kind == reflect.Ptr && vfld.IsNil() {
-			continue
-		}
-
-		// Add the field value to the map
-		terrformName := strings.ToLower(sfld.Name)
-		vvalue := reflect.Indirect(vfld)
-		value := vvalue.Interface()
-		switch vvalue.Kind() {
-		case reflect.Slice:
-			slice := []interface{}{}
-			for i := 0; i < vvalue.Len(); i++ {
-				element := vvalue.Index(i)
-				slice = append(slice, marshal(reflect.Indirect(element)))
-			}
-			m[terrformName] = slice
-		case reflect.Map:
-			nested := map[string]interface{}{}
-			for _, k := range vvalue.MapKeys() {
-				nested[k.Interface().(string)] = marshal(vvalue.MapIndex(k))
-			}
-			m[terrformName] = nested
-		default:
-			marshaledValue := marshal(vvalue)
-			if marshaledValue == nil {
-				log.Printf("TerraformMarshal: Skipping unsupported primitive type: %s", spew.Sdump(value))
-			} else {
-				m[terrformName] = marshaledValue
+	for _, a := range attrs {
+		n := a.Name()
+		if as, ok := ts[n]; ok {
+			pv := a.Get(s)
+			if !pv.Equals(px.Undef, nil) {
+				if mv := marshal(c, pv, as); mv != nil {
+					m[n] = mv
+				}
 			}
 		}
 	}
 	return m
 }
 
-func marshal(v reflect.Value) interface{} {
-	value := v.Interface()
-	switch v.Kind() {
-	case reflect.Struct:
-		return TerraformMarshal(value)
-	case reflect.String:
-		return value
-	case reflect.Int:
-		return strconv.FormatInt(int64(value.(int)), 10)
-	case reflect.Bool:
-		return strconv.FormatBool(value.(bool))
-	case reflect.Float64:
-		return strconv.FormatFloat(float64(value.(float64)), 'G', -1, 64)
-	default:
-		log.Printf("TerraformMarshal: Skipping unsupported primitive type: %s", spew.Sdump(value))
+func marshal(c px.Context, v px.Value, ts *schema.Schema) interface{} {
+	if v.Equals(px.Undef, nil) {
 		return nil
 	}
-}
-
-// TerraformUnmarshal converts a Terraform representation of a resource into a concrete resource
-func TerraformUnmarshal(m map[string]interface{}, s interface{}) {
-
-	// log.Printf("TerraformUnmarshal: %s", spew.Sdump(m))
-
-	// Get the type and value of the argument we were passed.
-	typ := reflect.TypeOf(s)
-	val := reflect.ValueOf(s)
-
-	// If we were passed a pointer, dereference to get the type and value
-	// pointed at.
-	if typ.Kind() != reflect.Ptr {
-		panic(fmt.Sprintf("TerraformUnmarshal: The second argument must be a pointer to a target struct: kind=%s %s\n", typ.Kind(), spew.Sdump(typ)))
-	}
-
-	typ = typ.Elem()
-	val = val.Elem()
-
-	if typ.Kind() != reflect.Struct {
-		panic(fmt.Sprintf("TerraformUnmarshal: The second argument must dereference to a target struct: kind=%s %s\n", typ.Kind(), spew.Sdump(typ)))
-	}
-
-	// The number of fields in the struct is determined by the type of struct
-	// it is. Loop through them.
-	for i := 0; i < typ.NumField(); i++ {
-
-		// Get the type of the field from the type of the struct. For a struct,
-		// you always get a StructField.
-		sfld := typ.Field(i)
-
-		// Get the type of the StructField, which is the type actually stored
-		// in that field of the struct.
-		tfld := sfld.Type
-
-		// Get the value of the field from the value of the struct.
-		vfld := val.Field(i)
-
-		// Set the field value
-		terrformName := strings.ToLower(sfld.Name)
-		value, ok := m[terrformName]
-		if ok && vfld.CanSet() {
-			switch {
-			case tfld.Kind() == reflect.Struct:
-				unmarshalStruct(sfld.Name, vfld.Addr(), value)
-			case tfld.Kind() == reflect.Ptr && tfld.Elem().Kind() == reflect.Struct:
-				ptr := reflect.New(tfld.Elem())
-				vfld.Set(ptr)
-				unmarshalStruct(sfld.Name, ptr, value)
-			case tfld.Kind() == reflect.Slice && tfld.Elem().Kind() == reflect.Struct:
-				slice := reflect.MakeSlice(tfld, 0, 0)
-				ms := value.([]interface{})
-				for i := 0; i < len(ms); i++ {
-					ptr := reflect.New(tfld.Elem())
-					TerraformUnmarshal(ms[i].(map[string]interface{}), ptr.Interface())
-					slice = reflect.Append(slice, reflect.Indirect(ptr))
-				}
-				vfld.Set(slice)
-			case tfld.Kind() == reflect.Slice && tfld.Elem().Kind() == reflect.Ptr && tfld.Elem().Elem().Kind() == reflect.Struct:
-				slice := reflect.MakeSlice(tfld, 0, 0)
-				ms := value.([]interface{})
-				for i := 0; i < len(ms); i++ {
-					ptr := reflect.New(tfld.Elem().Elem())
-					TerraformUnmarshal(ms[i].(map[string]interface{}), ptr.Interface())
-					slice = reflect.Append(slice, ptr)
-				}
-				vfld.Set(slice)
-			case tfld.Kind() == reflect.Ptr && tfld.Elem().Kind() == reflect.Slice && tfld.Elem().Elem().Kind() == reflect.Struct:
-				slice := reflect.MakeSlice(tfld.Elem(), 0, 0)
-				ms := value.([]interface{})
-				for i := 0; i < len(ms); i++ {
-					ptr := reflect.New(tfld.Elem().Elem())
-					TerraformUnmarshal(ms[i].(map[string]interface{}), ptr.Interface())
-					slice = reflect.Append(slice, reflect.Indirect(ptr))
-				}
-				slicePtr := reflect.New(tfld.Elem())
-				slicePtr.Elem().Set(slice)
-				vfld.Set(slicePtr)
-			case tfld.Kind() == reflect.Ptr && tfld.Elem().Kind() == reflect.Slice && tfld.Elem().Elem().Kind() == reflect.Ptr && tfld.Elem().Elem().Elem().Kind() == reflect.Struct:
-				slice := reflect.MakeSlice(tfld.Elem(), 0, 0)
-				ms := value.([]interface{})
-				for i := 0; i < len(ms); i++ {
-					ptr := reflect.New(tfld.Elem().Elem().Elem())
-					TerraformUnmarshal(ms[i].(map[string]interface{}), ptr.Interface())
-					slice = reflect.Append(slice, ptr)
-				}
-				slicePtr := reflect.New(tfld.Elem())
-				slicePtr.Elem().Set(slice)
-				vfld.Set(slicePtr)
-			default:
-				vfld.Set(unmarshalValue(tfld, value))
+	switch v := v.(type) {
+	case px.PuppetObject:
+		if ts.Type == schema.TypeList || ts.Type == schema.TypeSet {
+			if rs, ok := ts.Elem.(*schema.Resource); ok {
+				return []map[string]interface{}{TerraformMarshal(c, v, rs.Schema)}
+			}
+		}
+	case px.StringValue:
+		return v.String()
+	case px.Integer:
+		return v.Int()
+	case px.Boolean:
+		return v.Bool()
+	case px.Float:
+		return v.Float()
+	case *types.Timestamp:
+		return v.Format(time.RFC3339)
+	case *types.Regexp:
+		return v.PatternString()
+	case px.OrderedMap:
+		if ts.Type == schema.TypeMap {
+			switch el := ts.Elem.(type) {
+			case *schema.Schema:
+				nested := make(map[string]interface{}, v.Len())
+				v.EachPair(func(k, v px.Value) {
+					nested[k.String()] = marshal(c, v, el)
+				})
+				return nested
+			case schema.ValueType:
+				s := &schema.Schema{Type: el}
+				nested := make(map[string]interface{}, v.Len())
+				v.EachPair(func(k, v px.Value) {
+					nested[k.String()] = marshal(c, v, s)
+				})
+				return nested
+			case nil:
+				s := &schema.Schema{Type: schema.TypeString}
+				nested := make(map[string]interface{}, v.Len())
+				v.EachPair(func(k, v px.Value) {
+					nested[k.String()] = marshal(c, v, s)
+				})
+				return nested
+			}
+		}
+	case px.List:
+		slice := make([]interface{}, v.Len())
+		if ts.Type == schema.TypeList || ts.Type == schema.TypeSet {
+			switch el := ts.Elem.(type) {
+			case *schema.Resource:
+				v.EachWithIndex(func(e px.Value, i int) {
+					if po, ok := e.(px.PuppetObject); ok {
+						slice[i] = TerraformMarshal(c, po, el.Schema)
+					} else {
+						panic(fmt.Errorf("TerraformMarshal: type mismatch: pcore = %s, schema = %s", po.PType(), fmt.Sprintf(`%v`, el)))
+					}
+				})
+				return slice
+			case *schema.Schema:
+				v.EachWithIndex(func(e px.Value, i int) { slice[i] = marshal(c, e, el) })
+				return slice
+			case schema.ValueType:
+				s := &schema.Schema{Type: el}
+				v.EachWithIndex(func(e px.Value, i int) { slice[i] = marshal(c, e, s) })
+				return slice
+			case nil:
+				s := &schema.Schema{Type: schema.TypeString}
+				v.EachWithIndex(func(e px.Value, i int) { slice[i] = marshal(c, e, s) })
+				return slice
 			}
 		}
 	}
+	panic(fmt.Errorf("TerraformMarshal: type mismatch: pcore = %s, schema = %s", v.PType(), ts.GoString()))
 }
 
-func unmarshalStruct(name string, ptr reflect.Value, value interface{}) {
-	switch value := value.(type) {
-	case map[string]interface{}:
-		TerraformUnmarshal(value, ptr.Interface())
-	default:
-		log.Printf("TerraformUnmarshal: Skipping unsupported struct value type for field '%s': %T %v", name, value, spew.Sdump(value))
-	}
-}
+// TerraformUnMarshal converts a Terraform representation into a PuppetObject
+func TerraformUnMarshal(c px.Context, extIdName, extId string, s map[string]interface{}, t px.ObjectType) px.PuppetObject {
+	h := px.Wrap(c, s).(px.OrderedMap)
 
-func unmarshalValue(t reflect.Type, value interface{}) reflect.Value {
-	if t.Kind() == reflect.Ptr {
-		ptr := reflect.New(t.Elem())
-		ptr.Elem().Set(unmarshalValue(t.Elem(), value))
-		return ptr
+	log := hclog.Default()
+	if log.IsDebug() {
+		b := bytes.NewBufferString(``)
+		h.ToString(b, px.Pretty, nil)
+		log.Debug("TerraformUnMarshal before conversion", "type", t.String(), "state", b.String())
 	}
-	switch t.Kind() {
-	case reflect.String:
-		return reflect.ValueOf(value.(string))
-	case reflect.Int:
-		castvalue, err := strconv.Atoi(value.(string))
-		if err != nil {
-			panic(err)
+
+	attrs := t.AttributesInfo().Attributes()
+	h = optObjToOneElementArray(h, attrs)
+
+	if log.IsDebug() {
+		b := bytes.NewBufferString(``)
+		h.ToString(b, px.Pretty, nil)
+		log.Debug("TerraformUnMarshal after conversion", "type", t.String(), "state", b.String())
+	}
+
+	ie := make([]*types.HashEntry, 0, len(s))
+	ie = append(ie, types.WrapHashEntry2(extIdName, types.WrapString(extId)))
+	for _, a := range attrs {
+		if v, ok := h.Get4(a.Name()); ok {
+			ie = append(ie, types.WrapHashEntry2(a.Name(), types.CoerceTo(c, a.Label(), a.Type(), v)))
 		}
-		return reflect.ValueOf(castvalue)
-	case reflect.Bool:
-		switch value := value.(type) {
-		case string:
-			boolvalue, err := strconv.ParseBool(value)
-			if err != nil {
-				panic(fmt.Sprintf("TerraformUnmarshal: Bool conversion failed in unmarshalField: %v %v", value, err))
+	}
+	return px.New(c, t, types.WrapHash(ie)).(px.PuppetObject)
+}
+
+// Terraform will store an Object as one-element array to be able to declare the schema in the Elem
+// of that array.
+func optObjToOneElementArray(rMap px.OrderedMap, attrs []px.Attribute) px.OrderedMap {
+	es := make([]*types.HashEntry, 0, rMap.Len())
+	for _, a := range attrs {
+		n := types.WrapString(a.Name())
+		if v, ok := rMap.Get(n); ok {
+			es = append(es, types.WrapHashEntry(n, convertValue(v, a.Type())))
+		}
+	}
+	return types.WrapHash(es)
+}
+
+func convertValue(v px.Value, t px.Type) px.Value {
+	switch at := t.(type) {
+	case *types.OptionalType:
+		v = convertValue(v, at.ContainedType())
+	case px.ObjectType:
+		if a, ok := v.(*types.Array); ok && a.Len() == 1 {
+			v = a.At(0)
+		}
+		if h, ok := v.(*types.Hash); ok {
+			v = optObjToOneElementArray(h, at.AttributesInfo().Attributes())
+		}
+	case *types.StructType:
+		if a, ok := v.(*types.Array); ok && a.Len() == 1 {
+			v = a.At(0)
+		}
+		ts := at.Elements()
+		if h, ok := v.(*types.Hash); ok {
+			es := make([]*types.HashEntry, 0, h.Len())
+			for _, se := range ts {
+				n := types.WrapString(se.Name())
+				if v, ok := h.Get(n); ok {
+					es = append(es, types.WrapHashEntry(n, convertValue(v, se.Value())))
+				}
 			}
-			return reflect.ValueOf(boolvalue)
-		case bool:
-			return reflect.ValueOf(value)
-		default:
-			panic(fmt.Sprintf("TerraformUnmarshal: Unsupported bool conversion in unmarshalField: %v", value))
+			v = types.WrapHash(es)
 		}
-	case reflect.Float64:
-		castvalue, err := strconv.ParseFloat(value.(string), 64)
-		if err != nil {
-			panic(err)
+	case *types.HashType:
+		if h, ok := v.(*types.Hash); ok {
+			vt := at.ValueType()
+			v = h.MapValues(func(v px.Value) px.Value { return convertValue(v, vt) })
 		}
-		return reflect.ValueOf(castvalue)
-	case reflect.Map:
-		nested := reflect.MakeMap(t)
-		for k, v := range value.(map[string]interface{}) {
-			nested.SetMapIndex(reflect.ValueOf(k), reflect.ValueOf(v))
+	case *types.ArrayType:
+		if h, ok := v.(*types.Array); ok {
+			et := at.ElementType()
+			v = h.Map(func(v px.Value) px.Value { return convertValue(v, et) })
 		}
-		return nested
-	case reflect.Slice:
-		v := reflect.ValueOf(value)
-		slice := reflect.MakeSlice(t, 0, 0)
-		for i := 0; i < v.Len(); i++ {
-			slice = reflect.Append(slice, unmarshalValue(t.Elem(), v.Index(i).Interface()))
-		}
-		return slice
-	default:
-		log.Printf("TerraformUnmarshal: Skipping unsupported unmarshalField type: %s %s", spew.Sdump(t), spew.Sdump(value))
-		// This is not the right behaviour, just a default value keep things working as well as possible
-		return reflect.Zero(t)
 	}
+	return v
 }

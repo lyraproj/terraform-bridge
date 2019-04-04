@@ -14,12 +14,13 @@ require (
 	github.com/hashicorp/go-hclog v0.8.0
 	github.com/hashicorp/terraform v0.11.11
 	github.com/hashicorp/yamux v0.0.0-20181012175058-2f1d1f20f75d // indirect
-	github.com/lyraproj/issue v0.0.0-20190321123504-45f186b58f0e // indirect
-	github.com/lyraproj/pcore v0.0.0-20190320221415-6e1d1bd9c47d
-	github.com/lyraproj/servicesdk v0.0.0-20190320113120-6be298b18bf0
+	github.com/lyraproj/issue v0.0.0-20190321123504-45f186b58f0e
+	github.com/lyraproj/pcore v0.0.0-20190403155521-a72b635b7c05
+	github.com/lyraproj/servicesdk v0.0.0-20190403161359-5e01b5910a94
 	github.com/marstr/guid v1.1.0 // indirect
 	github.com/satori/go.uuid v1.2.0 // indirect
 	github.com/satori/uuid v1.2.0 // indirect
+	github.com/stretchr/testify v1.3.0
 	github.com/terraform-providers/terraform-provider-aws v1.57.0
 	github.com/terraform-providers/terraform-provider-azurerm v1.21.0
 	github.com/terraform-providers/terraform-provider-github v1.3.0
