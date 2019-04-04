@@ -292,8 +292,5 @@ func (g *generator) writeDefaultValue(label string, dv interface{}, t px.Type, b
 }
 
 func (g *generator) skipPackage(name string) string {
-	if strings.HasPrefix(name, g.skipPrefix) {
-		name = name[len(g.skipPrefix):]
-	}
-	return name
+	return strings.TrimPrefix(name, g.skipPrefix)
 }
