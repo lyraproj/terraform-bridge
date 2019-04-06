@@ -159,15 +159,23 @@ func convertValue(v px.Value, t px.Type) px.Value {
 	case *types.OptionalType:
 		v = convertValue(v, at.ContainedType())
 	case px.ObjectType:
-		if a, ok := v.(*types.Array); ok && a.Len() == 1 {
-			v = a.At(0)
+		if a, ok := v.(*types.Array); ok && a.Len() <= 1 {
+			if a.Len() == 1 {
+				v = a.At(0)
+			} else {
+				v = px.Undef
+			}
 		}
 		if h, ok := v.(*types.Hash); ok {
 			v = optObjToOneElementArray(h, at.AttributesInfo().Attributes())
 		}
 	case *types.StructType:
-		if a, ok := v.(*types.Array); ok && a.Len() == 1 {
-			v = a.At(0)
+		if a, ok := v.(*types.Array); ok && a.Len() <= 1 {
+			if a.Len() == 1 {
+				v = a.At(0)
+			} else {
+				v = px.Undef
+			}
 		}
 		ts := at.Elements()
 		if h, ok := v.(*types.Hash); ok {
