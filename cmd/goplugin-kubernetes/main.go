@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/hashicorp/go-hclog"
+	"github.com/lyraproj/issue/issue"
 	"github.com/lyraproj/terraform-bridge/cmd/goplugin-kubernetes/handler"
 )
 
@@ -16,6 +17,7 @@ func init() {
 		IncludeLocation: false,
 		Output:          os.Stderr,
 	}
+	issue.IncludeStacktrace(hclog.DefaultOptions.Level <= hclog.Debug)
 }
 
 func main() {
