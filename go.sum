@@ -255,6 +255,8 @@ github.com/lyraproj/servicesdk v0.0.0-20190403161359-5e01b5910a94 h1:AecbTIn6T+/
 github.com/lyraproj/servicesdk v0.0.0-20190403161359-5e01b5910a94/go.mod h1:fdEFqVRGZEK5Ol2gGPw5U5vgKRREpg1L/ZB5ajrBA0U=
 github.com/lyraproj/servicesdk v0.0.0-20190408134916-985421696619 h1:6pst+J7dzj0Qm9jH0tgB5TF3lO3fREuqh1mDViwUcBs=
 github.com/lyraproj/servicesdk v0.0.0-20190408134916-985421696619/go.mod h1:JhBbVt9R8Br4wB7FbN2nctXoglv0aCIv2AM1sK0iwXc=
+github.com/lyraproj/servicesdk v0.0.0-20190410151500-46912f6caec3 h1:lS3dM4GG0R/ujXiKl9kk8LknlPw4E3CAXqsA5GrW06M=
+github.com/lyraproj/servicesdk v0.0.0-20190410151500-46912f6caec3/go.mod h1:JhBbVt9R8Br4wB7FbN2nctXoglv0aCIv2AM1sK0iwXc=
 github.com/lyraproj/terraform-bridge v0.0.0-20190322124825-e0c8ca31477c/go.mod h1:E5HeQFojFgq86V9FRIVlCOI7xu1IvCAhwlFG6gA+xcI=
 github.com/lyraproj/wfe v0.0.0-20190321125752-37a17f3018a7/go.mod h1:SCH6qawPEB3PuULFkwreSwxnIds8fnficLZceJArxrA=
 github.com/marstr/guid v1.1.0 h1:/M4H/1G4avsieL6BbUwCOBzulmoeKVP5ux/3mQNnbyI=
