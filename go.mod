@@ -15,8 +15,8 @@ require (
 	github.com/hashicorp/terraform v0.11.11
 	github.com/hashicorp/yamux v0.0.0-20181012175058-2f1d1f20f75d // indirect
 	github.com/lyraproj/issue v0.0.0-20190329160035-8bc10230f995
-	github.com/lyraproj/pcore v0.0.0-20190408134742-7ef8f288585f
-	github.com/lyraproj/servicesdk v0.0.0-20190410153708-929b42b6af38
+	github.com/lyraproj/pcore v0.0.0-20190430133451-57d4da316569
+	github.com/lyraproj/servicesdk v0.0.0-20190430133733-68a5a13f9111
 	github.com/marstr/guid v1.1.0 // indirect
 	github.com/satori/go.uuid v1.2.0 // indirect
 	github.com/satori/uuid v1.2.0 // indirect
