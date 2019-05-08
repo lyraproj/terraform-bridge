@@ -6,12 +6,12 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/hashicorp/terraform/flatmap"
-
 	"github.com/hashicorp/go-hclog"
+	"github.com/hashicorp/terraform/flatmap"
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/hashicorp/terraform/terraform"
 	"github.com/lyraproj/pcore/px"
+	"github.com/lyraproj/servicesdk/serviceapi"
 )
 
 // GenericTfHandlerHandler ...
@@ -116,6 +116,9 @@ func (h *GenericTFHandler) Update(externalID string, desired px.PuppetObject) (p
 	if err != nil {
 		return nil, err
 	}
+	if state.Empty() {
+		return nil, serviceapi.NotFound(h.nativeType, externalID)
+	}
 	diff, err := prv.Diff(info, state, rc)
 	if err != nil {
 		return nil, err
@@ -156,6 +159,9 @@ func (h *GenericTFHandler) Read(externalID string) (px.PuppetObject, error) {
 	state, err := h.provider().Refresh(info, state)
 	if err != nil {
 		return nil, err
+	}
+	if state.Empty() {
+		return nil, serviceapi.NotFound(h.nativeType, externalID)
 	}
 	actual := expand(state)
 	x := TerraformUnMarshal(c, h.externalIdAttribute, externalID, actual, h.resourceType.(px.ObjectType))
