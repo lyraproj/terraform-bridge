@@ -200,12 +200,12 @@ github.com/lyraproj/data-protobuf v0.0.0-20190329160005-a909d9e1f93b h1:qGgMkFUQ
 github.com/lyraproj/data-protobuf v0.0.0-20190329160005-a909d9e1f93b/go.mod h1:oQIFBu0fmkiSpSRROEgK5gnjQ/ZDrx3UdpRpT3791Gg=
 github.com/lyraproj/issue v0.0.0-20190513084509-faf9b542f594 h1:IcsHRQ3xzCIcK0eXpot8IYgEyUQPEFHmFErZwJcsDqk=
 github.com/lyraproj/issue v0.0.0-20190513084509-faf9b542f594/go.mod h1:jqRRmAiVqjTehhncbKJPoC2AFoxxkritzzlfWioTa00=
-github.com/lyraproj/pcore v0.0.0-20190514082225-61649d71c936 h1:oEI8jC1efmrpvMBe0ndLy9RVadxOwv8iYNV/FENemRA=
-github.com/lyraproj/pcore v0.0.0-20190514082225-61649d71c936/go.mod h1:NGvVSNVj6tF0acszsfqcu+qtNt5b1hlSiiL3oNSuNMI=
+github.com/lyraproj/pcore v0.0.0-20190516164225-2c1838ece043 h1:tSLm3r+Z+ej4kyaXn7/okyw8sHkjE5LKZ1dNqA1gpVM=
+github.com/lyraproj/pcore v0.0.0-20190516164225-2c1838ece043/go.mod h1:NEsDhoJnhU6dqrNy3M2W4AWryrwPhADubXu6RWVdAl4=
 github.com/lyraproj/semver v0.0.0-20181213164306-02ecea2cd6a2 h1:vb4PbiMtIXdhsOUinkkcqZiASDIZzXRhSG4yvNfE0tg=
 github.com/lyraproj/semver v0.0.0-20181213164306-02ecea2cd6a2/go.mod h1:KOdZKnEBdDb2iGPUnHiKpk3M5cvv949xMyj8XPqaMF0=
-github.com/lyraproj/servicesdk v0.0.0-20190514145959-5467213bbd8f h1:SFmT35xzxpVUOHn9b+1o8eEAGKdx0/DswRJPZmn/x0k=
-github.com/lyraproj/servicesdk v0.0.0-20190514145959-5467213bbd8f/go.mod h1:8qbDlTKcDFzE+pHn2ZhQrXX3lh2ChiJb9aq9pZHmg70=
+github.com/lyraproj/servicesdk v0.0.0-20190516204150-b994d931dad2 h1:MXKwVZ0PTGynl54eJQHIXzX/av5QysIyVEavwiGyh+8=
+github.com/lyraproj/servicesdk v0.0.0-20190516204150-b994d931dad2/go.mod h1:oRnxP9zeUPRbbQ1i+b1uKKrkzq2qhNcOLID9/Kl1AMM=
 github.com/marstr/guid v1.1.0 h1:/M4H/1G4avsieL6BbUwCOBzulmoeKVP5ux/3mQNnbyI=
 github.com/marstr/guid v1.1.0/go.mod h1:74gB1z2wpxxInTG6yaqA7KrtM0NZ+RbrcqDvYHefzho=
 github.com/mattn/go-colorable v0.0.9 h1:UVL0vNpWh04HeJXV0KLcaT7r06gOH2l4OW6ddYRUIY4=
@@ -438,6 +438,8 @@ gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7/go.mod h1:dt/ZhP58zS4L8KSrWD
 gopkg.in/yaml.v2 v2.2.1/go.mod h1:hI93XBmqTisBFMUTm0b8Fm+jr3Dg1NNxqwp+5A1VGuI=
 gopkg.in/yaml.v2 v2.2.2 h1:ZCJp+EgiOT7lHqUV2J862kp8Qj64Jo6az82+3Td9dZw=
 gopkg.in/yaml.v2 v2.2.2/go.mod h1:hI93XBmqTisBFMUTm0b8Fm+jr3Dg1NNxqwp+5A1VGuI=
+gopkg.in/yaml.v3 v3.0.0-20190502103701-55513cacd4ae h1:ehhBuCxzgQEGk38YjhFv/97fMIc2JGHZAhAWMmEjmu0=
+gopkg.in/yaml.v3 v3.0.0-20190502103701-55513cacd4ae/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
 grpc.go4.org v0.0.0-20170609214715-11d0a25b4919/go.mod h1:77eQGdRu53HpSqPFJFmuJdjuHRquDANNeA4x7B8WQ9o=
 honnef.co/go/tools v0.0.0-20180728063816-88497007e858/go.mod h1:rf3lG4BRIbNafJWhAfAdb/ePZxsR/4RtNHQocxwk9r4=
 honnef.co/go/tools v0.0.0-20180920025451-e3ad64cb4ed3/go.mod h1:rf3lG4BRIbNafJWhAfAdb/ePZxsR/4RtNHQocxwk9r4=
