@@ -16,7 +16,7 @@ require (
 	github.com/hashicorp/yamux v0.0.0-20181012175058-2f1d1f20f75d // indirect
 	github.com/lyraproj/issue v0.0.0-20190513084509-faf9b542f594
 	github.com/lyraproj/pcore v0.0.0-20190516164225-2c1838ece043
-	github.com/lyraproj/servicesdk v0.0.0-20190516204150-b994d931dad2
+	github.com/lyraproj/servicesdk v0.0.0-20190517131335-c9b92d064792
 	github.com/marstr/guid v1.1.0 // indirect
 	github.com/satori/go.uuid v1.2.0 // indirect
 	github.com/satori/uuid v1.2.0 // indirect
