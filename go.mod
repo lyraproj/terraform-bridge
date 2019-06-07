@@ -14,9 +14,9 @@ require (
 	github.com/hashicorp/go-hclog v0.8.0
 	github.com/hashicorp/terraform v0.11.11
 	github.com/hashicorp/yamux v0.0.0-20181012175058-2f1d1f20f75d // indirect
-	github.com/lyraproj/issue v0.0.0-20190513084509-faf9b542f594
-	github.com/lyraproj/pcore v0.0.0-20190604153946-03f706b24291
-	github.com/lyraproj/servicesdk v0.0.0-20190604154336-99ba85971af2
+	github.com/lyraproj/issue v0.0.0-20190606092846-e082d6813d15
+	github.com/lyraproj/pcore v0.0.0-20190606102217-7824aee25201
+	github.com/lyraproj/servicesdk v0.0.0-20190607070716-322c167d24a9
 	github.com/marstr/guid v1.1.0 // indirect
 	github.com/satori/go.uuid v1.2.0 // indirect
 	github.com/satori/uuid v1.2.0 // indirect
