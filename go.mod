@@ -5,7 +5,7 @@ go 1.12
 require (
 	cloud.google.com/go v0.36.0 // indirect
 	github.com/Azure/azure-sdk-for-go v24.1.0+incompatible // indirect
-	github.com/aws/aws-sdk-go v1.16.26 // indirect
+	github.com/aws/aws-sdk-go v1.34.0 // indirect
 	github.com/davecgh/go-spew v1.1.1
 	github.com/dnaeon/go-vcr v1.0.1 // indirect
 	github.com/google/uuid v1.1.0 // indirect
@@ -20,7 +20,7 @@ require (
 	github.com/marstr/guid v1.1.0 // indirect
 	github.com/satori/go.uuid v1.2.0 // indirect
 	github.com/satori/uuid v1.2.0 // indirect
-	github.com/stretchr/testify v1.3.0
+	github.com/stretchr/testify v1.5.1
 	github.com/terraform-providers/terraform-provider-aws v1.57.0
 	github.com/terraform-providers/terraform-provider-azurerm v1.21.0
 	github.com/terraform-providers/terraform-provider-github v1.3.0
