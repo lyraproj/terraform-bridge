@@ -28,7 +28,7 @@ require (
 	github.com/terraform-providers/terraform-provider-kubernetes v1.5.0
 	go.opencensus.io v0.19.0 // indirect
 	golang.org/x/oauth2 v0.0.0-20190212230446-3e8b2be13635 // indirect
-	k8s.io/apimachinery v0.0.0-20190126155707-0e6dcdd1b5ce // indirect
+	k8s.io/apimachinery v0.15.7 // indirect
 )
 
 replace github.com/google/go-github => github.com/google/go-github v16.0.0+incompatible // Terraform GitHub provider requires this version
